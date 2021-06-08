@@ -4,12 +4,14 @@ import { AppComponent } from './app.component';
 import { SearchTrailComponent } from './trails-map/search-trail/search-trail.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { MapComponent } from './map/map.component';
 @NgModule({
   declarations: [
     AppComponent,
     SearchTrailComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule
