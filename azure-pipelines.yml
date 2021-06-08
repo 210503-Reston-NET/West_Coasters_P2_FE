@@ -33,7 +33,6 @@ steps:
   displayName: Archive Angular app
   inputs:
     rootFolderOrFile: 'HikePlannerFE/dist/HikePlannerFE'
-    includeRootFolder: true
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/dest.zip'
     replaceExistingArchive: true
