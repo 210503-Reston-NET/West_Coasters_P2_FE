@@ -9,6 +9,9 @@ import { SearchTrailComponent } from './search-trail/search-trail.component';
   ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    SearchTrailComponent
   ]
 })
 export class TrailsMapModule { }
