@@ -1,0 +1,9 @@
+.top-header-menu{
+    background-color: #fff !important;
+}
+.nav-item > .nav-link{
+    color: #333;
+}
+.custom-navbar-left{
+    margin-right: 50% !important;
+}
