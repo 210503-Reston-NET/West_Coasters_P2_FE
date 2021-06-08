@@ -28,11 +28,11 @@ steps:
     command: 'custom'
     workingDir: 'HikePlannerFE'
     customCommand: 'run build'
-
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
     azureSubscription: 'Azure subscription 1(7db5a42a-1fa9-40a3-8da3-4ed5fb8c49cb)'
     appType: 'webAppLinux'
     WebAppName: 'hikeplanner'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/dist/HikePlannerFE'
+    RuntimeStack: 'NODE|12-lts'
