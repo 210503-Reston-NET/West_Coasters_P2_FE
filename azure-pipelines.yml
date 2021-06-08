@@ -8,12 +8,47 @@ trigger:
 
 pool: Default
 
-
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- task: Npm@1
+  displayName: Npm Install
+  inputs:
+    command: 'install'
+    workingDir: 'HikePlannerFE'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- task: Npm@1
+  displayName: Npm install latest angular globally
+  inputs:
+    command: 'custom'
+    workingDir: 'HikePlannerFE'
+    customCommand: 'install -g @angular/cli@latest'
+
+- task: Npm@1
+  displayName: Npm Run Build
+  inputs:
+    command: 'custom'
+    workingDir: 'HikePlannerFE'
+    customCommand: 'run build'
+
+- task: ArchiveFiles@2
+  displayName: Archive Angular app
+  inputs:
+    rootFolderOrFile: 'HikePlannerFE/dist/HikePlannerFE'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/dest.zip'
+    replaceExistingArchive: true
+
+- task: PublishBuildArtifacts@1
+  displayName: Publish Artifact/drop
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/dest.zip'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Azure subscription 1(7db5a42a-1fa9-40a3-8da3-4ed5fb8c49cb)'
+    appType: 'webAppLinux'
+    WebAppName: 'hikeplanner'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
