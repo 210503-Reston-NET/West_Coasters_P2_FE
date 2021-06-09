@@ -22,4 +22,9 @@ describe('MapComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('verify view', () => {
+    const fixture = TestBed.createComponent(MapComponent);
+    const app = fixture.componentInstance;
+    expect(app.view).toBeDefined();
+  });
 });

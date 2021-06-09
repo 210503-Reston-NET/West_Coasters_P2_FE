@@ -14,8 +14,7 @@ import { TrailsMapModule } from './trails-map/trails-map.module';
     MapComponent
   ],
   imports: [
-    BrowserModule,
-    TrailsMapModule
+    BrowserModule
   ],
   providers: [],
   bootstrap: [AppComponent]
