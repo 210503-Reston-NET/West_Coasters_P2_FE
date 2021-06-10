@@ -5,17 +5,27 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { MapComponent } from './map/map.component';
 import { TrailsMapModule } from './trails-map/trails-map.module';
+import { GetEquipmentsComponent } from './equipments/get-equipments/get-equipments.component';
+import { AddEquipmentComponent } from './equipments/add-equipment/add-equipment.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from './app-routing.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    MapComponent
+    MapComponent,
+    GetEquipmentsComponent,
+    AddEquipmentComponent
   ],
   imports: [
     BrowserModule,
-    TrailsMapModule
+    TrailsMapModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

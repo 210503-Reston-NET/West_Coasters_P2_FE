@@ -1,0 +1,16 @@
+<div class="container transparent">
+    <table class="table">
+        <thead>
+            <th>equipment name</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th><i class="fa fa-plus-square-o plus" aria-hidden="true" (click)="GoToAddEquipment()"></i></th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let equipment of equipments;">
+                <td>{{equipment.name}}</td>
+                <td>{{equipment.description}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
