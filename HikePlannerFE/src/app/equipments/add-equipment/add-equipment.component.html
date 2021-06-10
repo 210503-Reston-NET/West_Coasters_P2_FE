@@ -1,0 +1,18 @@
+<div class="container transparent">
+    <form (ngSubmit)="onSubmit()" #equipmentForm="ngForm">
+        <div class="form-group">
+            <label for="name">Equipment Name: </label>
+            <input type="text" class="form-control" [(ngModel)]="newEquipment.name" #name="ngModel" name="name"
+                placeholder="Enter the equipment name">
+        </div>
+        <div class="form-group">
+            <label for="description">description: </label>
+            <input type="text" class="form-control" [(ngModel)]="newEquipment.description" #name="ngModel" name="description"
+                placeholder="Enter description">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-secondary">Add Equipment</button>
+        </div>
+    </form>
+    <button class="btn btn-warning" (click)="GoToEquipments()">Go Back</button>
+</div>
