@@ -1,0 +1,16 @@
+<ul class="nav navbar-nav navbar-right">
+    <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fa fa-user"></i>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li>
+            <a class="dropdown-item" href="#" *ngIf="(auth.isAuthenticated$ | async) === false" (click)="loginWithRedirect()">Login</a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="#" *ngIf="auth.isAuthenticated$ | async" (click)="logout()">Logout</a>
+        </li>
+        <li><a class="dropdown-item" href="#" *ngIf="(auth.isAuthenticated$ | async) === false" (click)="loginWithRedirect()">Register</a></li>
+        </ul>
+  </li>
+</ul>
