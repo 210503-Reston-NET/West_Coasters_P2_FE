@@ -6,15 +6,20 @@ import { equipment } from '../models/equipment';
   providedIn: 'root'
 })
 export class RestRevApiService {
-  baseURL: string = 'https://hikeplannerrest.azurewebsites.net/api/equipments';
+  baseURL: string = 'https://hikeplannerrest.azurewebsites.net/api/';
+  userURL: string = this.baseURL + 'users';
+  equipmentURL: string = this.baseURL + 'equipments';
+  checklistURL: string = this.baseURL + 'checklist';
+  activityURL: string = this.baseURL + 'activity';
+  tripURL: string = this.baseURL + 'trips';
 
   constructor(private http: HttpClient) { }
 
   GetAllEquipments(): Promise<equipment[]> {
-    return this.http.get<equipment[]>(this.baseURL).toPromise();
+    return this.http.get<equipment[]>(this.equipmentURL).toPromise();
   }
   AddAEquipment(newequipment: equipment): Promise<equipment> {
-    return this.http.post<equipment>(this.baseURL, newequipment).toPromise();
+    return this.http.post<equipment>(this.equipmentURL, newequipment).toPromise();
   }
 
 }
