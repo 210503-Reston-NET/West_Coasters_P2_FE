@@ -2,15 +2,14 @@ import {
   Component,
   OnInit,
   ViewChild,
-  OnDestroy } from '@angular/core';
+  OnDestroy,
+} from '@angular/core';
 
+import { HttpClient } from '@angular/common/http';
 import Map from '@arcgis/core/Map';
 import esriConfig from '@arcgis/core/config.js';
 import MapView from '@arcgis/core/views/MapView';
 import Locate from '@arcgis/core/widgets/Locate';
-import Graphic from '@arcgis/core/Graphic';
-import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer';
-import Point from '@arcgis/core/geometry/Point';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 
 @Component({
@@ -28,10 +27,11 @@ export class MapComponent implements OnInit, OnDestroy {
   initializeMap() : Promise<any> {
     const container = this.mapViewEl.nativeElement;
     esriConfig.apiKey = "AAPKe972efc85860456dbd0fe6c227d8fc92xaIGZA98q-ZPD6Mak-Iks7mZbFg_xeYadDJ5nWB5JGbJbIjkdSVXJG0v5p_Jai8O";
+
+
     const map = new Map({
       basemap: "arcgis-topographic"
     });
-
 
     const view = new MapView({
       container: container,
@@ -40,28 +40,16 @@ export class MapComponent implements OnInit, OnDestroy {
       map: map
     });
     this.view = view;
-
-    const parcelLayerSQL = ["Choose a SQL where clause...", "UseType = 'Residential'",  "UseType = 'Government'", "UseType = 'Irrigated Farm'", "TaxRateArea = 10853", "TaxRateArea = 10860", "TaxRateArea = 08637", "Roll_LandValue > 1000000", "Roll_LandValue < 1000000"];
-    let whereClause = parcelLayerSQL[0];
-
-    const select = document.createElement("select");
-      select.setAttribute("class", "esri-widget esri-select");
-      select.setAttribute("style", "width: 200px; font-family: 'Avenir Next'; font-size: 1em");
-      parcelLayerSQL.forEach(function(query){
-        let option = document.createElement("option");
-        option.innerHTML = query;
-        option.value = query;
-        select.appendChild(option);
-      });
-
+    
     const popupTrailheads = {
-      "title": "{RECAREANAME}",
-      "content": "<b>Long:</b> {LONGITUDE}<br><b>Lat:</b> {LATITUDE}<br><b>Website:</b> {RECAREAURL}<br><b>Id?:</b> {OBJECTID}"
-    }
+      title: "{RECAREANAME}",
+      content: "<b>Long:</b> {LONGITUDE}<br><b>Lat:</b> {LATITUDE}<br><b>Website:</b> {RECAREAURL}<br><b>Id?:</b> {OBJECTID}, <b>Open?: </b>{OPENSTATUS}",
+      // actions: [thAction]
+    };
 
     const trailheadsLayer = new FeatureLayer({
       url: "https://apps.fs.usda.gov/arcx/rest/services/EDW/EDW_RecreationOpportunities_01/MapServer",
-      outFields: ["RECAREANAME", "LONGITUTDE", "LATITUDE", "RECAREAURL","OPENSTATUS"],
+      outFields: ["*"],
       popupTemplate: popupTrailheads
     });
 
@@ -73,68 +61,10 @@ export class MapComponent implements OnInit, OnDestroy {
     }
     const trailsLayer = new FeatureLayer({
       url: "https://apps.fs.usda.gov/arcx/rest/services/EDW/EDW_TrailNFSPublish_01/MapServer/0",
-      outFields: ["TRL_NAME","ELEV_GAIN"],
+      outFields: ["*"],
       popupTemplate: popupTrails
     });
     map.add(trailsLayer, 0);
-
-     // Define popup for Parks and Open Spaces
-    const popupOpenspaces = {
-      "title": "{PARK_NAME}",
-      "content": [{
-        "type": "fields",
-        "fieldInfos": [
-          {
-            "fieldName": "AGNCY_NAME",
-            "label": "Agency",
-            "isEditable": true,
-            "tooltip": "",
-            "visible": true,
-            "format": null,
-            "stringFieldOption": "text-box"
-          },
-          {
-            "fieldName": "TYPE",
-            "label": "Type",
-            "isEditable": true,
-            "tooltip": "",
-            "visible": true,
-            "format": null,
-            "stringFieldOption": "text-box"
-          },
-          {
-            "fieldName": "ACCESS_TYP",
-            "label": "Access",
-            "isEditable": true,
-            "tooltip": "",
-            "visible": true,
-            "format": null,
-            "stringFieldOption": "text-box"
-          },
-
-          {
-            "fieldName": "GIS_ACRES",
-            "label": "Acres",
-            "isEditable": true,
-            "tooltip": "",
-            "visible": true,
-            "format": {
-              "places": 2,
-              "digitSeparator": true
-            },
-
-            "stringFieldOption": "text-box"
-          }
-        ]
-      }]
-    }
-
-    const parksLayer = new FeatureLayer({
-      url: "https://services3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/Parks_and_Open_Space_Styled/FeatureServer/0",
-      outFields: ["TYPE","PARK_NAME", "AGNCY_NAME","ACCESS_TYP","GIS_ACRES","TRLS_MI","TOTAL_GOOD","TOTAL_FAIR", "TOTAL_POOR"],
-      popupTemplate: popupOpenspaces
-    });
-    map.add(parksLayer, 0);
 
     const locate = new Locate({
       view: view,
@@ -145,15 +75,31 @@ export class MapComponent implements OnInit, OnDestroy {
       }
     });
     view.ui.add(locate, "top-left");
+    view.on("click", function(evt){
+      view.hitTest(evt).then((response) => {
+        console.log('hittest', response);
+      });
+    });
+
     return this.view.when();
   }
-  constructor() { }
+  constructor(private http: HttpClient) { 
+
+  }
 
   ngOnInit(): any {
     this.initializeMap().then(() => {
       // The map has been initialized
       console.log('The map is ready.');
+    }); 
+
+  }
+  queryLayer(): any {
+    const url = "https://apps.fs.usda.gov/arcx/rest/services/EDW/EDW_RecreationOpportunities_01/MapServer/0/query?objectIds=26516813";
+    this.http.get(url).toPromise().then( (e) => {
+      console.log('querying', e);
     });
+
   }
 
   ngOnDestroy(): void {

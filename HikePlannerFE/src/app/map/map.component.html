@@ -1,1 +1,8 @@
-<div #mapViewNode></div>
+<div class="map container">
+    <div class="col-sm-4" #mapInfo>
+        <button class="btn btn-primary" (click)="queryLayer()">click me</button>
+    </div>
+    <div class="col-sm-8 map">
+        <div #mapViewNode></div>
+    </div>
+</div>
