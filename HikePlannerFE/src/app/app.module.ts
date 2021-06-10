@@ -8,6 +8,7 @@ import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { SearchTrailComponent } from './trails-map/search-trail/search-trail.component';
 import { ProfileComponentComponent } from './profile-component/profile-component.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ProfileComponentComponent } from './profile-component/profile-component
       domain: 'dev-c74jvj1k.us.auth0.com',
       clientId: '2ekjl6sZMK3vjFWpTa8ngr1G66fHpJpE'
     }),
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

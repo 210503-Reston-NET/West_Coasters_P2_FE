@@ -3,10 +3,10 @@ import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-profile-component',
-  templateUrl: './profile-component.component.html',
+  templateUrl:'./profile-component.component.html',
   styleUrls: ['./profile-component.component.css']
 })
-export class ProfileComponentComponent implements OnInit {
+export class ProfileComponentComponent implements OnInit{
   profileJson: string = '';
 
   constructor(public auth: AuthService) {}
