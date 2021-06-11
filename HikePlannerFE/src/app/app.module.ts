@@ -12,6 +12,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { EditEquipmentComponent } from './equipments/edit-equipment/edit-equipment.component';
 import { DeleteEquipmentComponent } from './equipments/delete-equipment/delete-equipment.component';
+import { AddactivityComponent } from './activity/addactivity/addactivity.component';
+import { GetactivityComponent } from './activity/getactivity/getactivity.component';
+import { GettripsComponent } from './trips/gettrips/gettrips.component';
+import { AddtripComponent } from './trips/addtrip/addtrip.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +26,11 @@ import { DeleteEquipmentComponent } from './equipments/delete-equipment/delete-e
     GetEquipmentsComponent,
     AddEquipmentComponent,
     EditEquipmentComponent,
-    DeleteEquipmentComponent
+    DeleteEquipmentComponent,
+    AddactivityComponent,
+    GetactivityComponent,
+    GettripsComponent,
+    AddtripComponent
   ],
   imports: [
     BrowserModule,
