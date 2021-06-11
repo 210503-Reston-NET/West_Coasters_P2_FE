@@ -15,6 +15,7 @@ import { DeleteEquipmentComponent } from './equipments/delete-equipment/delete-e
 import { AuthModule } from '@auth0/auth0-angular';
 import { AuthButtonComponent } from './auth-button/auth-button.component';
 import { ProfileComponent } from './profile/profile.component';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -36,8 +37,8 @@ import { ProfileComponent } from './profile/profile.component';
     HttpClientModule,
     FormsModule,
     AuthModule.forRoot({
-      domain: 'dev-c74jvj1k.us.auth0.com',
-      clientId: '2ekjl6sZMK3vjFWpTa8ngr1G66fHpJpE'
+      domain: environment.AUTH_DMAIN,
+      clientId: environment.AUTH_CLIENT_ID
     }),
   ],
   providers: [],

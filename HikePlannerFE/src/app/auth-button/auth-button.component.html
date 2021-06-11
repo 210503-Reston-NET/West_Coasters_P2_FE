@@ -4,17 +4,15 @@
         <i class="fa fa-user"></i>
     </a>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li (click)="logout()">alwaysLogOut</li>
-        <li>
-            <a class="dropdown-item" href="#" *ngIf="(auth.isAuthenticated$ | async) === false" (click)="loginWithRedirect()">Login</a>
+        <li *ngIf="(auth.isAuthenticated$ | async) === false">
+            <a class="dropdown-item"  (click)="loginWithRedirect()">Login</a>
         </li>
         <li>
-            <a class="dropdown-item" href="/profile" *ngIf="auth.isAuthenticated$ | async">Profile</a>
+            <a class="dropdown-item" routerLink="profile" *ngIf="auth.isAuthenticated$ | async">Profile</a>
+        </li><li *ngIf="auth.isAuthenticated$ | async">
+            <a class="dropdown-item"  (click)="logout()">Logout</a>
         </li>
-        <li>
-            <a class="dropdown-item" href="#" *ngIf="auth.isAuthenticated$ | async" (click)="logout()">Logout</a>
-        </li>
-        <li><a class="dropdown-item" href="#" *ngIf="(auth.isAuthenticated$ | async) === false" (click)="loginWithRedirect()">Register</a></li>
+        <li><a class="dropdown-item" *ngIf="(auth.isAuthenticated$ | async) === false" (click)="loginWithRedirect()">Register</a></li>
         </ul>
   </li>
 </ul>
