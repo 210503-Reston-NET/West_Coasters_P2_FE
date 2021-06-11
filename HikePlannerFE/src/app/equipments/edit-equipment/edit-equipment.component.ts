@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { equipment } from 'src/app/models/equipment';
 import { HPApiService } from 'src/app/services/hpapi.service';
 
@@ -10,14 +10,31 @@ import { HPApiService } from 'src/app/services/hpapi.service';
 })
 
 export class EditEquipmentComponent implements OnInit {
-  toEditEquipment: equipment = {
+  toEdit: equipment = {
     id: 0,
     name: '',
     description: ''
   }
-  constructor(private equipmentService : HPApiService, private router: Router) { }
+  constructor(private equipmentService : HPApiService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(
+      params => {
+        this.equipmentService.GetEquipment(params.id).then(
+          found => {
+            this.toEdit = found;
+          }
+        );
+      }
+    );
   }
-
+  onSubmit(): void {
+    this.equipmentService.EditRestaurant(this.toEdit).then
+      (
+        () => {
+          alert('Changes saved!');
+          this.router.navigate(['equipments']);
+        }
+      )
+  }
 }

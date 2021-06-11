@@ -22,4 +22,9 @@ export class GetEquipmentsComponent implements OnInit {
   GoToAddEquipment() {
     this.router.navigate(['addEquipment'])
   }
+
+  GoToEditEquipment(equipmentId: number) {
+    this.router.navigate(['editEquipment'], { queryParams: { id: equipmentId } });
+  }
+
 }

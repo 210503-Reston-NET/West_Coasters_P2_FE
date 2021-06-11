@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { HPApiService } from './hpapi.service';
 
-describe('RestRevApiService', () => {
+describe('HPApiService', () => {
   let service: HPApiService;
 
   beforeEach(() => {
