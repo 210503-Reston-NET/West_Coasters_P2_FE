@@ -1,1 +1,20 @@
-<p>get-items works!</p>
+<div class="container transparent">
+    <h2>{{target.name}} <i class="fa fa-plus-square-o plus" aria-hidden="true"
+            (click)="AddItem(target.id)"></i></h2>
+    <h4>{{target.name}}, {{target.creator}}</h4>
+
+        <table class="table">
+            <thead>
+                <th>Quantity</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of target.checklistItems;">
+                    <td>{{item.quantity}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    <ng-template #noItems>
+        <h6>Alas! No item has been added yet</h6>
+    </ng-template>
+</div>

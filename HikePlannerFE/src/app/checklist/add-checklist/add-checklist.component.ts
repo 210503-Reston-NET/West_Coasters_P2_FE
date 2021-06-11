@@ -6,7 +6,7 @@ import { HPApiService } from 'src/app/services/hpapi.service';
 @Component({
   selector: 'app-add-checklist',
   templateUrl: './add-checklist.component.html',
-  styleUrls: ['./add-checklist.component.css']
+  styleUrls: ['./add-checklist.component.css', '../checklist.css']
 })
 export class AddChecklistComponent implements OnInit {
   new: checklist = {
