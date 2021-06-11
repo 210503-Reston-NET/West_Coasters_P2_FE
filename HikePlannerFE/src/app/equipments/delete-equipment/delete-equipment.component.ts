@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-delete-equipment',
   templateUrl: './delete-equipment.component.html',
-  styleUrls: ['./delete-equipment.component.css']
+  styleUrls: ['./delete-equipment.component.css', '../equipment.css']
 })
 export class DeleteEquipmentComponent implements OnInit {
 

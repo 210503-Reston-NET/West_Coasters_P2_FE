@@ -1,17 +1,19 @@
-<div class="container transparent">
-    <form (ngSubmit)="onSubmit()" #equipmentForm="ngForm">
-        <div class="form-group">
-            <label for="name">Equipment Name: </label>
-            <input type="text" class="form-control" [(ngModel)]="toEdit.name" #name="ngModel" name="name"
-                placeholder="Enter the equipment name">
-        </div>
-        <div class="form-group">
-            <label for="description">description: </label>
-            <input type="text" class="form-control" [(ngModel)]="toEdit.description" #name="ngModel" name="description"
-                placeholder="Enter description">
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-secondary">Save Changes</button>
-        </div>
-    </form>
-</div>
+<body>
+  <div class="container transparent">
+      <form (ngSubmit)="onSubmit()" #equipmentForm="ngForm">
+          <div class="form-group">
+              <label for="name">Equipment Name: </label>
+              <input type="text" class="form-control" [(ngModel)]="toEdit.name" #name="ngModel" name="name"
+                  placeholder="Enter the equipment name">
+          </div>
+          <div class="form-group">
+              <label for="description">description: </label>
+              <input type="text" class="form-control" [(ngModel)]="toEdit.description" #name="ngModel" name="description"
+                  placeholder="Enter description">
+          </div>
+          <div class="form-group">
+              <button type="submit" class="btn btn-secondary">Save Changes</button>
+          </div>
+      </form>
+  </div>
+</body>

@@ -6,7 +6,7 @@ import { HPApiService } from 'src/app/services/hpapi.service';
 @Component({
   selector: 'app-edit-equipment',
   templateUrl: './edit-equipment.component.html',
-  styleUrls: ['./edit-equipment.component.css']
+  styleUrls: ['./edit-equipment.component.css', '../equipment.css']
 })
 
 export class EditEquipmentComponent implements OnInit {
