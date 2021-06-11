@@ -32,14 +32,6 @@ steps:
     workingDir: 'HikePlannerFE'
     customCommand: 'run build'
 
-# - task: PowerShell@2
-#   displayName: 'Inline Powershell'
-#   inputs:
-#     TargetType: inline
-#     Script: |
-#      Compress-Archive -Path "$(System.DefaultWorkingDirectory)/HikePlannerFE/dist/HikePlannerFE/" -DestinationPath "$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip"
-#     pwsh: true
-
 - task: ArchiveFiles@2
   displayName: 'Archive files'
   inputs:
@@ -50,11 +42,11 @@ steps:
     replaceExistingArchive: true
     verbose: true
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+#     ArtifactName: 'drop'
+#     publishLocation: 'Container'
 
 - task: AzureRmWebAppDeployment@4
   inputs:
@@ -62,5 +54,5 @@ steps:
     azureSubscription: 'Azure subscription 1(7db5a42a-1fa9-40a3-8da3-4ed5fb8c49cb)'
     appType: 'webAppLinux'
     WebAppName: 'hikeplanner'
-    packageForLinux: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip 
+    packageForLinux: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
     RuntimeStack: 'NODE|12-lts'
