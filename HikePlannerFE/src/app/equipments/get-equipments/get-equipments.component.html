@@ -10,6 +10,8 @@
             <tr *ngFor="let equipment of equipments;">
                 <td>{{equipment.name}}</td>
                 <td>{{equipment.description}}</td>
+                <td><i class="fa fa-pencil-square-o pencil" aria-hidden="true"
+                        (click)='GoToEditEquipment(equipment.id)'></i></td>
             </tr>
         </tbody>
     </table>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { equipment } from 'src/app/models/equipment';
-import { RestRevApiService } from 'src/app/services/restrevapi.service';
+import { HPApiService} from 'src/app/services/hpapi.service';
 
 @Component({
   selector: 'app-get-equipments',
@@ -12,7 +12,7 @@ export class GetEquipmentsComponent implements OnInit {
 
   equipments: equipment[] = [];
 
-  constructor(private equipmentService: RestRevApiService, private router: Router) { }
+  constructor(private equipmentService: HPApiService, private router: Router) { }
 
   //LC hook. There are others. (go research!)
   ngOnInit(): void {
@@ -22,4 +22,9 @@ export class GetEquipmentsComponent implements OnInit {
   GoToAddEquipment() {
     this.router.navigate(['addEquipment'])
   }
+
+  GoToEditEquipment(equipmentId: number) {
+    this.router.navigate(['editEquipment'], { queryParams: { id: equipmentId } });
+  }
+
 }
