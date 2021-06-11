@@ -5,6 +5,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { MapComponent } from './map/map.component';
 import { TrailsMapModule } from './trails-map/trails-map.module';
+import { MapDisplayComponent } from './map-display/map-display.component';
 import { GetEquipmentsComponent } from './equipments/get-equipments/get-equipments.component';
 import { AddEquipmentComponent } from './equipments/add-equipment/add-equipment.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -23,6 +24,7 @@ import { environment } from 'src/environments/environment';
     HeaderComponent,
     FooterComponent,
     MapComponent,
+    MapDisplayComponent,
     GetEquipmentsComponent,
     AddEquipmentComponent,
     EditEquipmentComponent,
