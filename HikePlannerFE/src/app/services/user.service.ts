@@ -1,20 +1,17 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class UserService {
-  private currentUser: any = {};
+  private currentUserSource: BehaviorSubject<any> = new BehaviorSubject({name: 'default'});
+  currentUser = this.currentUserSource.asObservable();
   constructor() { }
-
-  getCurrentUser() {
-    console.log('getting current user...');
-    return this.currentUser;
-  }
 
   setCurrentUser(user: any) {
     console.log('setting current user...', user);
-    this.currentUser = user;
+    this.currentUserSource.next({something: 'else'});
   }
 }

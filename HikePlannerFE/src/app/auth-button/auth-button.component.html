@@ -4,6 +4,7 @@
         <i class="fa fa-user"></i>
     </a>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li (click)="logout()">alwaysLogOut</li>
         <li>
             <a class="dropdown-item" href="#" *ngIf="(auth.isAuthenticated$ | async) === false" (click)="loginWithRedirect()">Login</a>
         </li>
