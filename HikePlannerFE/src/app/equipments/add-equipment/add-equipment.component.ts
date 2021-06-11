@@ -9,7 +9,7 @@ import { HPApiService } from 'src/app/services/hpapi.service';
   styleUrls: ['./add-equipment.component.css', '../equipment.css']
 })
 export class AddEquipmentComponent implements OnInit {
-  newEquipment: equipment = {
+  new: equipment = {
     id: 0,
     name: '',
     description: ''
@@ -21,15 +21,15 @@ export class AddEquipmentComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.equipmentService.AddAEquipment(this.newEquipment)
+    this.equipmentService.AddAEquipment(this.new)
       .then(
         result => {
           alert(`${result.name} has been added`);
-          this.GoToEquipments();
+          this.GoToAll();
         }
       )
   }
-  GoToEquipments() {
+  GoToAll() {
     this.router.navigate(['equipments'])
   }
 }

@@ -11,7 +11,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { EditEquipmentComponent } from './equipments/edit-equipment/edit-equipment.component';
-import { DeleteEquipmentComponent } from './equipments/delete-equipment/delete-equipment.component';
 
 @NgModule({
   declarations: [
@@ -21,8 +20,7 @@ import { DeleteEquipmentComponent } from './equipments/delete-equipment/delete-e
     MapComponent,
     GetEquipmentsComponent,
     AddEquipmentComponent,
-    EditEquipmentComponent,
-    DeleteEquipmentComponent
+    EditEquipmentComponent
   ],
   imports: [
     BrowserModule,

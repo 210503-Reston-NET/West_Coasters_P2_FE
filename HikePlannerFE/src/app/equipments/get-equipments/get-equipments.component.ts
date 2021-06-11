@@ -19,12 +19,23 @@ export class GetEquipmentsComponent implements OnInit {
     this.equipmentService.GetAllEquipments().then(result => this.equipments = result);
   }
 
-  GoToAddEquipment() {
+  GoToAdd() {
     this.router.navigate(['addEquipment'])
   }
 
-  GoToEditEquipment(equipmentId: number) {
+  GoToEdit(equipmentId: number) {
     this.router.navigate(['editEquipment'], { queryParams: { id: equipmentId } });
   }
-
+  Delete(equipmentId: number, name: string) {
+    if (confirm(`Are you sure you want to remove ${name}?`).valueOf()) {
+      this.equipmentService.DeleteEquipment(equipmentId).then(
+        () => {
+          alert(`${name} has been deleted`);
+          this.equipmentService.GetAllEquipments().then(
+            result => { this.equipments = result; }
+          )
+        }
+      )
+    }
+  }
 }

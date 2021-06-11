@@ -29,12 +29,15 @@ export class EditEquipmentComponent implements OnInit {
     );
   }
   onSubmit(): void {
-    this.equipmentService.EditRestaurant(this.toEdit).then
+    this.equipmentService.EditEquipment(this.toEdit).then
       (
         () => {
           alert('Changes saved!');
           this.router.navigate(['equipments']);
         }
       )
+  }
+  GoToAll() {
+    this.router.navigate(['equipments'])
   }
 }

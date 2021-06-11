@@ -27,12 +27,11 @@ export class HPApiService {
     return this.http.get<equipment>(`${this.equipmentURL}/${equipmentId}`).toPromise();
   }
 
-  EditRestaurant(equipment: equipment): Promise<void> {
+  EditEquipment(equipment: equipment): Promise<void> {
     return this.http.put<void>(`${this.equipmentURL}/${equipment.id}`, equipment).toPromise();
   }
-  DeleteRestaurant(equipmentId: number): Promise<void> {
+  DeleteEquipment(equipmentId: number): Promise<void> {
     return this.http.delete<void>(`${this.equipmentURL}/${equipmentId}`).toPromise();
   }
-
 
 }
