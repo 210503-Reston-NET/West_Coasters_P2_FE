@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { RestRevApiService } from './restrevapi.service';
+import { HPApiService } from './hpapi.service';
 
-describe('RestrevapiService', () => {
-  let service: RestRevApiService;
+describe('RestRevApiService', () => {
+  let service: HPApiService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(RestRevApiService);
+    service = TestBed.inject(HPApiService);
   });
 
   it('should be created', () => {

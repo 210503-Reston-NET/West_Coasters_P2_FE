@@ -10,6 +10,8 @@ import { AddEquipmentComponent } from './equipments/add-equipment/add-equipment.
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
+import { EditEquipmentComponent } from './equipments/edit-equipment/edit-equipment.component';
+import { DeleteEquipmentComponent } from './equipments/delete-equipment/delete-equipment.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { FormsModule } from '@angular/forms';
     FooterComponent,
     MapComponent,
     GetEquipmentsComponent,
-    AddEquipmentComponent
+    AddEquipmentComponent,
+    EditEquipmentComponent,
+    DeleteEquipmentComponent
   ],
   imports: [
     BrowserModule,
