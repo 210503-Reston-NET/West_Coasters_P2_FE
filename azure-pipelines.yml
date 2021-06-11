@@ -42,12 +42,6 @@ steps:
     replaceExistingArchive: true
     verbose: true
 
-# - task: PublishBuildArtifacts@1
-#   inputs:
-#     PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-#     ArtifactName: 'drop'
-#     publishLocation: 'Container'
-
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
