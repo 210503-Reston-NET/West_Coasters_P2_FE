@@ -6,8 +6,11 @@ import { FooterComponent } from './footer/footer.component';
 import { MapComponent } from './map/map.component';
 import { TrailsMapModule } from './trails-map/trails-map.module';
 import { MapDisplayComponent } from './map-display/map-display.component';
+import { GetEquipmentsComponent } from './equipments/get-equipments/get-equipments.component';
+import { AddEquipmentComponent } from './equipments/add-equipment/add-equipment.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -15,13 +18,16 @@ import { HttpClient } from '@angular/common/http';
     HeaderComponent,
     FooterComponent,
     MapComponent,
-    MapDisplayComponent
+    MapDisplayComponent,
+    GetEquipmentsComponent,
+    AddEquipmentComponent
   ],
   imports: [
     BrowserModule,
     TrailsMapModule,
-    FormsModule,
-    HttpClient
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
