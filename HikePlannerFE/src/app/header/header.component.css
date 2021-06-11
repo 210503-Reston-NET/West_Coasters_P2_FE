@@ -21,7 +21,7 @@
 .nav-item > .nav-link{
     color: #172e06;
 }
-.nav-item{
+.nav-item, .dropdown-item{
     line-height: 3rem;
 }
 .nav-item:hover, .nav-item > .nav-link:hover{
