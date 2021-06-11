@@ -9,12 +9,9 @@ trigger:
 pool: Default
 
 steps:
-- task: Npm@1
-  displayName: Npm Install
+- task: NodeTool@0
   inputs:
-    command: 'install'
-    workingDir: 'HikePlannerFE'
-
+    versionSpec: '12.x'
 - task: Npm@1
   displayName: Npm install latest angular globally
   inputs:
@@ -23,16 +20,39 @@ steps:
     customCommand: 'install -g @angular/cli@latest'
 
 - task: Npm@1
+  displayName: Npm Install
+  inputs:
+    command: 'install'
+    workingDir: 'HikePlannerFE'
+
+- task: Npm@1
   displayName: Npm Run Build
   inputs:
     command: 'custom'
     workingDir: 'HikePlannerFE'
     customCommand: 'run build'
+
+- task: ArchiveFiles@2
+  displayName: 'Archive files'
+  inputs:
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/HikePlannerFE/dist/HikePlannerFE/'
+    includeRootFolder: false
+    archiveType: zip
+    archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+    replaceExistingArchive: true
+    verbose: true
+
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+#     ArtifactName: 'drop'
+#     publishLocation: 'Container'
+
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
     azureSubscription: 'Azure subscription 1(7db5a42a-1fa9-40a3-8da3-4ed5fb8c49cb)'
     appType: 'webAppLinux'
     WebAppName: 'hikeplanner'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/dist/HikePlannerFE'
+    packageForLinux: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
     RuntimeStack: 'NODE|12-lts'
