@@ -32,13 +32,13 @@ steps:
     workingDir: 'HikePlannerFE'
     customCommand: 'run build'
 
-- task: PowerShell@2
-  displayName: 'Inline Powershell'
-  inputs:
-    TargetType: inline
-    Script: |
-     Compress-Archive -Path "$(System.DefaultWorkingDirectory)/HikePlannerFE/dist/HikePlannerFE/" -DestinationPath "$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip"
-    pwsh: true
+# - task: PowerShell@2
+#   displayName: 'Inline Powershell'
+#   inputs:
+#     TargetType: inline
+#     Script: |
+#      Compress-Archive -Path "$(System.DefaultWorkingDirectory)/HikePlannerFE/dist/HikePlannerFE/" -DestinationPath "$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip"
+#     pwsh: true
 
 - task: ArchiveFiles@2
   displayName: 'Archive files'
