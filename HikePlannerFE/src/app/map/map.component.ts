@@ -24,6 +24,8 @@ import { MapService } from '../services/map.service';
 
 export class MapComponent implements OnInit, OnDestroy {
   public view : any = null;
+  public selectedTrail: any = null;
+  public selectedTrailhead: any = null;
   public selected: any = null;
   public id: number = 0;
   public customShape: any = null;
@@ -101,25 +103,25 @@ export class MapComponent implements OnInit, OnDestroy {
     });
 
     return this.view.when(
-      //save this for activity view...
-      // () => {
-      //   this.mapService.GetTrailById(371897).then( result => {
-      //     console.log('it worked!!', result);
-      //     const line = new Polyline();
-      //     line.addPath(result.features[0].geometry.paths[0]);
-      //     const simpleLineSymbol = {
-      //       type: "simple-line",
-      //       color: [226, 119, 40], // Orange
-      //       width: 2
-      //     };
-      //     const polylineGraphic = new Graphic({
-      //       geometry: line,
-      //       symbol: simpleLineSymbol
-      //     });
-      //     this.graphicsLayer.add(polylineGraphic);
-      //     this.view.goTo(line);
-      //   });
-      // }
+      // save this for activity view...
+      () => {
+        this.mapService.GetTrailById(371897).then( result => {
+          console.log('it worked!!', result);
+          const line = new Polyline();
+          line.addPath(result.features[0].geometry.paths[0]);
+          const simpleLineSymbol = {
+            type: "simple-line",
+            color: [226, 119, 40], // Orange
+            width: 2
+          };
+          const polylineGraphic = new Graphic({
+            geometry: line,
+            symbol: simpleLineSymbol
+          });
+          this.graphicsLayer.add(polylineGraphic);
+          this.view.goTo(line);
+        });
+      }
     );
   }
 
