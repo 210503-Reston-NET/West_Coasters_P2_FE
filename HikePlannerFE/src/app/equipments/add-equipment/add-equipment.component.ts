@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { equipment } from 'src/app/models/equipment';
-import { RestRevApiService } from 'src/app/services/restrevapi.service';
+import { HPApiService } from 'src/app/services/hpapi.service';
 
 @Component({
   selector: 'app-add-equipment',
@@ -15,7 +15,7 @@ export class AddEquipmentComponent implements OnInit {
     description: ''
   }
 
-  constructor(private equipmentService : RestRevApiService, private router: Router) { }
+  constructor(private equipmentService : HPApiService, private router: Router) { }
 
   ngOnInit(): void {
   }
