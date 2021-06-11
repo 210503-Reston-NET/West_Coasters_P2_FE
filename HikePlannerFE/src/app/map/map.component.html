@@ -1,8 +1,26 @@
 <div class="map container">
-    <div class="col-sm-4" #mapInfo>
-        <button class="btn btn-primary" (click)="queryLayer()">click me</button>
-    </div>
-    <div class="col-sm-8 map">
-        <div #mapViewNode></div>
+    <div class="map row">
+        <div class="col-sm-4" #mapInfo>
+            <div *ngIf="!selected else displayInfo">
+                <p>Select something to get started...</p>
+            </div>
+            <ng-template #displayInfo>
+                <div *ngIf="selected?.geometry.type == 'point' else polyline;">
+                    <dt>
+                        You Selected a trailhead
+                    </dt>
+                    <dd>{{selected?.attributes.OBJECTID}}</dd>
+                </div>
+                <ng-template #polyline>
+                    <dt>You selected a trail</dt>
+                    <dd>{{selected?.attributes.OBJECTID}}</dd>
+                </ng-template>
+            </ng-template>
+            <input type="number" class="form-control" name="id" [(ngModel)]="id">
+            <button (click)="customMap()">Click Me</button>
+        </div>
+        <div class="col-sm-8 map">
+            <div #mapViewNode></div>
+        </div>
     </div>
 </div>
