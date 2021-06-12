@@ -1,1 +1,47 @@
-<div #mapViewNode></div>
+<div class="map container">
+    <div class="map row">
+        <div class="col-sm-4" #mapInfo>
+            <div *ngIf="!selected else displayInfo">
+                <h5>Select something to get started...</h5>
+            </div>
+            <ng-template #displayInfo>
+                <div *ngIf="selected?.geometry.type == 'point' else polyline;">
+                    <h4>{{selected?.attributes.RECAREANAME}}</h4>
+                    <dt>
+                        Type
+                    </dt>
+                    <dd>{{selected?.attributes.MARKERACTIVITY}}</dd>
+                    <dt>
+                        Forest
+                    </dt>
+                    <dd>{{selected?.attributes.FORESTNAME}}</dd>
+                    <dt>
+                        Status
+                    </dt>
+                    <dd>{{selected?.attributes.OPENSTATUS}}</dd>
+                    <dt>
+                        Website
+                    </dt>
+                    <dd>
+                        <a href="{{selected?.attributes.RECAREAURL}}">{{selected?.attributes.RECAREAURL}}</a>
+                    </dd>
+                    <dt>
+                        Description
+                    </dt>
+                    <dd [innerHTML] = "selected?.attributes.RECAREADESCRIPTION"></dd>
+                </div>
+                <ng-template #polyline>
+                    <h4>{{selected?.attributes.TRAIL_NAME}}</h4>
+                    <dt>Typical Trail Grade</dt>
+                    <dd>{{selected?.attributes.TYPICAL_TRAIL_GRADE}}</dd>
+                    <dt>Length</dt>
+                    <dd>{{selected?.attributes.GIS_MILES}}</dd>
+                    <button class="btn btn-primary" (click)="GoToAddActivity()">Add Activity</button>
+                </ng-template>
+            </ng-template>
+        </div>
+        <div class="col-sm-8 map">
+            <div #mapViewNode></div>
+        </div>
+    </div>
+</div>

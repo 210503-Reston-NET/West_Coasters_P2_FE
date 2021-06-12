@@ -2,16 +2,19 @@ import {
   Component,
   OnInit,
   ViewChild,
-  OnDestroy } from '@angular/core';
+  OnDestroy,
+} from '@angular/core';
 
 import Map from '@arcgis/core/Map';
 import esriConfig from '@arcgis/core/config.js';
 import MapView from '@arcgis/core/views/MapView';
 import Locate from '@arcgis/core/widgets/Locate';
-import Graphic from '@arcgis/core/Graphic';
-import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer';
-import Point from '@arcgis/core/geometry/Point';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
+import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer'; 
+import Graphic from '@arcgis/core/Graphic';
+import Polyline from '@arcgis/core/geometry/Polyline';
+import { MapService } from '../services/map.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-map',
@@ -22,119 +25,59 @@ import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 
 export class MapComponent implements OnInit, OnDestroy {
   public view : any = null;
+  public selected: any = null;
+  public id: number = 0;
+  public customShape: any = null;
+  public graphicsLayer = new GraphicsLayer();
+
+  constructor(private mapService: MapService, private router: Router) { 
+
+  }
 
   @ViewChild('mapViewNode', { static: true }) private mapViewEl : any;
 
   initializeMap() : Promise<any> {
     const container = this.mapViewEl.nativeElement;
+    
     esriConfig.apiKey = "AAPKe972efc85860456dbd0fe6c227d8fc92xaIGZA98q-ZPD6Mak-Iks7mZbFg_xeYadDJ5nWB5JGbJbIjkdSVXJG0v5p_Jai8O";
     const map = new Map({
       basemap: "arcgis-topographic"
     });
-
+    map.add(this.graphicsLayer);
 
     const view = new MapView({
       container: container,
-      center: [-118.80500,34.02700], //Longitude, latitude
-      zoom: 13,
+      center: [-120.06488,39.08818], //Longitude, latitude
+      zoom: 11,
       map: map
     });
+
+
     this.view = view;
-
-    const parcelLayerSQL = ["Choose a SQL where clause...", "UseType = 'Residential'",  "UseType = 'Government'", "UseType = 'Irrigated Farm'", "TaxRateArea = 10853", "TaxRateArea = 10860", "TaxRateArea = 08637", "Roll_LandValue > 1000000", "Roll_LandValue < 1000000"];
-    let whereClause = parcelLayerSQL[0];
-
-    const select = document.createElement("select");
-      select.setAttribute("class", "esri-widget esri-select");
-      select.setAttribute("style", "width: 200px; font-family: 'Avenir Next'; font-size: 1em");
-      parcelLayerSQL.forEach(function(query){
-        let option = document.createElement("option");
-        option.innerHTML = query;
-        option.value = query;
-        select.appendChild(option);
-      });
-
+    
     const popupTrailheads = {
-      "title": "{RECAREANAME}",
-      "content": "<b>Long:</b> {LONGITUDE}<br><b>Lat:</b> {LATITUDE}<br><b>Website:</b> {RECAREAURL}<br><b>Id?:</b> {OBJECTID}"
-    }
+      title: "{RECAREANAME}",
+      // content: "<b>Type: </b> {MARKERACTIVITY} <br/><b>Forest:</b> {FORESTNAME}<br><b>Status: </b>{OPENSTATUS}<br><b>Website:</b> <a href='{RECAREAURL}'>{RECAREAURL}</a> <br> <b>Description:</b> {RECAREADESCRIPTION}",
+      // actions: [thAction]
+    };
 
     const trailheadsLayer = new FeatureLayer({
       url: "https://apps.fs.usda.gov/arcx/rest/services/EDW/EDW_RecreationOpportunities_01/MapServer",
-      outFields: ["RECAREANAME", "LONGITUTDE", "LATITUDE", "RECAREAURL","OPENSTATUS"],
+      outFields: ["*"],
       popupTemplate: popupTrailheads
     });
-
     map.add(trailheadsLayer);
 
     const popupTrails = {
-      "title": "{TRAIL_NO}: {TRAIL_NAME}",
-      "content": "<b>Type:</b> {TRAIL_TYPE}<br><b>obj id:</b> {OBJECTID}<br><b>GlobalID:</b> {GLOBALID}<br><b>GIS Miles:</b> {GIS_MILES}"
+      "title": "{TRAIL_NAME}"
+      // "content": "<b>Typical Trail Grade:</b> {TYPICAL_TRAIL_GRADE}<br><b>GIS Miles:</b> {GIS_MILES}"
     }
     const trailsLayer = new FeatureLayer({
       url: "https://apps.fs.usda.gov/arcx/rest/services/EDW/EDW_TrailNFSPublish_01/MapServer/0",
-      outFields: ["TRL_NAME","ELEV_GAIN"],
+      outFields: ["*"],
       popupTemplate: popupTrails
     });
     map.add(trailsLayer, 0);
-
-     // Define popup for Parks and Open Spaces
-    const popupOpenspaces = {
-      "title": "{PARK_NAME}",
-      "content": [{
-        "type": "fields",
-        "fieldInfos": [
-          {
-            "fieldName": "AGNCY_NAME",
-            "label": "Agency",
-            "isEditable": true,
-            "tooltip": "",
-            "visible": true,
-            "format": null,
-            "stringFieldOption": "text-box"
-          },
-          {
-            "fieldName": "TYPE",
-            "label": "Type",
-            "isEditable": true,
-            "tooltip": "",
-            "visible": true,
-            "format": null,
-            "stringFieldOption": "text-box"
-          },
-          {
-            "fieldName": "ACCESS_TYP",
-            "label": "Access",
-            "isEditable": true,
-            "tooltip": "",
-            "visible": true,
-            "format": null,
-            "stringFieldOption": "text-box"
-          },
-
-          {
-            "fieldName": "GIS_ACRES",
-            "label": "Acres",
-            "isEditable": true,
-            "tooltip": "",
-            "visible": true,
-            "format": {
-              "places": 2,
-              "digitSeparator": true
-            },
-
-            "stringFieldOption": "text-box"
-          }
-        ]
-      }]
-    }
-
-    const parksLayer = new FeatureLayer({
-      url: "https://services3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/Parks_and_Open_Space_Styled/FeatureServer/0",
-      outFields: ["TYPE","PARK_NAME", "AGNCY_NAME","ACCESS_TYP","GIS_ACRES","TRLS_MI","TOTAL_GOOD","TOTAL_FAIR", "TOTAL_POOR"],
-      popupTemplate: popupOpenspaces
-    });
-    map.add(parksLayer, 0);
 
     const locate = new Locate({
       view: view,
@@ -144,16 +87,32 @@ export class MapComponent implements OnInit, OnDestroy {
         return view.goTo(options.target);
       }
     });
+
     view.ui.add(locate, "top-left");
+    view.on("click", (evt) =>{
+      view.hitTest(evt).then((response) => {
+        console.log('click event', response);
+        if(response.results.length == 1) {
+          this.selected = null;
+        }
+        else {
+          this.selected = response.results[0].graphic;
+        }
+      });
+    });
+
     return this.view.when();
   }
-  constructor() { }
+
+  GoToAddActivity(): any {
+    this.router.navigate(['addActivity'], {queryParams: {id: this.selected.attributes.OBJECTID, name: this.selected.attributes.TRAIL_NAME}});
+  }
 
   ngOnInit(): any {
     this.initializeMap().then(() => {
       // The map has been initialized
       console.log('The map is ready.');
-    });
+    }); 
   }
 
   ngOnDestroy(): void {
