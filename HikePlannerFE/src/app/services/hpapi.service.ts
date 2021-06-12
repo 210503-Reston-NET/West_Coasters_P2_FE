@@ -9,8 +9,7 @@ import { user } from '../models/user';
   providedIn: 'root'
 })
 export class HPApiService {
-  // baseURL: string = 'https://localhost:44303/api/';
-  baseURL: string = 'https://hikeplannerrest.azurewebsites.net/api/';
+  baseURL: string = 'https://hikeplannerapi.azurewebsites.net/api/';
   userURL: string = this.baseURL + 'users';
   equipmentURL: string = this.baseURL + 'equipments';
   checklistURL: string = this.baseURL + 'checklist';
