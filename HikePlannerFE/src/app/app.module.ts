@@ -11,6 +11,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { EditEquipmentComponent } from './equipments/edit-equipment/edit-equipment.component';
+import { AddChecklistComponent } from './checklist/add-checklist/add-checklist.component';
+import { AddItemComponent } from './checklist/add-item/add-item.component';
+import { GetItemsComponent } from './checklist/get-items/get-items.component';
+import { GetChecklistsComponent } from './checklist/get-checklists/get-checklists.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +24,11 @@ import { EditEquipmentComponent } from './equipments/edit-equipment/edit-equipme
     MapComponent,
     GetEquipmentsComponent,
     AddEquipmentComponent,
-    EditEquipmentComponent
+    EditEquipmentComponent,
+    AddChecklistComponent,
+    AddItemComponent,
+    GetItemsComponent,
+    GetChecklistsComponent
   ],
   imports: [
     BrowserModule,

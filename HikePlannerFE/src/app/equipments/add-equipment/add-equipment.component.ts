@@ -21,7 +21,7 @@ export class AddEquipmentComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.equipmentService.AddAEquipment(this.new)
+    this.equipmentService.AddEquipment(this.new)
       .then(
         result => {
           alert(`${result.name} has been added`);

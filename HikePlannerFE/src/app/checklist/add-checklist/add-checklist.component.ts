@@ -26,8 +26,9 @@ export class AddChecklistComponent implements OnInit {
     this.checklistService.AddChecklist(this.new)
       .then(
         result => {
-          alert(`${result.name} has been added`);
-          //this.GoToAll();
+          // alert(`${result.name} has been added`);
+          // //this.GoToAll();
+          this.router.navigate(['checklistItems'], { queryParams: { checklistId: result.id } });
         }
       )
   }

@@ -23,7 +23,7 @@ export class GetChecklistsComponent implements OnInit {
   }
 
   GoToAdd() {
-    this.router.navigate(['addItem']);
+    this.router.navigate(['addChecklist']);
   }
 
 }
