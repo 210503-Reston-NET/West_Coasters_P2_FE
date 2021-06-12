@@ -45,7 +45,8 @@ const routes: Routes = [
   },
   {
     path: 'activities',
-    component: GetactivityComponent
+    component: GetactivityComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'gettrips',

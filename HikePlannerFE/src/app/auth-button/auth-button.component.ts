@@ -20,6 +20,7 @@ export class AuthButtonComponent implements OnInit {
         this.hpApi.FindUserByEmail(result.email).then((userResult) =>{
           //user exists in our table, set the session to the user's id
           if(userResult) {
+            console.log('we found the user in our table', userResult);
             window.sessionStorage.setItem('currentUserId', userResult.userId);
           } else {
             console.log("we didn't find a user so we're creating one")
