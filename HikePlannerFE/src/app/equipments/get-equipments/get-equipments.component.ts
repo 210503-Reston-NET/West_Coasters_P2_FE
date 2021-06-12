@@ -8,7 +8,7 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-get-equipments',
   templateUrl: './get-equipments.component.html',
-  styleUrls: ['./get-equipments.component.css']
+  styleUrls: ['./get-equipments.component.css', '../equipment.css']
 })
 export class GetEquipmentsComponent implements OnInit {
 
@@ -22,12 +22,23 @@ export class GetEquipmentsComponent implements OnInit {
     console.log('equipment',  window.sessionStorage.getItem('currentUserId'));
   }
 
-  GoToAddEquipment() {
+  GoToAdd() {
     this.router.navigate(['addEquipment'])
   }
 
-  GoToEditEquipment(equipmentId: number) {
+  GoToEdit(equipmentId: number) {
     this.router.navigate(['editEquipment'], { queryParams: { id: equipmentId } });
   }
-
+  Delete(equipmentId: number, name: string) {
+    if (confirm(`Are you sure you want to remove ${name}?`).valueOf()) {
+      this.equipmentService.DeleteEquipment(equipmentId).then(
+        () => {
+          alert(`${name} has been deleted`);
+          this.equipmentService.GetAllEquipments().then(
+            result => { this.equipments = result; }
+          )
+        }
+      )
+    }
+  }
 }

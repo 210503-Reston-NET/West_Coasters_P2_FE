@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { checklist } from '../models/checklist';
+import { checklistItem } from '../models/checklistItem';
 import { equipment } from '../models/equipment';
 
 @Injectable({
@@ -19,7 +21,7 @@ export class HPApiService {
   GetAllEquipments(): Promise<equipment[]> {
     return this.http.get<equipment[]>(this.equipmentURL).toPromise();
   }
-  AddAEquipment(newequipment: equipment): Promise<equipment> {
+  AddEquipment(newequipment: equipment): Promise<equipment> {
     return this.http.post<equipment>(this.equipmentURL, newequipment).toPromise();
   }
 
@@ -27,12 +29,26 @@ export class HPApiService {
     return this.http.get<equipment>(`${this.equipmentURL}/${equipmentId}`).toPromise();
   }
 
-  EditRestaurant(equipment: equipment): Promise<void> {
+  EditEquipment(equipment: equipment): Promise<void> {
     return this.http.put<void>(`${this.equipmentURL}/${equipment.id}`, equipment).toPromise();
   }
-  DeleteRestaurant(equipmentId: number): Promise<void> {
+  DeleteEquipment(equipmentId: number): Promise<void> {
     return this.http.delete<void>(`${this.equipmentURL}/${equipmentId}`).toPromise();
   }
 
+  AddChecklist(addNew: checklist): Promise<checklist> {
+    return this.http.post<checklist>(this.checklistURL, addNew).toPromise();
+  }
 
+  GetChecklist(id: number): Promise<checklist> {
+    return this.http.get<checklist>(`${this.checklistURL}/${id}`).toPromise();
+  }
+
+  GetAllChecklist(): Promise<checklist[]> {
+    return this.http.get<checklist[]>(this.checklistURL).toPromise();
+  }
+
+  AddChecklistItem(addNew: checklistItem): Promise<checklistItem> {
+    return this.http.post<checklistItem>(`${this.checklistURL}/${addNew.checklistId}/item`, addNew).toPromise();
+  }
 }

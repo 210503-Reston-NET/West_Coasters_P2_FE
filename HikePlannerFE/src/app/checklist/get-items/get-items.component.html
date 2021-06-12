@@ -1,0 +1,29 @@
+<body>
+  <div class="container transparent">
+      <br/>
+      <h4> {{target.name}} Checklist</h4>
+         <div *ngIf="target.checklistItems != null else noItems;">
+
+          <table class="table">
+
+              <thead>>
+                  <th>Quantity</th>
+              </thead>
+              <tbody>
+
+                  <tr *ngFor="let item of target.checklistItems;">
+                      <td>{{item.quantity}}</td>
+                  </tr>
+              </tbody>
+          </table>
+
+        </div>
+      <ng-template #noItems>
+          <br/>
+          <h3>Add Item  <i class="fa fa-plus-square-o plus" aria-hidden="true"
+            (click)="AddItem(target.id)"></i>
+          </h3>
+      </ng-template>
+
+  </div>
+</body>

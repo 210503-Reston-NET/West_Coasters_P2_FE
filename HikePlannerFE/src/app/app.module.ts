@@ -12,11 +12,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { EditEquipmentComponent } from './equipments/edit-equipment/edit-equipment.component';
-import { DeleteEquipmentComponent } from './equipments/delete-equipment/delete-equipment.component';
 import { AuthModule } from '@auth0/auth0-angular';
 import { AuthButtonComponent } from './auth-button/auth-button.component';
 import { ProfileComponent } from './profile/profile.component';
 import { environment } from 'src/environments/environment';
+import { AddChecklistComponent } from './checklist/add-checklist/add-checklist.component';
+import { AddItemComponent } from './checklist/add-item/add-item.component';
+import { GetItemsComponent } from './checklist/get-items/get-items.component';
+import { GetChecklistsComponent } from './checklist/get-checklists/get-checklists.component';
 
 @NgModule({
   declarations: [
@@ -28,9 +31,12 @@ import { environment } from 'src/environments/environment';
     GetEquipmentsComponent,
     AddEquipmentComponent,
     EditEquipmentComponent,
-    DeleteEquipmentComponent,
     AuthButtonComponent,
-    ProfileComponent
+    ProfileComponent,
+    AddChecklistComponent,
+    AddItemComponent,
+    GetItemsComponent,
+    GetChecklistsComponent
   ],
   imports: [
     BrowserModule,

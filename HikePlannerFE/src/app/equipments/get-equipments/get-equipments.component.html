@@ -1,18 +1,27 @@
-<div class="container transparent">
-    <table class="table">
-        <thead>
-            <th>equipment name</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th><i class="fa fa-plus-square-o plus" aria-hidden="true" (click)="GoToAddEquipment()"></i></th>
-        </thead>
-        <tbody>
-            <tr *ngFor="let equipment of equipments;">
-                <td>{{equipment.name}}</td>
-                <td>{{equipment.description}}</td>
-                <td><i class="fa fa-pencil-square-o pencil" aria-hidden="true"
-                        (click)='GoToEditEquipment(equipment.id)'></i></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<body>
+  <div class="container transparent">
+    <h3>Equipments &nbsp;
+      <i class="fa fa-plus-square-o plus" aria-hidden="true" (click)="GoToAdd()"></i>
+    </h3>
+      <table class="table">
+          <thead>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Actions</th>
+          </thead>
+          <tbody>
+              <tr *ngFor="let equipment of equipments;">
+                  <td>{{equipment.name}}</td>
+                  <td>{{equipment.description}}</td>
+                  <td>
+                    <i class="fa fa-pencil-square-o pencil" aria-hidden="true"
+                      (click)='GoToEdit(equipment.id)'></i>
+                    &nbsp; &nbsp;
+                    <i class="fa fa-trash trash" aria-hidden="true"
+                      (click)='Delete(equipment.id, equipment.name)'></i>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+</body>

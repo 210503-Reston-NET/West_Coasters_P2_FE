@@ -6,7 +6,7 @@ import { HPApiService } from 'src/app/services/hpapi.service';
 @Component({
   selector: 'app-edit-equipment',
   templateUrl: './edit-equipment.component.html',
-  styleUrls: ['./edit-equipment.component.css']
+  styleUrls: ['./edit-equipment.component.css', '../equipment.css']
 })
 
 export class EditEquipmentComponent implements OnInit {
@@ -29,12 +29,15 @@ export class EditEquipmentComponent implements OnInit {
     );
   }
   onSubmit(): void {
-    this.equipmentService.EditRestaurant(this.toEdit).then
+    this.equipmentService.EditEquipment(this.toEdit).then
       (
         () => {
           alert('Changes saved!');
           this.router.navigate(['equipments']);
         }
       )
+  }
+  GoToAll() {
+    this.router.navigate(['equipments'])
   }
 }
