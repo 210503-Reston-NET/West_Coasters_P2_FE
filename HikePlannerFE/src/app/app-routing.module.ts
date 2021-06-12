@@ -26,6 +26,10 @@ const routes: Routes = [
     path: 'addEquipment',
     component: AddEquipmentComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: '*',
+    component: MapComponent
   }
 ];
 
