@@ -1,11 +1,16 @@
-<div class="container">
-    <p><strong>Activity:</strong>  {{activity.name}}</p>
-    <p><strong>Notes on Activity:</strong> {{activity.notes}}</p>
-    <p><strong>Trail:</strong> {{activity.trailHead}}</p>
-    <button class="btn btn-success" (click)="AddTrips(activity.id)">Add Trip</button>
+<div class="container d-flex flex-row justify-content-between">
+    <div class="p-2">
+        <p><strong>Activity:</strong> {{activity.name}}</p>
+        <p><strong>Notes:</strong> {{activity.notes}}</p>
+        <p><strong>Trail:</strong> {{activity.trailHead}}</p>
+        <button class="btn btn-success" (click)="AddTrips(activity.id)">Add Trip</button>
+    </div>
+    <div class="p-2">
+        <div #activityMapDiv class="map"></div>
+    </div>
 </div>
-<div class="container transparent" *ngIf = "trips.length > 0 else noTrips">
-    <table class="table">
+<div class="container transparent" >
+    <table class="table" *ngIf = "trips.length > 0 else noTrips">
         <thead>
             <th>Trip Date Started</th>
             <th>Trip Distance Planed</th>
@@ -15,8 +20,7 @@
             <tr *ngFor="let trip of trips;">
                 <td>{{trip.startDate}}</td>
                 <td>{{trip.distance}}</td>
-                <td><i class="fa fa-trash trash" (click)='DeleteTrip(trip.id, trip.startDate)' aria-hidden="true"
-                        ></i></td>
+                <td><i class="fa fa-trash trash" (click)='DeleteTrip(trip.id, trip.startDate)' aria-hidden="true"></i></td>
             </tr>
         </tbody>
     </table>
