@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { checklist } from '../models/checklist';
 import { checklistItem } from '../models/checklistItem';
 import { equipment } from '../models/equipment';
+import { user } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -50,5 +51,14 @@ export class HPApiService {
 
   AddChecklistItem(addNew: checklistItem): Promise<checklistItem> {
     return this.http.post<checklistItem>(`${this.checklistURL}/${addNew.checklistId}/item`, addNew).toPromise();
+  }
+
+  //USER
+  FindUserByEmail(email: string): Promise<user> {
+    return this.http.get<user>(`${this.userURL}/email/${email}`).toPromise();
+  }
+
+  CreateUser(user: user): Promise<user> {
+    return this.http.post<user>(`${this.userURL}`, user).toPromise();
   }
 }

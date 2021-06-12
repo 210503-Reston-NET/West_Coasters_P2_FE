@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { DOCUMENT } from '@angular/common';
-import { UserService } from '../services/user.service';
 import { HPApiService } from '../services/hpapi.service';
+import { user } from '../models/user';
 @Component({
   selector: 'app-auth-button',
   templateUrl: './auth-button.component.html',
@@ -17,10 +17,27 @@ export class AuthButtonComponent implements OnInit {
       console.log('subscribe triggered', result);
       if(result?.email) {
         //user logged in
-        // this.hpApi.GetUserByEmail(result.email).then((userResult) =>)
-
-
-        window.sessionStorage.setItem('currentUserId', result.email);
+        this.hpApi.FindUserByEmail(result.email).then((userResult) =>{
+          //user exists in our table, set the session to the user's id
+          window.sessionStorage.setItem('currentUserId', userResult.userId);
+          }).catch(() => {
+            console.log("we didn't find a user so we're creating one")
+            //add new user here with the email
+            if(result.email && result.name){
+              const userToAdd: user = {
+                userId: '',
+                email: result.email,
+                name: result.name,
+                password: '',
+                addressId: 0,
+                phone: ''
+              };
+              this.hpApi.CreateUser(userToAdd).then((result)=> {
+                console.log('we came back from adding user!', result);
+                window.sessionStorage.setItem('currentUserId', result.userId);
+              });
+            }
+          });
       } else {
         //user logged out
         window.sessionStorage.removeItem('currentUserId');
