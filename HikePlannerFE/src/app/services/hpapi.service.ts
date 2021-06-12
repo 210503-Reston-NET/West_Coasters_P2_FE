@@ -42,8 +42,8 @@ export class HPApiService {
   DeleteEquipment(equipmentId: number): Promise<void> {
     return this.http.delete<void>(`${this.equipmentURL}/${equipmentId}`).toPromise();
   }
-  GetAllActivities(): Promise<activity[]>{
-    return this.http.get<activity[]>(this.activityURL).toPromise();
+  GetAllActivitiesByUserId(userId: string): Promise<activity[]>{
+    return this.http.get<activity[]>(`${this.activityURL}/creator/${userId}`).toPromise();
   }
   DeleteActivity(activityId: number): Promise<void>{
     return this.http.delete<void>(`${this.activityURL}/${activityId}`).toPromise();
