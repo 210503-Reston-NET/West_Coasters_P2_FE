@@ -54,6 +54,10 @@ export class HPApiService {
   GetTrips(): Promise<trips[]>{
     return this.http.get<trips[]>(this.tripURL).toPromise();
   }
+  GetTripsByActivityId(id: number): Promise<trips[]>{
+    console.log('calling trips by its id...', id, `${this.tripURL}/Activity/${id}`);
+    return this.http.get<trips[]>(`${this.tripURL}/Activity/${id}`).toPromise();
+  }
   DeleteTrip(tripId: number) :Promise<void>{
     return this.http.delete<void>(`${this.tripURL}/${tripId}`).toPromise();
   }

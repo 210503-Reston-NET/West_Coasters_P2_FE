@@ -12,16 +12,16 @@ export class AddtripComponent implements OnInit {
   newTrip = {
     id: 0,
     activityId: 0,
-    startDate: 0,
-    enDate: 0,
+    startDate: new Date().toJSON(),
+    endDate: new Date().toJSON(),
     distance: 0,
-    creater: ""
+    creator: ""
   }
   newActivity: activity = {
     id: 0,
     name: '',
     notes: '',
-    tarilId: 0,
+    trailId: 0,
     trailHead: '',
     creator: '',
     trips: []
@@ -29,31 +29,35 @@ export class AddtripComponent implements OnInit {
   constructor(private tripServices: HPApiService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-  }
-  onSubmit() :void{
     this.route.queryParams.subscribe(
       params => {
         this.tripServices.GetActivity(params.id).then(
           result => {
             this.newActivity = result;
+            console.log(result, 'we got the activity');
           }
         );
       }
     );
-    this.newTrip.activityId = this.newActivity.id;
-    this.newTrip.startDate = Date.now();
-    this.newTrip.enDate = Date.now();
-    this.newTrip.creater = "5f6e429d-2a77-48b6-a1b7-67822955476a";
-    console.log("i have activity id to store to trips",this.newActivity.id);
-    this.tripServices.AddTrip(this.newTrip).then(
-      result => {
-        alert(`your trip scheduled`);
-        this.GoToTrips(result.activityId);
-      }
-    )
+  }
+  onSubmit() :void{
+    if(window.sessionStorage.getItem('currentUserId'))
+    {
+      this.newTrip.activityId = this.newActivity.id;
+      this.newTrip.startDate = new Date().toJSON();
+      this.newTrip.endDate = new Date().toJSON();
+      this.newTrip.creator = window.sessionStorage.getItem('currentUserId') ?? '';
+      console.log("i have activity id to store to trips",this.newTrip);
+      this.tripServices.AddTrip(this.newTrip).then(
+        result => {
+          alert(`your trip scheduled`);
+          this.GoToTrips(result.activityId);
+        }
+      )
+    }
   }
   GoToTrips(activityId: number): void{
     console.log(activityId);
-    this.router.navigate(['trips'],{queryParams: { id: activityId }})
+    this.router.navigate([`gettrips`],{queryParams: { id: activityId }})
   }
 }

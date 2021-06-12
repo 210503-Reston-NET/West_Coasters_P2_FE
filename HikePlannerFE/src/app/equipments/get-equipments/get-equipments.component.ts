@@ -29,8 +29,6 @@ export class GetEquipmentsComponent implements OnInit {
   GoToEdit(equipmentId: number) {
     this.router.navigate(['editEquipment'], { queryParams: { id: equipmentId } });
   }
-<<<<<<< HEAD
-=======
   Delete(equipmentId: number, name: string) {
     if (confirm(`Are you sure you want to remove ${name}?`).valueOf()) {
       this.equipmentService.DeleteEquipment(equipmentId).then(
@@ -43,5 +41,4 @@ export class GetEquipmentsComponent implements OnInit {
       )
     }
   }
->>>>>>> c14bf7316f025cfaa84ab967586a04ff73ac919d
 }

@@ -15,7 +15,7 @@ export class GettripsComponent implements OnInit {
     id : 0,
     name: '',
     notes: '',
-    tarilId: 0,
+    trailId: 0,
     trailHead: '',
     creator: '',
     trips: []
@@ -28,15 +28,17 @@ export class GettripsComponent implements OnInit {
         this.tripServices.GetActivity(params.id).then(
           result => {
             this.activity = result;
-          }
-        );
-      }
-    );
-    this.tripServices.GetTrips().then(
-      result => this.trips = result
-    );
+            console.log('activity');
+            this.tripServices.GetTripsByActivityId(params.id).then(
+              (tripResult) => 
+              {
+                this.trips = tripResult;
+                console.log('trips', tripResult);
+              });
+      });
+    });
   }
-  DeleteTrip(tripId: number, tripDate: number){
+  DeleteTrip(tripId: number, tripDate: string){
     this.tripServices.DeleteTrip(tripId).then(
       ()=>{
         alert(`trip scheduled on ${tripDate.toString()} has been deleted`);

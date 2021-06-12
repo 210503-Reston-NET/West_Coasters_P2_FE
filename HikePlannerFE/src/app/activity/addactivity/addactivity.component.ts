@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { activity } from '../../models/activity';
 import { HPApiService } from '../../services/hpapi.service';
 
@@ -9,31 +9,44 @@ import { HPApiService } from '../../services/hpapi.service';
   styleUrls: ['./addactivity.component.css']
 })
 export class AddactivityComponent implements OnInit {
+  trail = {
+    id: 0,
+    name: ''
+  };
   newActivity: activity = {
     id: 0,
     name: '',
     notes: '',
-    tarilId: 0,
-    trailHead: '',
+    trailId: this.trail.id,
+    trailHead: this.trail.name,
     creator: '',
     trips: []
   }
-  constructor(private activityService: HPApiService, private router
-    : Router) { }
+  constructor(private activityService: HPApiService,private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
+
+    this.route.queryParams.subscribe(
+      params => {
+        this.trail.id = params.id;
+        this.trail.name = params.name;
+      }
+    );
   }
   onSubmit(): void{
-    this.newActivity.tarilId = 26514754;
-    this.newActivity.trailHead = "Eagle Falls Trailhead";
-    this.newActivity.creator = "5f6e429d-2a77-48b6-a1b7-67822955476a";
-    this.activityService.AddAnActivity(this.newActivity)
-    .then(
-      result => {
-        alert(`${result.name} added to activity`);
-        this.GoToActivies();
-      }
-    )
+    if(window.sessionStorage.getItem('currentUserId'))
+    {
+      this.newActivity.creator = window.sessionStorage.getItem('currentUserId') ?? '';
+      this.newActivity.trailId = this.trail.id;
+      this.newActivity.trailHead = this.trail.name;
+      this.activityService.AddAnActivity(this.newActivity)
+      .then(
+        result => {
+          alert(`${result.name} added to activity`);
+          this.GoToActivies();
+        }
+      )
+    }
   }
   GoToActivies() {
     this.router.navigate(['activities'])

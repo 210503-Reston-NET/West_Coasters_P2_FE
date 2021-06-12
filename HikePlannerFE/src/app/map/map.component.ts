@@ -14,6 +14,7 @@ import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer';
 import Graphic from '@arcgis/core/Graphic';
 import Polyline from '@arcgis/core/geometry/Polyline';
 import { MapService } from '../services/map.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-map',
@@ -24,14 +25,12 @@ import { MapService } from '../services/map.service';
 
 export class MapComponent implements OnInit, OnDestroy {
   public view : any = null;
-  public selectedTrail: any = null;
-  public selectedTrailhead: any = null;
   public selected: any = null;
   public id: number = 0;
   public customShape: any = null;
   public graphicsLayer = new GraphicsLayer();
 
-  constructor(private mapService: MapService) { 
+  constructor(private mapService: MapService, private router: Router) { 
 
   }
 
@@ -102,27 +101,11 @@ export class MapComponent implements OnInit, OnDestroy {
       });
     });
 
-    return this.view.when(
-      // save this for activity view...
-      // () => {
-      //   this.mapService.GetTrailById(371897).then( result => {
-      //     console.log('it worked!!', result);
-      //     const line = new Polyline();
-      //     line.addPath(result.features[0].geometry.paths[0]);
-      //     const simpleLineSymbol = {
-      //       type: "simple-line",
-      //       color: [226, 119, 40], // Orange
-      //       width: 2
-      //     };
-      //     const polylineGraphic = new Graphic({
-      //       geometry: line,
-      //       symbol: simpleLineSymbol
-      //     });
-      //     this.graphicsLayer.add(polylineGraphic);
-      //     this.view.goTo(line);
-      //   });
-      // }
-    );
+    return this.view.when();
+  }
+
+  GoToAddActivity(): any {
+    this.router.navigate(['addActivity'], {queryParams: {id: this.selected.attributes.OBJECTID, name: this.selected.attributes.TRAIL_NAME}});
   }
 
   ngOnInit(): any {
@@ -130,7 +113,6 @@ export class MapComponent implements OnInit, OnDestroy {
       // The map has been initialized
       console.log('The map is ready.');
     }); 
-
   }
 
   ngOnDestroy(): void {
@@ -138,9 +120,5 @@ export class MapComponent implements OnInit, OnDestroy {
       // destroy the map view
       this.view.destroy();
     }
-  }
-
-  customMap(): void {
-    // console.log(this.mapService.GetTrailById(this.id));
   }
 }

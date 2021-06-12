@@ -19,24 +19,28 @@ export class AuthButtonComponent implements OnInit {
         //user logged in
         this.hpApi.FindUserByEmail(result.email).then((userResult) =>{
           //user exists in our table, set the session to the user's id
-          window.sessionStorage.setItem('currentUserId', userResult.UserId);
-          }).catch(() => {
+          if(userResult) {
+            window.sessionStorage.setItem('currentUserId', userResult.userId);
+          } else {
             console.log("we didn't find a user so we're creating one")
             //add new user here with the email
             if(result.email && result.name){
               const userToAdd: user = {
-                UserId: '',
-                Email: result.email,
-                Name: result.name,
-                Password: '',
-                AddressId: 0,
-                Phone: ''
+                userId: '',
+                email: result.email,
+                name: result.name,
+                password: '',
+                addressId: 0,
+                phone: ''
               };
               this.hpApi.CreateUser(userToAdd).then((result)=> {
                 console.log('we came back from adding user!', result);
-                window.sessionStorage.setItem('currentUserId', result.UserId);
+                window.sessionStorage.setItem('currentUserId', result.userId);
               });
             }
+          }
+          }).catch(() => {
+            console.log('something went wrong');
           });
       } else {
         //user logged out

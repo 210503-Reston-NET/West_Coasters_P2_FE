@@ -1,8 +1,8 @@
 export interface trips {
     id: number
     activityId: number
-    startDate: number
-    enDate: number
+    startDate: string
+    endDate: string
     distance: number
-    creater: string
+    creator: string
 }

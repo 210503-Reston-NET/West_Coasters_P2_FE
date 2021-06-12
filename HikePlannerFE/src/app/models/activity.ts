@@ -2,7 +2,7 @@ export interface activity{
     id: number
     name :string
     notes: string
-    tarilId: number
+    trailId: number
     trailHead: string
     creator: string
     trips: []
