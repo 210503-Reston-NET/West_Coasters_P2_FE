@@ -11,9 +11,10 @@ import { HPApiService } from 'src/app/services/hpapi.service';
 export class GetactivityComponent implements OnInit {
   activities: activity[] = [];
   constructor(private activityService: HPApiService, private router: Router) { }
+  userId = window.sessionStorage.getItem('currentUserId')?? '';
 
   ngOnInit(): void {
-    this.activityService.GetAllActivities().then(
+    this.activityService.GetAllActivitiesByUserId(this.userId).then(
       result => this.activities = result
     );
   }
@@ -25,7 +26,7 @@ export class GetactivityComponent implements OnInit {
         this.activityService.DeleteActivity(activityId).then(
           ()=>{
             alert(`${activityName} has been deleted`);
-            this.activityService.GetAllActivities().then(
+            this.activityService.GetAllActivitiesByUserId(this.userId).then(
               result => this.activities = result
             );
           }
