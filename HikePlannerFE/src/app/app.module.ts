@@ -5,17 +5,25 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { MapComponent } from './map/map.component';
 import { TrailsMapModule } from './trails-map/trails-map.module';
+import { MapDisplayComponent } from './map-display/map-display.component';
 import { GetEquipmentsComponent } from './equipments/get-equipments/get-equipments.component';
 import { AddEquipmentComponent } from './equipments/add-equipment/add-equipment.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { EditEquipmentComponent } from './equipments/edit-equipment/edit-equipment.component';
-import { DeleteEquipmentComponent } from './equipments/delete-equipment/delete-equipment.component';
 import { AddactivityComponent } from './activity/addactivity/addactivity.component';
 import { GetactivityComponent } from './activity/getactivity/getactivity.component';
 import { GettripsComponent } from './trips/gettrips/gettrips.component';
 import { AddtripComponent } from './trips/addtrip/addtrip.component';
+import { AuthModule } from '@auth0/auth0-angular';
+import { AuthButtonComponent } from './auth-button/auth-button.component';
+import { ProfileComponent } from './profile/profile.component';
+import { environment } from 'src/environments/environment';
+import { AddChecklistComponent } from './checklist/add-checklist/add-checklist.component';
+import { AddItemComponent } from './checklist/add-item/add-item.component';
+import { GetItemsComponent } from './checklist/get-items/get-items.component';
+import { GetChecklistsComponent } from './checklist/get-checklists/get-checklists.component';
 
 @NgModule({
   declarations: [
@@ -23,21 +31,31 @@ import { AddtripComponent } from './trips/addtrip/addtrip.component';
     HeaderComponent,
     FooterComponent,
     MapComponent,
+    MapDisplayComponent,
     GetEquipmentsComponent,
     AddEquipmentComponent,
     EditEquipmentComponent,
-    DeleteEquipmentComponent,
     AddactivityComponent,
     GetactivityComponent,
     GettripsComponent,
-    AddtripComponent
+    AddtripComponent,
+    AuthButtonComponent,
+    ProfileComponent,
+    AddChecklistComponent,
+    AddItemComponent,
+    GetItemsComponent,
+    GetChecklistsComponent
   ],
   imports: [
     BrowserModule,
     TrailsMapModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    AuthModule.forRoot({
+      domain: environment.AUTH_DMAIN,
+      clientId: environment.AUTH_CLIENT_ID
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
