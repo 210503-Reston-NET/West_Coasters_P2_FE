@@ -41,8 +41,10 @@
             </div>
         </form>
       </div>
-      <br/>
-      <br/>
-        <button class="btn btn-primary" (click)="SubmitChecklist()">Done</button>
+      <div *ngIf = "isReady">
+        <br/>
+        <br/>
+          <button class="btn btn-primary" (click)="SubmitChecklist()">Done</button>
+      </div>
   </div>
 </body>

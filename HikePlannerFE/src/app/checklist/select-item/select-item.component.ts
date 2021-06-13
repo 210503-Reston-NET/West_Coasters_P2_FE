@@ -17,6 +17,7 @@ export class SelectItemComponent implements OnInit {
   isShow: boolean = false;
   checklistId : number = 0;
   quan : number = 0;
+  isReady: boolean = false;
 
   map = new Map<equipment, number>();
 
@@ -65,6 +66,7 @@ export class SelectItemComponent implements OnInit {
       }
     )
     this.isShow = !this.isShow;
+    this.isReady = true;
   }
 
   onSubmit(): void {
