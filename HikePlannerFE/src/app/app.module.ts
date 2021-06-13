@@ -49,12 +49,15 @@ import { TripdetailsComponent } from './trips/tripdetails/tripdetails.component'
     GetItemsComponent,
     GetChecklistsComponent,
     CreatortripsComponent,
+    SelectItemComponent,
+    TripdetailsComponent,
   ],
   imports: [
     TrailsMapModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    BrowserModule,
     AuthModule.forRoot({
       domain: environment.AUTH_DMAIN,
       clientId: environment.AUTH_CLIENT_ID

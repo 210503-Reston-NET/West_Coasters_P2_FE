@@ -13,7 +13,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let trip of trips;">
-                <td>{{trip.startDate}}</td>
+                <td>{{trip.startDate | date }}</td>
                 <td>{{trip.distance}}</td>
                 <td>{{trip.activities.trailHead}}</td>
                 <td><i class="fa fa-trash trash" (click)='DeleteTrip(trip.id, trip.startDate)' aria-hidden="true"></i> | <a class="btn btn-success" (click)='TripDetails(trip.id, trip.activities.trailId)'>Go to Trip Details</a></td>
