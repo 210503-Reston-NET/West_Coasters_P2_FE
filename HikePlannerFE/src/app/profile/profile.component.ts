@@ -61,17 +61,25 @@ export class ProfileComponent implements OnInit{
 
   AcceptInvite(tripId : number): void {
     //update participant table and set accept as true
-    let target: participant = {
-      id: 0,
-      userId: this.user,
-      accept: true,
-      tripId: tripId
-    }
-    this.hpService.UpdateParticipant(tripId, target).then(
-      result => {
-        alert("You accepted!")
+    let trip = this.tripInvite.find(t => t.id == tripId);
+    let target : participant | undefined | null = trip?.participants?.find(p => p.userId === this.user);
+    if (target?.id) {
+      let id : number = target?.id;
+      this.hpService.DeleteParticipant(target.id);
+
+      let newPart: participant = {
+        id: target?.id,
+        userId: this.user,
+        accept: true,
+        tripId: tripId
       }
-    )
+
+      this.hpService.UpdateParticipant(newPart).then(
+        result => {
+          alert("You accepted!")
+        }
+      )
+    }
   }
 
   RejectInvite(tripId : number): void {
@@ -80,7 +88,7 @@ export class ProfileComponent implements OnInit{
     let target : participant | undefined | null = trip?.participants?.find(p => p.userId === this.user);
     if (target?.id) {
       let id : number = target?.id;
-      this.hpService.DeleteParticipant(tripId, id);
+      this.hpService.DeleteParticipant(target.id);
     }
   }
 

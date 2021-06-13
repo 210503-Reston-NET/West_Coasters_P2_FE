@@ -22,6 +22,7 @@ export class HPApiService {
   activityURL: string = this.baseURL + 'activity';
   checklistURL: string = this.baseURL + 'checklist';
   tripURL: string = this.baseURL + 'trips';
+  participantURL : string = this.baseURL + 'participants';
 
   constructor(private http: HttpClient) { }
 
@@ -63,16 +64,20 @@ export class HPApiService {
     return this.http.get<trip[]>(`${this.tripURL}/shared/${userId}`).toPromise();
   }
 
+  GetParticipants(tripId : number): Promise<participant[]> {
+    return this.http.get<participant[]>(`${this.participantURL}/${tripId}`).toPromise();
+  }
+
   AddParticipant(addNew: participant): Promise<participant> {
-    return this.http.post<participant>(`${this.tripURL}/${addNew.tripId}/participants`, addNew).toPromise();
+    return this.http.post<participant>(`${this.participantURL}`, addNew).toPromise();
   }
 
-  DeleteParticipant(tripId: number, id: number): Promise<void> {
-    return this.http.delete<void>(`${this.tripURL}/${tripId}/participants/${id}`).toPromise();
+  DeleteParticipant(id: number): Promise<void> {
+    return this.http.delete<void>(`${this.participantURL}/${id}`).toPromise();
   }
 
-  UpdateParticipant(tripId: number, participant: participant): Promise<void> {
-    return this.http.put<void>(`${this.tripURL}/${tripId}/participants`, participant).toPromise();
+  UpdateParticipant(participant: participant): Promise<void> {
+    return this.http.put<void>(`${this.participantURL}/${participant.id}`, participant).toPromise();
   }
 
   GetTripsByActivityId(id: number): Promise<trips[]>{
