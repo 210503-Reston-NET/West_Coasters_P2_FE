@@ -19,7 +19,6 @@ export class GetItemsComponent implements OnInit {
     checklistItems: []
   }
 
-
   constructor(private itemService : HPApiService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
@@ -34,7 +33,7 @@ export class GetItemsComponent implements OnInit {
         }
       )
     }
-    AddItem(checklistId: number) {
-      this.router.navigate(['addItem'], { queryParams: { id: checklistId } });
+    SelectItem(checklistId: number) {
+      this.router.navigate(['selectItem'], { queryParams: { id: checklistId } });
     }
 }

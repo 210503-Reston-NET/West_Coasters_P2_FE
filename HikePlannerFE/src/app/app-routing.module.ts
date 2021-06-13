@@ -8,10 +8,12 @@ import { GetactivityComponent } from './activity/getactivity/getactivity.compone
 import { GettripsComponent } from './trips/gettrips/gettrips.component';
 import { AddtripComponent } from './trips/addtrip/addtrip.component';
 import { AuthGuard } from '@auth0/auth0-angular';
+// import { cpuUsage } from 'process';
 import { AddChecklistComponent } from './checklist/add-checklist/add-checklist.component';
 import { AddItemComponent } from './checklist/add-item/add-item.component';
 import { GetChecklistsComponent } from './checklist/get-checklists/get-checklists.component';
 import { GetItemsComponent } from './checklist/get-items/get-items.component';
+import { SelectItemComponent } from './checklist/select-item/select-item.component';
 import { MapComponent } from './map/map.component';
 import { ProfileComponent } from './profile/profile.component';
 
@@ -67,6 +69,10 @@ const routes: Routes = [
   {
     path: "checklistItems",
     component: GetItemsComponent
+  },
+  {
+    path: "selectItem",
+    component: SelectItemComponent
   },
   {
     path: "addItem",

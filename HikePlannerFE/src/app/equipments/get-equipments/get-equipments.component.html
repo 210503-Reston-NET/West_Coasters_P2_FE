@@ -3,6 +3,10 @@
     <h3>Equipments &nbsp;
       <i class="fa fa-plus-square-o plus" aria-hidden="true" (click)="GoToAdd()"></i>
     </h3>
+    <div class="form-group">
+      <h6>Search: <input type="text" [(ngModel)]="filterByLetters" class="form-control" placeholder="Enter Equpment Name"></h6>
+    </div>
+      <br/>
       <table class="table">
           <thead>
               <th>Name</th>
@@ -10,7 +14,7 @@
               <th>Actions</th>
           </thead>
           <tbody>
-              <tr *ngFor="let equipment of equipments;">
+              <tr *ngFor="let equipment of equipments;" (click)="OpenAddQauntity()">
                   <td>{{equipment.name}}</td>
                   <td>{{equipment.description}}</td>
                   <td>

@@ -24,6 +24,7 @@ import { AddChecklistComponent } from './checklist/add-checklist/add-checklist.c
 import { AddItemComponent } from './checklist/add-item/add-item.component';
 import { GetItemsComponent } from './checklist/get-items/get-items.component';
 import { GetChecklistsComponent } from './checklist/get-checklists/get-checklists.component';
+import { SelectItemComponent } from './checklist/select-item/select-item.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { GetChecklistsComponent } from './checklist/get-checklists/get-checklist
     AddChecklistComponent,
     AddItemComponent,
     GetItemsComponent,
-    GetChecklistsComponent
+    GetChecklistsComponent,
+    SelectItemComponent
   ],
   imports: [
     BrowserModule,

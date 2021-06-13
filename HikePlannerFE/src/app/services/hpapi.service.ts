@@ -65,13 +65,17 @@ export class HPApiService {
     console.log("service clocked!");
     return this.http.post<trips>(this.tripURL, newTrip).toPromise();
   }
-  
+
   AddChecklist(addNew: checklist): Promise<checklist> {
     return this.http.post<checklist>(this.checklistURL, addNew).toPromise();
   }
 
   GetChecklist(id: number): Promise<checklist> {
     return this.http.get<checklist>(`${this.checklistURL}/${id}`).toPromise();
+  }
+
+  UpdateChecklist(checklist: checklist): Promise<void> {
+    return this.http.put<void>(`${this.checklistURL}/${checklist.id}`, checklist).toPromise();
   }
 
   GetAllChecklist(): Promise<checklist[]> {
