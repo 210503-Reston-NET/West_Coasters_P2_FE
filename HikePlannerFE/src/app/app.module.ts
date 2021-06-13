@@ -25,6 +25,8 @@ import { AddItemComponent } from './checklist/add-item/add-item.component';
 import { GetItemsComponent } from './checklist/get-items/get-items.component';
 import { GetChecklistsComponent } from './checklist/get-checklists/get-checklists.component';
 import { SelectItemComponent } from './checklist/select-item/select-item.component';
+import { CreatortripsComponent } from './trips/creatortrips/creatortrips.component';
+import { TripdetailsComponent } from './trips/tripdetails/tripdetails.component';
 
 @NgModule({
   declarations: [
@@ -46,10 +48,9 @@ import { SelectItemComponent } from './checklist/select-item/select-item.compone
     AddItemComponent,
     GetItemsComponent,
     GetChecklistsComponent,
-    SelectItemComponent
+    CreatortripsComponent,
   ],
   imports: [
-    BrowserModule,
     TrailsMapModule,
     AppRoutingModule,
     HttpClientModule,

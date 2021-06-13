@@ -1,8 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { activity } from 'src/app/models/activity';
-import { trips } from 'src/app/models/trips';
-import { HPApiService } from 'src/app/services/hpapi.service';
 
 import Map from '@arcgis/core/Map';
 import esriConfig from '@arcgis/core/config.js';
@@ -11,58 +8,30 @@ import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer'; 
 import Graphic from '@arcgis/core/Graphic';
 import Polyline from '@arcgis/core/geometry/Polyline';
-import { MapService } from '../../services/map.service';
 import { environment } from 'src/environments/environment';
+import { MapService } from 'src/app/services/map.service';
 
 @Component({
-  selector: 'app-gettrips',
-  templateUrl: './gettrips.component.html',
-  styleUrls: ['./gettrips.component.css']
+  selector: 'app-tripdetails',
+  templateUrl: './tripdetails.component.html',
+  styleUrls: ['./tripdetails.component.css']
 })
-export class GettripsComponent implements OnInit {
-  trips: trips[] = [];
+export class TripdetailsComponent implements OnInit {
+
   tripId = 0;
-  activity : activity = {
-    id : 0,
-    name: '',
-    notes: '',
-    trailId: 0,
-    trailHead: '',
-    creator: '',
-    trips: []
-  }
-  constructor(private tripServices: HPApiService, private route: ActivatedRoute, private router: Router, private mapService: MapService) { }
+  actTailID = 0;
+  constructor(private route: ActivatedRoute,private mapService: MapService) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(
-      params => {
-        this.tripId = params.id;
-        this.tripServices.GetActivity(this.tripId).then(
-          result => {
-            this.activity = result;
-            this.initializeMap();
-            this.tripServices.GetTripsByActivityId(this.tripId).then(
-              (tripResult) => 
-              {
-                this.trips = tripResult;
-              });
-      });
-    });
+      param =>{
+        this.actTailID = param.activityId;
+        this.tripId = param.id;
+        this.initializeMap();
+        console.log("params passed from creator trip",param);
+      } 
+    );
   }
-  DeleteTrip(tripId: number, tripDate: string){
-    this.tripServices.DeleteTrip(tripId).then(
-      ()=>{
-        alert(`trip scheduled on ${tripDate.toString()} has been deleted`);
-        this.tripServices.GetTripsByActivityId(this.tripId).then(
-          result => this.trips = result
-        );
-      }
-    )
-  }
-  AddTrips(activityId: number){
-    this.router.navigate(['addtrip'], { queryParams: { id: activityId }})
-  }
-
   @ViewChild('activityMapDiv', { static: true }) private mapViewEl : any;
   public customShape: any = null;
   public graphicsLayer = new GraphicsLayer();
@@ -110,7 +79,7 @@ export class GettripsComponent implements OnInit {
     map.add(trailsLayer, 0);
 
     return this.view.when(
-          this.mapService.GetTrailById(this.activity.trailId).then( result => {
+          this.mapService.GetTrailById(this.actTailID).then( result => {
             console.log('it worked!!', result);
             const line = new Polyline();
             line.addPath(result.features[0].geometry.paths[0]);

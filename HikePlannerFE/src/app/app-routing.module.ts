@@ -16,6 +16,8 @@ import { GetItemsComponent } from './checklist/get-items/get-items.component';
 import { SelectItemComponent } from './checklist/select-item/select-item.component';
 import { MapComponent } from './map/map.component';
 import { ProfileComponent } from './profile/profile.component';
+import { CreatortripsComponent } from './trips/creatortrips/creatortrips.component';
+import { TripdetailsComponent } from './trips/tripdetails/tripdetails.component';
 
 const routes: Routes = [
   {
@@ -55,8 +57,16 @@ const routes: Routes = [
     component: GettripsComponent
   },
   {
+    path: 'getcreatortrips',
+    component: CreatortripsComponent
+  },
+  {
     path: 'addtrip',
     component: AddtripComponent
+  },
+  {
+    path: 'tripdetails',
+    component: TripdetailsComponent
   },
   {
     path: "addChecklist",

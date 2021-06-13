@@ -9,14 +9,6 @@ import { HPApiService } from 'src/app/services/hpapi.service';
   styleUrls: ['./addtrip.component.css']
 })
 export class AddtripComponent implements OnInit {
-  newTrip = {
-    id: 0,
-    activityId: 0,
-    startDate: new Date().toJSON(),
-    endDate: new Date().toJSON(),
-    distance: 0,
-    creator: ""
-  }
   newActivity: activity = {
     id: 0,
     name: '',
@@ -26,6 +18,15 @@ export class AddtripComponent implements OnInit {
     creator: '',
     trips: []
   }
+  newTrip = {
+    id: 0,
+    activityId: 0,
+    startDate: new Date().toJSON(),
+    endDate: new Date().toJSON(),
+    distance: 0,
+    creator: "",
+    activities: this.newActivity
+  }
   constructor(private tripServices: HPApiService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
@@ -34,7 +35,6 @@ export class AddtripComponent implements OnInit {
         this.tripServices.GetActivity(params.id).then(
           result => {
             this.newActivity = result;
-            console.log(result, 'we got the activity');
           }
         );
       }
@@ -47,7 +47,6 @@ export class AddtripComponent implements OnInit {
       this.newTrip.startDate = new Date().toJSON();
       this.newTrip.endDate = new Date().toJSON();
       this.newTrip.creator = window.sessionStorage.getItem('currentUserId') ?? '';
-      console.log("i have activity id to store to trips",this.newTrip);
       this.tripServices.AddTrip(this.newTrip).then(
         result => {
           alert(`your trip scheduled`);
