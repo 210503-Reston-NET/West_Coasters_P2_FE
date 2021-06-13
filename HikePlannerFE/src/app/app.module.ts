@@ -12,6 +12,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { EditEquipmentComponent } from './equipments/edit-equipment/edit-equipment.component';
+import { AddactivityComponent } from './activity/addactivity/addactivity.component';
+import { GetactivityComponent } from './activity/getactivity/getactivity.component';
+import { GettripsComponent } from './trips/gettrips/gettrips.component';
+import { AddtripComponent } from './trips/addtrip/addtrip.component';
 import { AuthModule } from '@auth0/auth0-angular';
 import { AuthButtonComponent } from './auth-button/auth-button.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -32,6 +36,10 @@ import { SelectItemComponent } from './checklist/select-item/select-item.compone
     GetEquipmentsComponent,
     AddEquipmentComponent,
     EditEquipmentComponent,
+    AddactivityComponent,
+    GetactivityComponent,
+    GettripsComponent,
+    AddtripComponent,
     AuthButtonComponent,
     ProfileComponent,
     AddChecklistComponent,

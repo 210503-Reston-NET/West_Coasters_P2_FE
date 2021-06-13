@@ -8,3 +8,7 @@
     background-color: #172e06;
     color: #fff;
 }
+.right {
+    right: 0;
+    left: initial;
+}

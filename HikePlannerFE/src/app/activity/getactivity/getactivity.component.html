@@ -1,0 +1,18 @@
+<div class="container transparent">
+    <table class="table">
+        <thead>
+            <th>Name</th>
+            <th>Notes</th>
+            <th>Trail Name</th>
+            <th>Actions</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let activity of activities;">
+                <td>{{activity.name}}</td>
+                <td>{{activity.notes}}</td>
+                <td>{{activity.trailHead}}</td>
+                <td><i class="fa fa-trash trash" (click)='DeleteActivity(activity.id, activity.name)' aria-hidden="true"></i> | <button class="btn btn-success" (click)="GoToTrips(activity.id)">Trips</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
