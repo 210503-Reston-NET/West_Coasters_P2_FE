@@ -5,7 +5,6 @@ import { checklist } from 'src/app/models/checklist';
 import { checklistItem } from 'src/app/models/checklistItem';
 import { equipment } from 'src/app/models/equipment';
 import { HPApiService} from 'src/app/services/hpapi.service';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-select-item',
@@ -39,7 +38,7 @@ export class SelectItemComponent implements OnInit {
     checklistItems: []
   }
 
-  constructor(private hpService: HPApiService, private route: ActivatedRoute, private router: Router, public user: UserService, public auth: AuthService) {   }
+  constructor(private hpService: HPApiService, private route: ActivatedRoute, private router: Router, public auth: AuthService) {   }
 
   ngOnInit(): void {
     this.hpService.GetAllEquipments().then(result =>
@@ -106,17 +105,19 @@ export class SelectItemComponent implements OnInit {
   }
 
   Send(): void {
+    console.log('checklistitems', this.toBeSent);
+    console.log('all equipments', this.items);
     for (let i = 0; i < this.toBeSent.length; i++ ){
         let newItem : checklistItem = {
           id: 0,
-          quantity: this.toBeSent[i].quantity,
+          quantity: Number(this.toBeSent[i].quantity),
           checklistId: this.toBeSent[i].checklistId,
           equipmentId: this.toBeSent[i].equipmentId,
           equipment: null,
         }
         this.hpService.AddChecklistItem(newItem)
           .then( result => {
-            alert("success!")
+            alert("success!");
           }
         );
       }

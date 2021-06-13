@@ -20,7 +20,14 @@
                     </mat-form-field>
                 </div>
                 <div class="form-group">
-                    <label for="checklist">Checklist</label>
+                    <mat-form-field name="checklist" appearance="fill">
+                        <mat-label>Checklist</mat-label>
+                        <mat-select [(ngModel)]="newTrip.checklist" name="food">
+                            <mat-option *ngFor="let list of userChecklists" [value]="list.id">
+                            {{ list.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
                 </div>
                 <div class="form-group">
                     <label for="name">Add Trip Distance: </label>

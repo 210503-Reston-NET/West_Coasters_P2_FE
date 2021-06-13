@@ -86,6 +86,10 @@ export class HPApiService {
     return this.http.get<checklist[]>(this.checklistURL).toPromise();
   }
 
+  GetChecklistByUserId(userId: string): Promise<checklist[]> {
+    return this.http.get<checklist[]>(`${this.checklistURL}/user/${userId}`).toPromise();
+  }
+
   AddChecklistItem(addNew: checklistItem): Promise<checklistItem> {
     return this.http.post<checklistItem>(`${this.checklistURL}/${addNew.checklistId}/item`, addNew).toPromise();
   }

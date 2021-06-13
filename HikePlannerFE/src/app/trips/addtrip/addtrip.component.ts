@@ -21,13 +21,14 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./addtrip.component.css']
 })
 export class AddtripComponent implements OnInit {
-  newTrip = {
+  newTrip =  {
     id: 0,
     activityId: 0,
     startDate: '',
     endDate: '',
     distance: 0,
-    creator: ""
+    creator: "",
+    checklist: {}
   }
   newActivity: activity = {
     id: 0,
@@ -43,9 +44,20 @@ export class AddtripComponent implements OnInit {
     start: '',
     end: ''
   };
+
+  userChecklists:any[] = [];
+
   constructor(private tripServices: HPApiService, private route: ActivatedRoute, private router: Router, private _snackBar: MatSnackBar, private mapService: MapService) { }
 
+  currentUserId = window.sessionStorage.getItem('currentUserId') ?? '';
   ngOnInit(): void {
+    //get all checklist created by users to display on select
+    this.tripServices.GetChecklistByUserId(this.currentUserId).then(
+      result => {
+        this.userChecklists = result;
+        console.log('checklist', result);
+      }
+    );
     this.route.queryParams.subscribe(
       params => {
         this.tripServices.GetActivity(params.id).then(
@@ -66,7 +78,6 @@ export class AddtripComponent implements OnInit {
       this.newTrip.endDate = this.tripDateRange.end;
       this.newTrip.creator = window.sessionStorage.getItem('currentUserId') ?? '';
       console.log("i have activity id to store to trips",this.newTrip);
-      console.log("date range",this.tripDateRange);
 
       this.tripServices.AddTrip(this.newTrip).then(
         result => {
@@ -125,7 +136,6 @@ export class AddtripComponent implements OnInit {
 
     return this.view.when(
           this.mapService.GetTrailById(id).then(result => {
-            console.log('it worked!!', result);
             const line = new Polyline();
             line.addPath(result.features[0].geometry.paths[0]);
             const simpleLineSymbol = {

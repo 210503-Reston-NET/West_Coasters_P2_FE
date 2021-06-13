@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
 import { equipment } from 'src/app/models/equipment';
 import { HPApiService} from 'src/app/services/hpapi.service';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-get-equipments',
@@ -24,7 +23,7 @@ export class GetEquipmentsComponent implements OnInit {
     this._filterByLetters = v;
     this.equipments = v ? this.allEquipments.filter((equipment) => equipment.name.toLocaleLowerCase().indexOf(v) !== -1) : this.allEquipments;
   }
-  constructor(private equipmentService: HPApiService, private router: Router, public user: UserService, public auth: AuthService) { }
+  constructor(private equipmentService: HPApiService, private router: Router, public auth: AuthService) { }
 
   //LC hook. There are others. (go research!)
   ngOnInit(): void {
