@@ -11,11 +11,17 @@ import { HPApiService } from 'src/app/services/hpapi.service';
 export class GetChecklistsComponent implements OnInit {
 
   checklists: checklist[] = [];
+  user: string = "";
 
-  constructor(private checklistService : HPApiService, private router: Router) { }
+  constructor(private checklistService : HPApiService, private router: Router) {
+    this.user = window.sessionStorage.getItem('currentUserId') ?? '';
+  }
 
   ngOnInit(): void {
-    this.checklistService.GetAllChecklist().then(result => this.checklists = result);
+    this.checklistService.GetAllChecklist()
+      .then(result => this.checklists =
+        result.filter(r => r.creator === this.user)
+      );
   }
 
   GoToItem(checklistId: number) {
@@ -24,6 +30,27 @@ export class GetChecklistsComponent implements OnInit {
 
   GoToAdd() {
     this.router.navigate(['addChecklist']);
+  }
+  //Not such yet.
+  GoToEdit(checkListId: number) {
+    this.router.navigate(['editChecklist'], { queryParams: { id: checkListId } });
+  }
+
+  DeleteChecklist(checklistId: number, name: string) {
+
+    //event.stopPropagation();
+    if (confirm(`Are you sure you want to delete ${name}?`).valueOf()) {
+      this.checklistService.DeleteChecklist(checklistId).then(
+        () => {
+          alert(`${name} has been deleted`);
+          this.checklistService.GetAllChecklist().then(
+            result => {
+              this.checklists = result;
+            }
+          )
+        }
+      )
+    }
   }
 
 }
