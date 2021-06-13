@@ -6,6 +6,9 @@ import { equipment } from '../models/equipment';
 import {activity} from '../models/activity';
 import { trips } from '../models/trips';
 import { user } from '../models/user';
+//for profile - didn't update our model on trips.
+import { trip } from '../models/trip';
+import { participant } from '../models/participant';
 
 @Injectable({
   providedIn: 'root'
@@ -54,10 +57,28 @@ export class HPApiService {
   GetTrips(): Promise<trips[]>{
     return this.http.get<trips[]>(this.tripURL).toPromise();
   }
+  //for invitation
+  GetSharedTrips(userId : string): Promise<trip[]>{
+    return this.http.get<trip[]>(`${this.tripURL}/shared/${userId}`).toPromise();
+  }
+
+  AddParticipant(addNew: participant): Promise<participant> {
+    return this.http.post<participant>(`${this.tripURL}/${addNew.tripId}/participants`, addNew).toPromise();
+  }
+
+  DeleteParticipant(tripId: number, id: number): Promise<void> {
+    return this.http.delete<void>(`${this.tripURL}/${tripId}/participants/${id}`).toPromise();
+  }
+
+  UpdateParticipant(tripId: number, participant: participant): Promise<void> {
+    return this.http.put<void>(`${this.tripURL}/${tripId}/participants`, participant).toPromise();
+  }
+
   GetTripsByActivityId(id: number): Promise<trips[]>{
     console.log('calling trips by its id...', id, `${this.tripURL}/Activity/${id}`);
     return this.http.get<trips[]>(`${this.tripURL}/Activity/${id}`).toPromise();
   }
+
   DeleteTrip(tripId: number) :Promise<void>{
     return this.http.delete<void>(`${this.tripURL}/${tripId}`).toPromise();
   }
