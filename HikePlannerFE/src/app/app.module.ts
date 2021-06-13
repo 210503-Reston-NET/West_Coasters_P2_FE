@@ -10,7 +10,7 @@ import { GetEquipmentsComponent } from './equipments/get-equipments/get-equipmen
 import { AddEquipmentComponent } from './equipments/add-equipment/add-equipment.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule } from '@angular/forms';
 import { EditEquipmentComponent } from './equipments/edit-equipment/edit-equipment.component';
 import { AddactivityComponent } from './activity/addactivity/addactivity.component';
 import { GetactivityComponent } from './activity/getactivity/getactivity.component';
@@ -24,6 +24,11 @@ import { AddChecklistComponent } from './checklist/add-checklist/add-checklist.c
 import { AddItemComponent } from './checklist/add-item/add-item.component';
 import { GetItemsComponent } from './checklist/get-items/get-items.component';
 import { GetChecklistsComponent } from './checklist/get-checklists/get-checklists.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -56,6 +61,11 @@ import { GetChecklistsComponent } from './checklist/get-checklists/get-checklist
       domain: environment.AUTH_DMAIN,
       clientId: environment.AUTH_CLIENT_ID
     }),
+    BrowserAnimationsModule,
+    MatSnackBarModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -36,3 +36,6 @@ tr:hover {
   -webkit-box-shadow: 1px 1px 30px 4px rgba(97, 97, 97, 0.53);
   box-shadow: 1px 1px 30px 4px rgba(97, 97, 97, 0.53);
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
