@@ -24,15 +24,12 @@ import { AddChecklistComponent } from './checklist/add-checklist/add-checklist.c
 import { AddItemComponent } from './checklist/add-item/add-item.component';
 import { GetItemsComponent } from './checklist/get-items/get-items.component';
 import { GetChecklistsComponent } from './checklist/get-checklists/get-checklists.component';
-<<<<<<< HEAD
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
-=======
 import { SelectItemComponent } from './checklist/select-item/select-item.component';
->>>>>>> e5d9d601f4d87a92f2dfe6858a1fecd663757314
 
 @NgModule({
   declarations: [
