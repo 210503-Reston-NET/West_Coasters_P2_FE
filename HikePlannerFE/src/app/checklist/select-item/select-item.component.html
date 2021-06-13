@@ -1,0 +1,48 @@
+<body>
+  <div class="container transparent">
+    <h2>{{target.name}} Checklist</h2>
+    <h3>Select Equipments &nbsp;
+      <i class="fa fa-plus-square-o plus" aria-hidden="true"></i>
+    </h3>
+    <div class="form-group">
+    </div>
+      <br/>
+      <table class="table">
+          <thead>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Quantity</th>
+              <th>Actions</th>
+          </thead>
+          <tbody>
+              <tr *ngFor="let entry of map.entries() ;">
+                  <td>{{entry[0].name}}</td>
+                  <td>{{entry[0].description}}</td>
+                  <td>{{entry[1]}}</td>
+                  <td>
+                    <i class="fa fa-pencil-square-o pencil" aria-hidden="true"
+                      (click)="OpenAddQauntity(entry[0])">Select
+                    </i>
+              </tr>
+
+          </tbody>
+
+      </table>
+      <div *ngIf = "isShow">Please Enter Quantity
+        <form (ngSubmit)="onSubmit()" #checklistItemForm="ngForm">
+            <div class="form-group">
+                <label for="name">Quantity: </label>
+                <input type="text" class="form-control" [(ngModel)]="quan" #name="ngModel" name="quan"
+                    placeholder="Enter quantity ">
+            </div>
+            <div class="form-group">
+                <br/>
+                <button type="submit" class="btn btn-secondary">Add</button>
+            </div>
+        </form>
+      </div>
+      <br/>
+      <br/>
+        <button class="btn btn-primary" (click)="SubmitChecklist()">Done</button>
+  </div>
+</body>

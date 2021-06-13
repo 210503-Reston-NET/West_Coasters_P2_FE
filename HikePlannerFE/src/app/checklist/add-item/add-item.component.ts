@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { checklistItem } from 'src/app/models/checklistItem';
 import { HPApiService } from 'src/app/services/hpapi.service';
 import { equipment } from 'src/app/models/equipment';
@@ -13,14 +13,19 @@ export class AddItemComponent implements OnInit {
   new: checklistItem = {
     id: 0,
     quantity: 0,
-    checklistId: 1,
-    equipmentId: 6,
+    checklistId: 0,
+    equipmentId: 0,
     equipment: null,
   }
 
-  constructor(private itemService : HPApiService, private router: Router) { }
+  constructor(private itemService : HPApiService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(
+      params => {
+        this.new.checklistId = params.id;
+      }
+    )
   }
 
   onSubmit(): void {

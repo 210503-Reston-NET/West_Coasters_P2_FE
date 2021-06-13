@@ -9,7 +9,10 @@ import { user } from '../models/user';
   providedIn: 'root'
 })
 export class HPApiService {
-  baseURL: string = 'https://hikeplannerrest.azurewebsites.net/api/';
+  baseURL: string =
+  //'http://hikeplannerapi.azurewebsites.net';
+  'https://hikeplannerrest.azurewebsites.net/api/';
+
   userURL: string = this.baseURL + 'users';
   equipmentURL: string = this.baseURL + 'equipments';
   checklistURL: string = this.baseURL + 'checklist';
@@ -43,6 +46,10 @@ export class HPApiService {
 
   GetChecklist(id: number): Promise<checklist> {
     return this.http.get<checklist>(`${this.checklistURL}/${id}`).toPromise();
+  }
+
+  UpdateChecklist(checklist: checklist): Promise<void> {
+    return this.http.put<void>(`${this.checklistURL}/${checklist.id}`, checklist).toPromise();
   }
 
   GetAllChecklist(): Promise<checklist[]> {

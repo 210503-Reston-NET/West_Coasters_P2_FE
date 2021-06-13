@@ -2,7 +2,7 @@
   <div class="container transparent">
       <br/>
       <h4> {{target.name}} Checklist</h4>
-         <div *ngIf="target.checklistItems != null else noItems;">
+         <div *ngIf="!target.checklistItems else noItems;">
 
           <table class="table">
 
@@ -20,9 +20,9 @@
         </div>
       <ng-template #noItems>
           <br/>
-          <h3>Add Item  <i class="fa fa-plus-square-o plus" aria-hidden="true"
-            (click)="AddItem(target.id)"></i>
-          </h3>
+          <h4>Add Item  <i class="fa fa-plus-square-o plus" aria-hidden="true"
+            (click)="SelectItem(target.id)"></i>
+          </h4>
       </ng-template>
 
   </div>
