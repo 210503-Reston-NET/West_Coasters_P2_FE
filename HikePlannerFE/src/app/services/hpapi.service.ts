@@ -14,7 +14,8 @@ import { participant } from '../models/participant';
   providedIn: 'root'
 })
 export class HPApiService {
-  baseURL: string = 'https://hikeplannerapi.azurewebsites.net/api/';
+  //baseURL: string = 'https://hikeplannerapi.azurewebsites.net/api/';
+  baseURL: string = 'https://hikeplannerrest.azurewebsites.net/api/';
   userURL: string = this.baseURL + 'users';
   equipmentURL: string = this.baseURL + 'equipments';
   activity: string = this.baseURL + 'activity';
