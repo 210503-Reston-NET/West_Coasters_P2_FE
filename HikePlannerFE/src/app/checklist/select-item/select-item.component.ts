@@ -23,6 +23,8 @@ export class SelectItemComponent implements OnInit {
 
   items : Map<equipment, number>[] = [];
 
+  toBeSent : checklistItem[] = [];
+
   cur: equipment = {
     id: 0,
     name: '',
@@ -77,23 +79,53 @@ export class SelectItemComponent implements OnInit {
   }
 
   SubmitChecklist(): void {
+    console.log("im clicked")
     for(let entry of this.map.entries()) {
       if (entry[1] > 0) {
         let newItem : checklistItem = {
           id: 0,
           quantity: entry[1],
-          checklistId: this.checklistId,
+          checklistId: this.target.id,
           equipmentId: entry[0].id,
           equipment: null,
         }
         this.target.checklistItems?.push(newItem);
-        this.hpService.AddChecklistItem(newItem);
+        this.toBeSent.push(newItem);
       }
     }
-    //update here
-    //this.hpService.UpdateChecklist(this.target);
 
+    if (this.toBeSent.length < 0) {
+        alert("no items added yet!")
+    }
+    else if (confirm("Are you sure?")) {
+      console.log("confirmed is triggered");
+      console.log(this.toBeSent);
+      this.Send();
+    }
     console.log(this.target);
+  }
+
+  Send(): void {
+    for (let i = 0; i < this.toBeSent.length; i++ ){
+        let newItem : checklistItem = {
+          id: 0,
+          quantity: this.toBeSent[i].quantity,
+          checklistId: this.toBeSent[i].checklistId,
+          equipmentId: this.toBeSent[i].equipmentId,
+          equipment: null,
+        }
+        this.hpService.AddChecklistItem(newItem)
+          .then( result => {
+            alert("success!")
+          }
+        );
+      }
+      this.router.navigate(['checklists']);
+  }
+
+  //a cancel btn
+  Cancel() {
+    this.router.navigate(['checklists'])
   }
 
 }
