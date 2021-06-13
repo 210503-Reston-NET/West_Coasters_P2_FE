@@ -22,7 +22,7 @@
                 <div class="form-group">
                     <mat-form-field name="checklist" appearance="fill">
                         <mat-label>Checklist</mat-label>
-                        <mat-select [(ngModel)]="newTrip.checklist" name="food">
+                        <mat-select [(ngModel)]="newTrip.checklistId" name="food">
                             <mat-option *ngFor="let list of userChecklists" [value]="list.id">
                             {{ list.name }}
                             </mat-option>

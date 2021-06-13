@@ -28,7 +28,7 @@ export class AddtripComponent implements OnInit {
     endDate: '',
     distance: 0,
     creator: "",
-    checklist: {}
+    checklistId: 0
   }
   newActivity: activity = {
     id: 0,
