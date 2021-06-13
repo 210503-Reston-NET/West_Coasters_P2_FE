@@ -10,9 +10,18 @@
               <th>Actions</th>
           </thead>
           <tbody>
-              <tr *ngFor="let checklist of checklists;" (click)="GoToItem(checklist.id)">
+              <tr *ngFor="let checklist of checklists;">
                   <td>{{checklist.name}}</td>
                   <td>{{checklist.creator}}</td>
+                  <td>
+                    <i class="fa fa-trash trash" aria-hidden="true"
+                      (click)='DeleteChecklist(checklist.id, checklist.name)'>
+                    </i>
+                    &nbsp;&nbsp;|&nbsp;&nbsp;
+                    <i class="fa fa-arrow-circle-right" aria-hidden="true"
+                      (click)="GoToItem(checklist.id)">
+                    </i>
+                  </td>
               </tr>
           </tbody>
       </table>

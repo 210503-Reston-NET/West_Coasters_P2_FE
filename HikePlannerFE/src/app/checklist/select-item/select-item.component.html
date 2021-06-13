@@ -2,7 +2,6 @@
   <div class="container transparent">
     <h2>{{target.name}} Checklist</h2>
     <h3>Select Equipments &nbsp;
-      <i class="fa fa-plus-square-o plus" aria-hidden="true"></i>
     </h3>
     <div class="form-group">
     </div>
@@ -20,13 +19,11 @@
                   <td>{{entry[0].description}}</td>
                   <td>{{entry[1]}}</td>
                   <td>
-                    <i class="fa fa-pencil-square-o pencil" aria-hidden="true"
+                    <i class="fa fa-check-square-o check" aria-hidden="true"
                       (click)="OpenAddQauntity(entry[0])">Select
                     </i>
               </tr>
-
           </tbody>
-
       </table>
       <div *ngIf = "isShow">Please Enter Quantity
         <form (ngSubmit)="onSubmit()" #checklistItemForm="ngForm">
@@ -44,7 +41,17 @@
       <div *ngIf = "isReady">
         <br/>
         <br/>
-          <button class="btn btn-primary" (click)="SubmitChecklist()">Done</button>
+          <h2>
+          <i class="fa fa-times-circle" aria-hidden="true" (click)="SubmitChecklist()">Done</i>
+          </h2>
+      </div>
+      <div>
+        <br/>
+        <br/>
+        <h2>
+          <i class="fa fa-times-circle" aria-hidden="true" (click)='Cancel()'></i>
+        </h2>
+        <span>Cancel</span>
       </div>
   </div>
 </body>

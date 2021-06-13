@@ -7,3 +7,5 @@ export interface checklistItem {
   equipmentId: number;
   equipment: null | equipment;
 }
+
+type Nullable<T> = T | null;
