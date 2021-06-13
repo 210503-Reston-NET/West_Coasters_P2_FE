@@ -31,10 +31,10 @@ export class AddtripComponent implements OnInit {
     trips: []
   }
 
-  tripDateRange = new FormGroup({
-    start: new FormControl(),
-    end: new FormControl()
-  });
+  tripDateRange = {
+    start: '',
+    end: ''
+  };
   constructor(private tripServices: HPApiService, private route: ActivatedRoute, private router: Router, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
@@ -53,19 +53,18 @@ export class AddtripComponent implements OnInit {
     if(window.sessionStorage.getItem('currentUserId'))
     {
       this.newTrip.activityId = this.newActivity.id;
-      this.newTrip.startDate = this.tripDateRange.value.start;
-      this.newTrip.endDate = this.tripDateRange.value.end;
+      this.newTrip.startDate = this.tripDateRange.start;
+      this.newTrip.endDate = this.tripDateRange.end;
       this.newTrip.creator = window.sessionStorage.getItem('currentUserId') ?? '';
       console.log("i have activity id to store to trips",this.newTrip);
-                this._snackBar.open('Your trip has been successfully scheduled', 'dismiss');
+      console.log("date range",this.tripDateRange);
 
-      // this.tripServices.AddTrip(this.newTrip).then(
-      //   result => {
-      //     alert(`your trip has been scheduled`);
-      //     this._snackBar.open('Your trip has been successfully scheduled', 'dismiss');
-      //     this.GoToTrips(result.activityId);
-      //   }
-      // )
+      this.tripServices.AddTrip(this.newTrip).then(
+        result => {
+          this._snackBar.open('Your trip has been successfully scheduled', 'Dismiss');
+          this.GoToTrips(result.activityId);
+        }
+      )
     }
   }
 
