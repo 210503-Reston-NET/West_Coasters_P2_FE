@@ -14,7 +14,6 @@ export class AuthButtonComponent implements OnInit {
 
   ngOnInit(): void {
     this.auth.user$.subscribe((result) => {
-      console.log('subscribe triggered', result);
       if(result?.email) {
         //user logged in
         this.hpApi.FindUserByEmail(result.email).then((userResult) =>{
@@ -22,7 +21,7 @@ export class AuthButtonComponent implements OnInit {
           if(userResult) {
             window.sessionStorage.setItem('currentUserId', userResult.userId);
           } else {
-            console.log("we didn't find a user so we're creating one")
+            console.log("we didn't find a user so we're creating one");
             //add new user here with the email
             if(result.email && result.name){
               const userToAdd: user = {

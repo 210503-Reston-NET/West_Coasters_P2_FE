@@ -1,0 +1,51 @@
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Trip Details</h1>
+    </div>
+</div>
+<div class="container mt-3 main-container">
+    <div class="row">
+        <div class="col-md-6 map-container p-0">
+            <div #activityMapDiv class="map"></div>
+        </div>
+        <div class="col-md-6 p-0 list-wrapper">
+            <div class="accordion accordion-flush" id="accordionFlushExample" *ngIf="checklist.id > 0 else noItems">
+              <div *ngIf="checklist?.checklistItems != null else checklistItemNull">
+                  <div class="accordion-item">
+                      <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                          {{checklist.name}}
+                        </button>
+                      </h2>
+                      <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                        <table>
+                          <thead>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                          </thead>
+                        <tbody *ngFor="let item1 of checklist?.checklistItems">
+                          <tr>
+                            <td>{{item1.equipment?.name}}</td>
+                            <td>{{item1.equipment?.description}}</td>
+                            <td>{{item1.quantity}}</td>
+                          </tr>
+                            
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+              </div>
+              </div>
+              <ng-template #noItems>
+                <br/>
+                <h4 class="text-center">Please add some items to checklist</h4>
+            </ng-template>
+            <ng-template #checklistItemNull>
+              <br/>
+              <h4 class="text-center">It has no item</h4>
+          </ng-template>
+        </div>
+    </div>
+</div>
+

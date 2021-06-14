@@ -15,6 +15,7 @@ import Graphic from '@arcgis/core/Graphic';
 import Polyline from '@arcgis/core/geometry/Polyline';
 import { MapService } from '../services/map.service';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-map',
@@ -39,7 +40,7 @@ export class MapComponent implements OnInit, OnDestroy {
   initializeMap() : Promise<any> {
     const container = this.mapViewEl.nativeElement;
     
-    esriConfig.apiKey = "AAPKe972efc85860456dbd0fe6c227d8fc92xaIGZA98q-ZPD6Mak-Iks7mZbFg_xeYadDJ5nWB5JGbJbIjkdSVXJG0v5p_Jai8O";
+    esriConfig.apiKey = environment.MAP_KEY;
     const map = new Map({
       basemap: "arcgis-topographic"
     });
@@ -57,8 +58,6 @@ export class MapComponent implements OnInit, OnDestroy {
     
     const popupTrailheads = {
       title: "{RECAREANAME}",
-      // content: "<b>Type: </b> {MARKERACTIVITY} <br/><b>Forest:</b> {FORESTNAME}<br><b>Status: </b>{OPENSTATUS}<br><b>Website:</b> <a href='{RECAREAURL}'>{RECAREAURL}</a> <br> <b>Description:</b> {RECAREADESCRIPTION}",
-      // actions: [thAction]
     };
 
     const trailheadsLayer = new FeatureLayer({
@@ -70,7 +69,6 @@ export class MapComponent implements OnInit, OnDestroy {
 
     const popupTrails = {
       "title": "{TRAIL_NAME}"
-      // "content": "<b>Typical Trail Grade:</b> {TYPICAL_TRAIL_GRADE}<br><b>GIS Miles:</b> {GIS_MILES}"
     }
     const trailsLayer = new FeatureLayer({
       url: "https://apps.fs.usda.gov/arcx/rest/services/EDW/EDW_TrailNFSPublish_01/MapServer/0",
@@ -83,7 +81,7 @@ export class MapComponent implements OnInit, OnDestroy {
       view: view,
       useHeadingEnabled: false,
       goToOverride: function(view, options) {
-        options.target.scale = 1500;
+        options.target.scale = 20000;
         return view.goTo(options.target);
       }
     });

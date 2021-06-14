@@ -1,19 +1,22 @@
-<div class="container transparent">
-    <h4>{{trail.name}}</h4>
-    <form (ngSubmit)="onSubmit()" #activityForm="ngForm">
-        <div class="form-group">
-            <label for="name">Name your Activity: </label>
-            <input type="text" class="form-control" [(ngModel)]="newActivity.name" #name="ngModel" name="name"
-                placeholder="Enter the Activity name">
-        </div>
-        <div class="form-group mt-2">
-            <label for="description">Any Notes for your Activity: </label>
-            <input type="text" class="form-control" [(ngModel)]="newActivity.notes" #name="ngModel" name="description"
-                placeholder="Enter Notes">
-        </div>
-        <div class="form-group mt-2">
-            <button type="submit" class="btn btn-success">Add Activity</button>
-        </div>
-    </form>
-    <div #activityMapDiv></div>
+<div class="container transparent d-flex flex-row justify-content-between">
+    <div class="p-2 col-md-6">
+        <h3>Add New Activity</h3>
+        <hr>
+        <h5>Trail: {{trail.name}}</h5>
+        <form (ngSubmit)="onSubmit()" #activityForm="ngForm">
+            <div class="form-group">
+                <label for="name">Name: </label>
+                <input type="text" class="form-control" [(ngModel)]="newActivity.name" #name="ngModel" name="name"
+                    placeholder="Enter the Activity name">
+            </div>
+            <div class="form-group mt-2">
+                <label for="description">Notes: </label>
+                <textarea name="description" placeholder="Enter Notes" id="description" class="form-control" [(ngModel)]="newActivity.notes" #name="ngModel" cols="30" rows="5"></textarea>
+            </div>
+            <div class="form-group mt-2">
+                <button type="submit" class="btn btn-success">Add Activity</button>
+            </div>
+        </form>
+    </div>
+    <div #activityMapDiv class="map p-2"></div>
 </div>

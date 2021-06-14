@@ -1,7 +1,5 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { activity } from '../../models/activity';
-import { HPApiService } from '../../services/hpapi.service';
 
 import Map from '@arcgis/core/Map';
 import esriConfig from '@arcgis/core/config.js';
@@ -10,65 +8,55 @@ import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer'; 
 import Graphic from '@arcgis/core/Graphic';
 import Polyline from '@arcgis/core/geometry/Polyline';
-import { MapService } from '../../services/map.service';
 import { environment } from 'src/environments/environment';
+import { MapService } from 'src/app/services/map.service';
+import { HPApiService } from 'src/app/services/hpapi.service';
+import { checklist } from 'src/app/models/checklist';
 
 @Component({
-  selector: 'app-addactivity',
-  templateUrl: './addactivity.component.html',
-  styleUrls: ['./addactivity.component.css']
+  selector: 'app-tripdetails',
+  templateUrl: './tripdetails.component.html',
+  styleUrls: ['./tripdetails.component.css']
 })
-export class AddactivityComponent implements OnInit, OnDestroy {
-  trail = {
-    id: 0,
-    name: ''
-  };
-  newActivity: activity = {
+export class TripdetailsComponent implements OnInit {
+  tripId = 0;
+  actTailID = 0;
+  activityId= 0;
+  checklist: checklist = {
     id: 0,
     name: '',
-    notes: '',
-    trailId: this.trail.id,
-    trailHead: this.trail.name,
+    dateCreated: null,
     creator: '',
-    trips: []
+    checklistItems: []
   }
-  constructor(private activityService: HPApiService,private route: ActivatedRoute, private router: Router, private mapService:MapService) { }
+
+  constructor(private route: ActivatedRoute,private mapService: MapService, private hpApi: HPApiService) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(
-      params => {
-        this.trail.id = params.id;
-        this.trail.name = params.name;
+      param =>{
+        this.actTailID = param.activitytrailId;
+        this.activityId = param.activityId;
+        this.tripId = param.id;
         this.initializeMap();
-      }
+        this.getChecklistById(this.activityId);
+      } 
     );
   }
-
-  ngOnDestroy(): void {
-    if (this.view) {
-      // destroy the map view
-      this.view.destroy();
-    }
-  }
-  onSubmit(): void{
-    if(window.sessionStorage.getItem('currentUserId'))
-    {
-      this.newActivity.creator = window.sessionStorage.getItem('currentUserId') ?? '';
-      this.newActivity.trailId = this.trail.id;
-      this.newActivity.trailHead = this.trail.name;
-      this.activityService.AddAnActivity(this.newActivity)
-      .then(
-        result => {
-          alert(`${result.name} added to activity`);
-          this.GoToActivies();
+  getChecklistById(id: number){
+    this.hpApi.GetChecklist(id).then(
+      res => {
+        if(res != null){
+          if(res.checklistItems != null){
+            this.checklist = res;
+            console.log("checklist in trip details",this.checklist);
+          }
         }
-      )
-    }
+        
+        
+      }
+    )
   }
-  GoToActivies() {
-    this.router.navigate(['activities'])
-  }
-
   @ViewChild('activityMapDiv', { static: true }) private mapViewEl : any;
   public customShape: any = null;
   public graphicsLayer = new GraphicsLayer();
@@ -116,8 +104,8 @@ export class AddactivityComponent implements OnInit, OnDestroy {
     map.add(trailsLayer, 0);
 
     return this.view.when(
-          this.mapService.GetTrailById(this.trail.id).then( result => {
-            console.log('it worked!!', result);
+          this.mapService.GetTrailById(this.actTailID).then( result => {
+            // console.log('it worked!!', result);
             const line = new Polyline();
             line.addPath(result.features[0].geometry.paths[0]);
             const simpleLineSymbol = {
