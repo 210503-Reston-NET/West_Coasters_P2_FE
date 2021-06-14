@@ -21,18 +21,6 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./addtrip.component.css']
 })
 export class AddtripComponent implements OnInit {
-<<<<<<< HEAD
-=======
-  newTrip =  {
-    id: 0,
-    activityId: 0,
-    startDate: '',
-    endDate: '',
-    distance: 0,
-    creator: "",
-    checklistId: 0
-  }
->>>>>>> 3f3fc961caee3e8b4b03e409d38fa3ed199a27dd
   newActivity: activity = {
     id: 0,
     name: '',
@@ -42,19 +30,16 @@ export class AddtripComponent implements OnInit {
     creator: '',
     trips: []
   }
-<<<<<<< HEAD
-  newTrip = {
+  newTrip =  {
     id: 0,
     activityId: 0,
-    startDate: new Date().toJSON(),
-    endDate: new Date().toJSON(),
+    startDate: '',
+    endDate: '',
     distance: 0,
     creator: "",
+    checklistId: 0,
     activities: this.newActivity
   }
-  constructor(private tripServices: HPApiService, private route: ActivatedRoute, private router: Router) { }
-=======
->>>>>>> 3f3fc961caee3e8b4b03e409d38fa3ed199a27dd
 
   tripDateRange = {
     start: '',
@@ -79,11 +64,8 @@ export class AddtripComponent implements OnInit {
         this.tripServices.GetActivity(params.id).then(
           result => {
             this.newActivity = result;
-<<<<<<< HEAD
-=======
             console.log(result, 'we got the activity');
             this.initializeMap(result.trailId);
->>>>>>> 3f3fc961caee3e8b4b03e409d38fa3ed199a27dd
           }
         );
       }
@@ -96,11 +78,8 @@ export class AddtripComponent implements OnInit {
       this.newTrip.startDate = this.tripDateRange.start;
       this.newTrip.endDate = this.tripDateRange.end;
       this.newTrip.creator = window.sessionStorage.getItem('currentUserId') ?? '';
-<<<<<<< HEAD
-=======
       console.log("i have activity id to store to trips",this.newTrip);
 
->>>>>>> 3f3fc961caee3e8b4b03e409d38fa3ed199a27dd
       this.tripServices.AddTrip(this.newTrip).then(
         result => {
           this._snackBar.open('Your trip has been successfully scheduled', 'Dismiss');
