@@ -18,8 +18,8 @@ export class CreatortripsComponent implements OnInit {
       result => this.trips = result
       )
     }
-    TripDetails(tripId: number,activityId: number) : void {
-      this.router.navigate(['tripdetails'], {queryParams:{id: tripId, activityId: activityId}});
+    TripDetails(tripId: number,activitytrailId: number, activityId: number) : void {
+      this.router.navigate(['tripdetails'], {queryParams:{id: tripId, activitytrailId: activitytrailId, activityId: activityId}});
     }
     DeleteTrip(tripId: number, tripDate: string){
       this.hpApi.DeleteTrip(tripId).then(

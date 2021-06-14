@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common'; 
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -58,6 +59,7 @@ import { TripdetailsComponent } from './trips/tripdetails/tripdetails.component'
     HttpClientModule,
     FormsModule,
     BrowserModule,
+    CommonModule,
     AuthModule.forRoot({
       domain: environment.AUTH_DMAIN,
       clientId: environment.AUTH_CLIENT_ID

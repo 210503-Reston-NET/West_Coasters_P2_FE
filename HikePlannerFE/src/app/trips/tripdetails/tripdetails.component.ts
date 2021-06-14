@@ -10,6 +10,8 @@ import Graphic from '@arcgis/core/Graphic';
 import Polyline from '@arcgis/core/geometry/Polyline';
 import { environment } from 'src/environments/environment';
 import { MapService } from 'src/app/services/map.service';
+import { HPApiService } from 'src/app/services/hpapi.service';
+import { checklist } from 'src/app/models/checklist';
 
 @Component({
   selector: 'app-tripdetails',
@@ -17,20 +19,43 @@ import { MapService } from 'src/app/services/map.service';
   styleUrls: ['./tripdetails.component.css']
 })
 export class TripdetailsComponent implements OnInit {
-
   tripId = 0;
   actTailID = 0;
-  constructor(private route: ActivatedRoute,private mapService: MapService) { }
+  activityId= 0;
+  checklist: checklist = {
+    id: 0,
+    name: '',
+    dateCreated: null,
+    creator: '',
+    checklistItems: []
+  }
+
+  constructor(private route: ActivatedRoute,private mapService: MapService, private hpApi: HPApiService) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(
       param =>{
-        this.actTailID = param.activityId;
+        this.actTailID = param.activitytrailId;
+        this.activityId = param.activityId;
         this.tripId = param.id;
         this.initializeMap();
-        console.log("params passed from creator trip",param);
+        this.getChecklistById(this.activityId);
       } 
     );
+  }
+  getChecklistById(id: number){
+    this.hpApi.GetChecklist(id).then(
+      res => {
+        if(res != null){
+          if(res.checklistItems != null){
+            this.checklist = res;
+            console.log("checklist in trip details",this.checklist);
+          }
+        }
+        
+        
+      }
+    )
   }
   @ViewChild('activityMapDiv', { static: true }) private mapViewEl : any;
   public customShape: any = null;
@@ -80,7 +105,7 @@ export class TripdetailsComponent implements OnInit {
 
     return this.view.when(
           this.mapService.GetTrailById(this.actTailID).then( result => {
-            console.log('it worked!!', result);
+            // console.log('it worked!!', result);
             const line = new Polyline();
             line.addPath(result.features[0].geometry.paths[0]);
             const simpleLineSymbol = {

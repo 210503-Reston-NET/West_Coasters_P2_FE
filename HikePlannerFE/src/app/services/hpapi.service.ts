@@ -78,6 +78,7 @@ export class HPApiService {
   }
 
   GetChecklist(id: number): Promise<checklist> {
+    console.log("Checklist service clicked", this.http.get<checklist>(`${this.checklistURL}/${id}`).toPromise(), id);
     return this.http.get<checklist>(`${this.checklistURL}/${id}`).toPromise();
   }
 
