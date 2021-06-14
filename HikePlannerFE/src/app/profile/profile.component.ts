@@ -33,14 +33,21 @@ export class ProfileComponent implements OnInit{
 
   constructor(public auth: AuthService, private hpService: HPApiService) {
     this.user = window.sessionStorage.getItem('currentUserId') ?? '';
+
   }
+
   ngOnInit():void{
     console.log(this.auth);
+
+
     this.hpService.GetSharedTrips(this.user).then(
       result => {
-        result.filter(r => r.participants?.filter(p => p.accept === false))
+        result.filter(r => r.participants?.filter(p => p.accept == false))
         this.tripInvite = result;
+       // console.log(currentUserId);
+        console.log("tripInvite -> ",result);
         console.log("tripInvite -> ",this.tripInvite);
+
       }
     );
 
@@ -61,15 +68,17 @@ export class ProfileComponent implements OnInit{
 
   AcceptInvite(tripId : number): void {
     //update participant table and set accept as true
+    let currentUserId = window.sessionStorage.getItem('currentUserId') ?? '';
+
     let trip = this.tripInvite.find(t => t.id == tripId);
-    let target : participant | undefined | null = trip?.participants?.find(p => p.userId === this.user);
+    let target : participant | undefined | null = trip?.participants?.find(p => p.userId == currentUserId);
     if (target?.id) {
       let id : number = target?.id;
       this.hpService.DeleteParticipant(target.id);
 
       let newPart: participant = {
         id: target?.id,
-        userId: this.user,
+        userId: currentUserId,
         accept: true,
         tripId: tripId
       }
@@ -84,16 +93,22 @@ export class ProfileComponent implements OnInit{
 
   RejectInvite(tripId : number): void {
     let trip = this.tripInvite.find(t => t.id == tripId);
+    let currentUserId = window.sessionStorage.getItem('currentUserId') ?? '';
 
-    let target : participant | undefined | null = trip?.participants?.find(p => p.userId === this.user);
+    let target : participant | undefined | null = trip?.participants?.find(p => p.userId == currentUserId);
     if (target?.id) {
       let id : number = target?.id;
-      this.hpService.DeleteParticipant(target.id);
+      this.hpService.DeleteParticipant(target.id).then(
+        result => {
+          alert("Ok")
+        }
+      );
+      //reload the page
+      //don't show the div
     }
   }
 
 }
-
 
 /*
 disclaimer:
