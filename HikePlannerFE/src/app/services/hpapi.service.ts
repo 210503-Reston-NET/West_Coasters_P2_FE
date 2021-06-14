@@ -14,7 +14,8 @@ import { participant } from '../models/participant';
   providedIn: 'root'
 })
 export class HPApiService {
-  baseURL: string = 'https://hikeplannerapi.azurewebsites.net/api/';
+  //baseURL: string = 'https://hikeplannerapi.azurewebsites.net/api/';
+  baseURL: string = 'https://hikeplannerrest.azurewebsites.net/api/';
   userURL: string = this.baseURL + 'users';
   equipmentURL: string = this.baseURL + 'equipments';
   activity: string = this.baseURL + 'activity';
@@ -132,6 +133,10 @@ export class HPApiService {
   AddChecklistItem(addNew: checklistItem): Promise<checklistItem> {
     return this.http.post<checklistItem>(`${this.checklistURL}/${addNew.checklistId}/item`, addNew).toPromise();
   }
+
+  // AddChecklistItems(list: checklistItem[]): Promise<checklistItem> {
+  //   return this.http.post<checklistItem>(`${this.checklistURL}/${addNew.checklistId}/item`, addNew).toPromise();
+  // }
 
   DeleteChecklistItem(checklistId: number, id: number): Promise<void> {
     return this.http.delete<void>(`${this.checklistURL}/${checklistId}/item/${id}`).toPromise();

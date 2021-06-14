@@ -19,12 +19,12 @@ export class GetItemsComponent implements OnInit {
     creator: '',
     checklistItems: []
   }
-  checklistId : number = 0;
+  //checklistId : number = 0;
   isShow : boolean = false;
 
   //map : Map<checklistItem, equipment> |null | undefined = new Map<equipment, checklistItem>();
 
-  items: checklistItem[] | null | undefined = [];
+  items: checklistItem[] = [];
   constructor(private itemService : HPApiService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
@@ -33,7 +33,7 @@ export class GetItemsComponent implements OnInit {
         this.itemService.GetChecklist(params.checklistId).then(
           result => {
             this.target = result;
-            this.checklistId = result.id;
+            //this.checklistId = result.id;
             if (result.checklistItems?.length) {
               this.isShow = true;
             }

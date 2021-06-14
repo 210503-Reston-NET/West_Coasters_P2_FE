@@ -14,7 +14,7 @@ import { HPApiService} from 'src/app/services/hpapi.service';
 export class SelectItemComponent implements OnInit {
 
   isShow: boolean = false;
-  checklistId : number = 0;
+  //checklistId : number = 0;
   quan : number = 0;
   isReady: boolean = false;
 
@@ -46,14 +46,20 @@ export class SelectItemComponent implements OnInit {
     );
     this.route.queryParams.subscribe(
       params => {
-        this.checklistId = params.id
+        //this.checklistId = params.id
+        this.hpService.GetChecklist(params.id).then(
+          result => {
+            this.target = result;
+            console.log("checklist -> ", result)
+          }
+        )
       }
     )
-    this.hpService.GetChecklist(this.checklistId).then(
-      result => {
-        this.target = result;
-      }
-    )
+    // this.hpService.GetChecklist(this.checklistId).then(
+    //   result => {
+    //     this.target = result;
+    //   }
+    // )
   }
 
   GoToAdd() {
@@ -115,13 +121,14 @@ export class SelectItemComponent implements OnInit {
           equipmentId: this.toBeSent[i].equipmentId,
           equipment: null,
         }
+        console.log("newItem", i, "-> ", newItem)
         this.hpService.AddChecklistItem(newItem)
           .then( result => {
             alert("success!");
           }
         );
       }
-      this.router.navigate(['checklists']);
+      //this.router.navigate(['checklists']);
   }
 
   //a cancel btn
