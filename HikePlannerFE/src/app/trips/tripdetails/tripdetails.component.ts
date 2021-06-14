@@ -56,25 +56,10 @@ export class TripdetailsComponent implements OnInit {
         this.hpApi.GetActivity(this.activityId).then((result) => {
           this.activityDetail = result;
         });
+        this.fetchParticipants();
         this.initializeMap();
         this.getChecklistById(this.activityId);
-        this.hpApi.GetParticipants(this.tripId).then(
-          (result) => {
-            this.participants = result;
-
-            this.participants.forEach(person => {
-              this.hpApi.GetUserById(person.userId).then(
-                userfound => {
-                  this.participantsInfo.push(
-                    {
-                      "user": userfound,
-                      "accept": person.accept 
-                    });
-                }
-              )
-            });
-          }
-        )
+        
       } 
     );
   }
@@ -92,19 +77,44 @@ export class TripdetailsComponent implements OnInit {
     )
   }
 
+  fetchParticipants() {
+    this.hpApi.GetParticipants(this.tripId).then(
+      (result) => {
+        this.participants = result;
+        
+        this.participants.forEach(person => {
+          this.hpApi.GetUserById(person.userId).then(
+            userfound => {
+              this.participantsInfo.push(
+                {
+                  "user": userfound,
+                  "accept": person.accept 
+                });
+            }
+          )
+        });
+      }
+    )
+  }
+
   SearchUserByEmail() {
     this.hpApi.FindUserByEmail(this.emailToSearch).then(
       (result) => {
         this.foundUser = result;
-        if(this.participants.find(person => person.userId == result.userId))
-        {
-          this.foundUser.exists = true;
-          this._snackBar.open("This person has already been invited!", "Dismiss", { verticalPosition: 'top' });
-        }
-        if(window.sessionStorage.getItem('currentUserId') == this.foundUser.userId)
-        {
-          this.foundUser.exists = true;
-          this._snackBar.open("You can't invite yourself to your own trip :/", "Dismiss", {verticalPosition: 'top'});
+        console.log(this.foundUser);
+        if(result !== null) {
+          if(this.participants.find(person => person.userId == result.userId))
+          {
+            this.foundUser.exists = true;
+            this._snackBar.open("This person has already been invited!", "Dismiss", { verticalPosition: 'top' });
+          }
+          if(window.sessionStorage.getItem('currentUserId') == this.foundUser.userId)
+          {
+            this.foundUser.exists = true;
+            this._snackBar.open("You can't invite yourself to your own trip :/", "Dismiss", {verticalPosition: 'top'});
+          }
+        } else {
+          this._snackBar.open("User not found :(", "Dismiss", { verticalPosition: 'top' });
         }
       }
     )
@@ -122,6 +132,7 @@ export class TripdetailsComponent implements OnInit {
         this._snackBar.open(`${this.foundUser.name} was invited successfully!`, 'Dismiss', {
           verticalPosition: 'top'
         });
+        this.fetchParticipants();
       }
     )
   }

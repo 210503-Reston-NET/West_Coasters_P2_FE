@@ -35,13 +35,13 @@
                       </div>
               </div>
               <div class="accordion-item">
-                <h2 class="accordion-header" id="flush-headingOne">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                <h2 class="accordion-header" id="flush-headingTwo">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
                     Participants
                   </button>
                 </h2>
-                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                  <table>
+                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                  <table class="table" *ngIf="participantsInfo.length > 0">
                     <thead>
                       <th>Name</th>
                       <th>Invitation Accepted</th>
@@ -53,13 +53,16 @@
                       </tr>
                     </tbody>
                   </table>
-                  <div class="d-flex flex-row justify-content-between" *ngIf="currentUserId == activityDetail.creator">
-                    <div class="col-md-10">
-                      <input class="form-control mr-2" type="text" #name="ngModel" [(ngModel)]="emailToSearch">
+                  <div>
+                    <div class="container"><h6>Invite New User</h6></div>
+                    <div class="d-flex flex-row justify-content-between" *ngIf="currentUserId == activityDetail.creator">
+                      <div class="col-md-10">
+                        <input class="form-control mr-2" type="text" #name="ngModel" [(ngModel)]="emailToSearch">
+                      </div>
+                      <button class="btn btn-primary" (click)="SearchUserByEmail()">Search</button>
                     </div>
-                    <button class="btn btn-primary" (click)="SearchUserByEmail()">Search</button>
                   </div>
-                  <div *ngIf="foundUser && !foundUser?.exists">
+                  <div class="container" *ngIf="foundUser != null && !foundUser?.exists">
                     <dt>Name</dt>
                     <dd>{{foundUser.name}}</dd>
                     <dt>Email</dt>
