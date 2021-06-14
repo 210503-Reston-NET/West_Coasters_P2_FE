@@ -12,7 +12,7 @@ import { HPApiService } from '../services/hpapi.service';
 })
 export class ProfileComponent implements OnInit{
 
-  user: string = "";
+  currentUserId: string = "";
 
   //gather info for testing
   //tripId = 18
@@ -30,23 +30,23 @@ export class ProfileComponent implements OnInit{
   */
   tripInvite : trip[] = [];
   map = new Map<activity, trip[]>();
+  tripData : any = {};
 
   constructor(public auth: AuthService, private hpService: HPApiService) {
-    this.user = window.sessionStorage.getItem('currentUserId') ?? '';
-
+    this.currentUserId = window.sessionStorage.getItem('currentUserId') ?? '';
   }
 
   ngOnInit():void{
     console.log(this.auth);
 
-
-    this.hpService.GetSharedTrips(this.user).then(
+    this.hpService.GetSharedTrips(this.currentUserId).then(
       result => {
         result.filter(r => r.participants?.filter(p => p.accept == false))
         this.tripInvite = result;
+        this.tripData = result;
        // console.log(currentUserId);
         console.log("tripInvite -> ",result);
-        console.log("tripInvite -> ",this.tripInvite);
+        console.log("tripData -> ",this.tripData);
 
       }
     );
@@ -68,17 +68,17 @@ export class ProfileComponent implements OnInit{
 
   AcceptInvite(tripId : number): void {
     //update participant table and set accept as true
-    let currentUserId = window.sessionStorage.getItem('currentUserId') ?? '';
+    //let currentUserId = window.sessionStorage.getItem('currentUserId') ?? '';
 
     let trip = this.tripInvite.find(t => t.id == tripId);
-    let target : participant | undefined | null = trip?.participants?.find(p => p.userId == currentUserId);
+    let target : participant | undefined | null = trip?.participants?.find(p => p.userId == this.currentUserId);
     if (target?.id) {
       let id : number = target?.id;
       this.hpService.DeleteParticipant(target.id);
 
       let newPart: participant = {
         id: target?.id,
-        userId: currentUserId,
+        userId: this.currentUserId,
         accept: true,
         tripId: tripId
       }
@@ -93,9 +93,8 @@ export class ProfileComponent implements OnInit{
 
   RejectInvite(tripId : number): void {
     let trip = this.tripInvite.find(t => t.id == tripId);
-    let currentUserId = window.sessionStorage.getItem('currentUserId') ?? '';
-
-    let target : participant | undefined | null = trip?.participants?.find(p => p.userId == currentUserId);
+    //currentUserIdlet currentUserId = window.sessionStorage.getItem('currentUserId') ?? '';
+    let target : participant | undefined | null = trip?.participants?.find(p => p.userId == this.currentUserId);
     if (target?.id) {
       let id : number = target?.id;
       this.hpService.DeleteParticipant(target.id).then(
