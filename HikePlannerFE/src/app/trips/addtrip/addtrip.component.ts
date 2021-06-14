@@ -81,7 +81,9 @@ export class AddtripComponent implements OnInit {
 
       this.tripServices.AddTrip(this.newTrip).then(
         result => {
-          this._snackBar.open('Your trip has been successfully scheduled', 'Dismiss');
+          this._snackBar.open('Your trip has been successfully scheduled', 'Dismiss', {
+            verticalPosition: 'top'
+          });
           this.GoToTrips(result.activityId);
         }
       )
