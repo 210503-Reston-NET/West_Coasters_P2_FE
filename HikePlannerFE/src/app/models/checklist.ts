@@ -5,5 +5,5 @@ export interface checklist {
   name: string;
   dateCreated: null | Date;
   creator: string;
-  checklistItems: null | checklistItem[];
+  checklistItems: null | checklistItem[] | undefined;
 }

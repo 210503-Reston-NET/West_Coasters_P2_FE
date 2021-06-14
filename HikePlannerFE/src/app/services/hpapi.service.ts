@@ -82,6 +82,10 @@ export class HPApiService {
     return this.http.get<checklist>(`${this.checklistURL}/${id}`).toPromise();
   }
 
+  DeleteChecklist(id: number): Promise<void> {
+    return this.http.delete<void>(`${this.checklistURL}/${id}`).toPromise();
+  }
+
   UpdateChecklist(checklist: checklist): Promise<void> {
     return this.http.put<void>(`${this.checklistURL}/${checklist.id}`, checklist).toPromise();
   }
@@ -90,8 +94,20 @@ export class HPApiService {
     return this.http.get<checklist[]>(this.checklistURL).toPromise();
   }
 
+  GetChecklistByUserId(userId: string): Promise<checklist[]> {
+    return this.http.get<checklist[]>(`${this.checklistURL}/user/${userId}`).toPromise();
+  }
+
   AddChecklistItem(addNew: checklistItem): Promise<checklistItem> {
     return this.http.post<checklistItem>(`${this.checklistURL}/${addNew.checklistId}/item`, addNew).toPromise();
+  }
+
+  DeleteChecklistItem(checklistId: number, id: number): Promise<void> {
+    return this.http.delete<void>(`${this.checklistURL}/${checklistId}/item/${id}`).toPromise();
+  }
+
+  UpdateChecklistItem(checklistId: number, checklistItem: checklistItem): Promise<void> {
+    return this.http.put<void>(`${this.checklistURL}/${checklistId}/item`, checklistItem).toPromise();
   }
 
   //USER

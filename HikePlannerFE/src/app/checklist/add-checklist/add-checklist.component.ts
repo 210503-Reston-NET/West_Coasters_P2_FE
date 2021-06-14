@@ -13,7 +13,7 @@ export class AddChecklistComponent implements OnInit {
     id: 0,
     name: '',
     dateCreated: new Date(),
-    creator: '5f6e429d-2a77-48b6-a1b7-67822955476a', //will circle back
+    creator: '', //will circle back
     checklistItems: null
   }
 
@@ -23,18 +23,20 @@ export class AddChecklistComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.new.creator = window.sessionStorage.getItem('currentUserId') ?? '';
+
     this.checklistService.AddChecklist(this.new)
       .then(
         result => {
-          // alert(`${result.name} has been added`);
-          // //this.GoToAll();
+          alert(`${result.name} has been added`);
+          //this.GoToAll();
           this.router.navigate(['checklistItems'], { queryParams: { checklistId: result.id } });
         }
       )
   }
-  // GoToAll() {
-  //   this.router.navigate(['checklists'])
-  // }
-  //<i class="fa fa-arrow-circle-left" aria-hidden="true" (click)='GoToAll()'></i>
+
+  Cancel() {
+    this.router.navigate(['checklists'])
+  }
 
 }
