@@ -14,8 +14,7 @@ import { participant } from '../models/participant';
   providedIn: 'root'
 })
 export class HPApiService {
-  //baseURL: string = 'https://hikeplannerapi.azurewebsites.net/api/';
-  baseURL: string = 'https://hikeplannerrest.azurewebsites.net/api/';
+  baseURL: string = 'https://hikeplannerapi.azurewebsites.net/api/';
   userURL: string = this.baseURL + 'users';
   equipmentURL: string = this.baseURL + 'equipments';
   activity: string = this.baseURL + 'activity';
@@ -59,13 +58,18 @@ export class HPApiService {
   GetTrips(): Promise<trips[]>{
     return this.http.get<trips[]>(this.tripURL).toPromise();
   }
+
+  GetTripById(id: number): Promise<trip> {
+    return this.http.get<trip>(`${this.tripURL}/${id}`).toPromise();
+  }
+
   //for invitation
   GetSharedTrips(userId : string): Promise<trip[]>{
     return this.http.get<trip[]>(`${this.tripURL}/shared/${userId}`).toPromise();
   }
 
   GetParticipants(tripId : number): Promise<participant[]> {
-    return this.http.get<participant[]>(`${this.participantURL}/${tripId}`).toPromise();
+    return this.http.get<participant[]>(`${this.participantURL}/trip/${tripId}`).toPromise();
   }
 
   AddParticipant(addNew: participant): Promise<participant> {
@@ -147,5 +151,8 @@ export class HPApiService {
   }
   GetTripsByCreator(id: string): Promise<trips[]>{
     return this.http.get<trips[]>(`${this.tripURL}/Creator/${id}`).toPromise();
+  }
+  GetUserById(userId: string): Promise<user> {
+    return this.http.get<user>(`${this.userURL}/${userId}`).toPromise();
   }
 }

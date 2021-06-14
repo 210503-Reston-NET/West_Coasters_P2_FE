@@ -33,3 +33,7 @@
 .list-wrapper{
     border: 1px solid #ccc;
 }
+
+.mr-2 {
+    margin: 0 7px;
+}

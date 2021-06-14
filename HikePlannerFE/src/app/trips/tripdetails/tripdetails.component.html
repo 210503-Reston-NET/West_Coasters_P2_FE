@@ -9,9 +9,8 @@
             <div #activityMapDiv class="map"></div>
         </div>
         <div class="col-md-6 p-0 list-wrapper">
-            <div class="accordion accordion-flush" id="accordionFlushExample" *ngIf="checklist.id > 0 else noItems">
-              <div *ngIf="checklist?.checklistItems != null else checklistItemNull">
-                  <div class="accordion-item">
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                  <div class="accordion-item" *ngIf="checklist.id > 0 && checklist?.checklistItems != null else checklistItemNull">
                       <h2 class="accordion-header" id="flush-headingOne">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
                           {{checklist.name}}
@@ -34,7 +33,42 @@
                           </tbody>
                         </table>
                       </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    Participants
+                  </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                  <table>
+                    <thead>
+                      <th>Name</th>
+                      <th>Invitation Accepted</th>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let person of participantsInfo">
+                        <td>{{person.user.name}}</td>
+                        <td>{{person.accept}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="d-flex flex-row justify-content-between" *ngIf="currentUserId == activityDetail.creator">
+                    <div class="col-md-10">
+                      <input class="form-control mr-2" type="text" #name="ngModel" [(ngModel)]="emailToSearch">
                     </div>
+                    <button class="btn btn-primary" (click)="SearchUserByEmail()">Search</button>
+                  </div>
+                  <div *ngIf="foundUser && !foundUser?.exists">
+                    <dt>Name</dt>
+                    <dd>{{foundUser.name}}</dd>
+                    <dt>Email</dt>
+                    <dd>{{foundUser.email}}</dd>
+                    <button class="btn btn-success" (click) ="InviteUser()" >
+                      Invite
+                    </button>
+                  </div>
+                </div>
               </div>
               </div>
               <ng-template #noItems>
