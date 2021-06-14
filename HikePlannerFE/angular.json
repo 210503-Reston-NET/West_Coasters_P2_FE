@@ -20,6 +20,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "moment"
+            ],
             "outputPath": "dist/HikePlannerFE",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -30,6 +33,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/custom-theme.scss",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/font-awesome/css/font-awesome.min.css",
               "src/styles.css"

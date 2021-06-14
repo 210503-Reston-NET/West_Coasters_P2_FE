@@ -62,8 +62,15 @@ export class HPApiService {
     return this.http.delete<void>(`${this.tripURL}/${tripId}`).toPromise();
   }
   AddTrip(newTrip: trips): Promise<trips> {
-    console.log("service clocked!");
-    return this.http.post<trips>(this.tripURL, newTrip).toPromise();
+    let trip = {
+      id: newTrip.id,
+      activityId: newTrip.activityId,
+      startDate: newTrip.startDate,
+      endDate: newTrip.endDate,
+      distance: newTrip.distance,
+      creator: newTrip.creator
+    }
+    return this.http.post<trips>(this.tripURL, trip).toPromise();
   }
 
   AddChecklist(addNew: checklist): Promise<checklist> {
@@ -71,6 +78,7 @@ export class HPApiService {
   }
 
   GetChecklist(id: number): Promise<checklist> {
+    console.log("Checklist service clicked", this.http.get<checklist>(`${this.checklistURL}/${id}`).toPromise(), id);
     return this.http.get<checklist>(`${this.checklistURL}/${id}`).toPromise();
   }
 
@@ -84,6 +92,10 @@ export class HPApiService {
 
   GetAllChecklist(): Promise<checklist[]> {
     return this.http.get<checklist[]>(this.checklistURL).toPromise();
+  }
+
+  GetChecklistByUserId(userId: string): Promise<checklist[]> {
+    return this.http.get<checklist[]>(`${this.checklistURL}/user/${userId}`).toPromise();
   }
 
   AddChecklistItem(addNew: checklistItem): Promise<checklistItem> {
@@ -105,5 +117,8 @@ export class HPApiService {
 
   CreateUser(user: user): Promise<user> {
     return this.http.post<user>(`${this.userURL}`, user).toPromise();
+  }
+  GetTripsByCreator(id: string): Promise<trips[]>{
+    return this.http.get<trips[]>(`${this.tripURL}/Creator/${id}`).toPromise();
   }
 }

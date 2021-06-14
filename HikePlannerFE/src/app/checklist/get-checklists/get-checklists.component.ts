@@ -18,10 +18,8 @@ export class GetChecklistsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.checklistService.GetAllChecklist()
-      .then(result => this.checklists =
-        result.filter(r => r.creator === this.user)
-      );
+    this.checklistService.GetChecklistByUserId(this.user)
+      .then(result => this.checklists = result);
   }
 
   GoToItem(checklistId: number) {
@@ -43,7 +41,7 @@ export class GetChecklistsComponent implements OnInit {
       this.checklistService.DeleteChecklist(checklistId).then(
         () => {
           alert(`${name} has been deleted`);
-          this.checklistService.GetAllChecklist().then(
+          this.checklistService.GetChecklistByUserId(this.user).then(
             result => {
               this.checklists = result;
             }

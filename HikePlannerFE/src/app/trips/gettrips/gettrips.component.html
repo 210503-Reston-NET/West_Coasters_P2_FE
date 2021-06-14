@@ -7,13 +7,15 @@
         <div class="container transparent" >
             <table class="table" *ngIf = "trips.length > 0 else noTrips">
                 <thead>
-                    <th>Trip Date Started</th>
-                    <th>Trip Distance Planed</th>
+                    <th>Begin Date</th>
+                    <th>End Date</th>
+                    <th>Distance</th>
                     <th>Actions</th>
                 </thead>
                 <tbody>
                     <tr *ngFor="let trip of trips;">
-                        <td>{{trip.startDate}}</td>
+                        <td>{{trip.startDate | date }}</td>
+                        <td>{{trip.endDate | date }}</td>
                         <td>{{trip.distance}}</td>
                         <td><i class="fa fa-trash trash" (click)='DeleteTrip(trip.id, trip.startDate)' aria-hidden="true"></i></td>
                     </tr>

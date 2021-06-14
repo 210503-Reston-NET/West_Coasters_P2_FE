@@ -1,12 +1,45 @@
 <div class="container transparent">
-    <form (ngSubmit)="onSubmit()" #activityForm="ngForm">
-        <div class="form-group">
-            <label for="name">Add Trip Distance: </label>
-            <input type="number" class="form-control" [(ngModel)]="newTrip.distance" #name="ngModel" name="distance"
-                placeholder="Add Trip Distance">
+    <h3>Add a new trip</h3>
+    <div class="d-flex flex-row justify-content-between">
+        <div class="p-2 col-md-6">
+            <h5>{{newActivity.name}}</h5>
+            <p>{{newActivity.notes}}</p>
+            <hr>
+            <form (ngSubmit)="onSubmit()" #activityForm="ngForm">
+                <div class="form-group">
+                    <label for="date-range">Trip Dates</label><br>
+                    <mat-form-field name="date-range" appearance="fill">
+                        <mat-label>Enter a date range</mat-label>
+                        <mat-date-range-input [rangePicker]="picker">
+                            <input matStartDate [(ngModel)]="tripDateRange.start" #name="ngModel" name="start" placeholder="Start date">
+                            <input matEndDate [(ngModel)]="tripDateRange.end" #name="ngModel" name="end" placeholder="End date">
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker></mat-date-range-picker>
+                        <mat-error *ngIf="tripDateRange.start > tripDateRange.end">Invalid date range</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="form-group">
+                    <mat-form-field name="checklist" appearance="fill">
+                        <mat-label>Checklist</mat-label>
+                        <mat-select [(ngModel)]="newTrip.checklistId" name="food">
+                            <mat-option *ngFor="let list of userChecklists" [value]="list.id">
+                            {{ list.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="form-group">
+                    <label for="name">Add Trip Distance: </label>
+                    <input type="number" class="form-control" [(ngModel)]="newTrip.distance" #name="ngModel" name="distance"
+                        placeholder="Add Trip Distance">
+                </div>
+                <div class="form-group mt-2">
+                    <button type="submit" class="btn btn-success">Add Trip</button>
+                </div>
+            </form>
         </div>
-        <div class="form-group mt-2">
-            <button type="submit" class="btn btn-success">Add Trip</button>
-        </div>
-    </form>
+        <div #activityMapDiv class="map p-2"></div>
+    </div>
+
 </div>
