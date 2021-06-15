@@ -14,7 +14,9 @@ import { participant } from '../models/participant';
   providedIn: 'root'
 })
 export class HPApiService {
-  baseURL: string = 'https://hikeplannerapi.azurewebsites.net/api/';
+  // baseURL: string = 'https://hikeplannerapi.azurewebsites.net/api/';
+  baseURL: string = 'https://hikeplannerrest.azurewebsites.net/api/';
+  // baseURL: string = 'http://localhost:44303/api/'
   userURL: string = this.baseURL + 'users';
   equipmentURL: string = this.baseURL + 'equipments';
   activity: string = this.baseURL + 'activity';
@@ -85,7 +87,6 @@ export class HPApiService {
   }
 
   GetTripsByActivityId(id: number): Promise<trips[]>{
-    console.log('calling trips by its id...', id, `${this.tripURL}/Activity/${id}`);
     return this.http.get<trips[]>(`${this.tripURL}/Activity/${id}`).toPromise();
   }
 
@@ -109,7 +110,6 @@ export class HPApiService {
   }
 
   GetChecklist(id: number): Promise<checklist> {
-    console.log("Checklist service clicked", this.http.get<checklist>(`${this.checklistURL}/${id}`).toPromise(), id);
     return this.http.get<checklist>(`${this.checklistURL}/${id}`).toPromise();
   }
 
