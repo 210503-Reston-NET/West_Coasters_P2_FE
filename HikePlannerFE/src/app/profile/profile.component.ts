@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit{
   }
 
   ngOnInit():void{
-    console.log(this.auth);
+    console.log(this.auth.user$);
     this.hpService.GetSharedTrips(this.currentUserId).then(
       result => {
         this.tripData = [];
