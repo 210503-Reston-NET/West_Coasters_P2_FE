@@ -103,7 +103,8 @@ export class HPApiService {
       startDate: newTrip.startDate,
       endDate: newTrip.endDate,
       distance: newTrip.distance,
-      creator: newTrip.creator
+      creator: newTrip.creator,
+      checklistId: newTrip.checklistId
     }
     return this.http.post<trips>(this.tripURL, trip).toPromise();
   }

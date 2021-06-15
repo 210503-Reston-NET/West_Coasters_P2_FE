@@ -51,6 +51,8 @@ export class TripdetailsComponent implements OnInit {
         this.hpApi.GetTripById(this.tripId).then(
           (result) => {
             this.tripDetail = result;
+            console.log(result.checklistId);
+            this.getChecklistById(result.checklistId);
           }
         );
         this.hpApi.GetActivity(this.activityId).then((result) => {
@@ -58,17 +60,18 @@ export class TripdetailsComponent implements OnInit {
         });
         this.fetchParticipants();
         this.initializeMap();
-        this.getChecklistById(this.activityId);
         
       } 
     );
   }
   getChecklistById(id: number){
+    console.log('Checklist function works', id);
     this.hpApi.GetChecklist(id).then(
       res => {
         if(res != null){
           if(res.checklistItems != null){
             this.checklist = res;
+            console.log('Checklist on details page',res);
           }
         }
         

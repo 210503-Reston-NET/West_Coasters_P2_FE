@@ -17,21 +17,23 @@
                         </button>
                       </h2>
                       <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                        <table>
-                          <thead>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Quantity</th>
-                          </thead>
-                        <tbody *ngFor="let item1 of checklist?.checklistItems">
-                          <tr>
-                            <td>{{item1.equipment?.name}}</td>
-                            <td>{{item1.equipment?.description}}</td>
-                            <td>{{item1.quantity}}</td>
-                          </tr>
-                            
-                          </tbody>
-                        </table>
+                        <div class="container">
+                          <table class="table" style="font-size: 14px;">
+                            <thead>
+                              <th>Name</th>
+                              <th>Description</th>
+                              <th>Quantity</th>
+                            </thead>
+                          <tbody *ngFor="let item1 of checklist?.checklistItems">
+                            <tr>
+                              <td>{{item1.equipment?.name}}</td>
+                              <td>{{item1.equipment?.description}}</td>
+                              <td>{{item1.quantity}}</td>
+                            </tr>
+                              
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
               </div>
               <div class="accordion-item">
