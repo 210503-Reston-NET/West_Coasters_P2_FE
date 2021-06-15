@@ -27,9 +27,7 @@
 .jumbotron > .container h1{
     font-weight: 500;
 }
-.main-container{
-    height: 80% !important;
-}
+
 .list-wrapper{
     border: 1px solid #ccc;
 }
