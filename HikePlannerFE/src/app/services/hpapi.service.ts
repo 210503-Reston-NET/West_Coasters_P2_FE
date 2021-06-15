@@ -89,7 +89,6 @@ export class HPApiService {
   }
 
   GetTripsByActivityId(id: number): Promise<trips[]>{
-    console.log('calling trips by its id...', id, `${this.tripURL}/Activity/${id}`);
     return this.http.get<trips[]>(`${this.tripURL}/Activity/${id}`).toPromise();
   }
 
@@ -113,7 +112,6 @@ export class HPApiService {
   }
 
   GetChecklist(id: number): Promise<checklist> {
-    console.log("Checklist service clicked", this.http.get<checklist>(`${this.checklistURL}/${id}`).toPromise(), id);
     return this.http.get<checklist>(`${this.checklistURL}/${id}`).toPromise();
   }
 
