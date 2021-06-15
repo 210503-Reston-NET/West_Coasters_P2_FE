@@ -7,6 +7,10 @@
     text-shadow: 2px 1px 10px #eb1c23;
     padding: 60px;
 }
-.container > h1{
+.container, h1{
     font-weight: 500;
+    height: 80%;
+}
+.container table{
+    text-align: center;
 }

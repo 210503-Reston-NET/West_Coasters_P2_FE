@@ -28,8 +28,12 @@
     font-weight: 500;
 }
 .main-container{
-    height: 60%;
+    height: 80% !important;
 }
 .list-wrapper{
     border: 1px solid #ccc;
+}
+
+.mr-2 {
+    margin: 0 7px;
 }

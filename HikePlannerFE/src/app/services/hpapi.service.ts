@@ -6,20 +6,28 @@ import { equipment } from '../models/equipment';
 import {activity} from '../models/activity';
 import { trips } from '../models/trips';
 import { user } from '../models/user';
+//for profile - didn't update our model on trips.
+import { trip } from '../models/trip';
+import { participant } from '../models/participant';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HPApiService {
   baseURL: string = 'https://hikeplannerapi.azurewebsites.net/api/';
+  // baseURL: string = 'https://hikeplannerrest.azurewebsites.net/api/';
   userURL: string = this.baseURL + 'users';
   equipmentURL: string = this.baseURL + 'equipments';
   activity: string = this.baseURL + 'activity';
   activityURL: string = this.baseURL + 'activity';
   checklistURL: string = this.baseURL + 'checklist';
   tripURL: string = this.baseURL + 'trips';
+  participantURL : string = this.baseURL + 'participants';
 
-  constructor(private http: HttpClient) { }
+  user : string = "";
+  constructor(private http: HttpClient) {
+    this.user = window.sessionStorage.getItem('currentUserId') ?? '';
+   }
 
   //Equipment
   GetAllEquipments(): Promise<equipment[]> {
@@ -54,10 +62,37 @@ export class HPApiService {
   GetTrips(): Promise<trips[]>{
     return this.http.get<trips[]>(this.tripURL).toPromise();
   }
+
+  GetTripById(id: number): Promise<trip> {
+    return this.http.get<trip>(`${this.tripURL}/${id}`).toPromise();
+  }
+
+  //for invitation
+  GetSharedTrips(userId : string): Promise<trip[]>{
+    return this.http.get<trip[]>(`${this.tripURL}/shared/${userId}`).toPromise();
+  }
+
+  GetParticipants(tripId : number): Promise<participant[]> {
+    return this.http.get<participant[]>(`${this.participantURL}/trip/${tripId}`).toPromise();
+  }
+
+  AddParticipant(addNew: participant): Promise<participant> {
+    return this.http.post<participant>(`${this.participantURL}`, addNew).toPromise();
+  }
+
+  DeleteParticipant(id: number): Promise<void> {
+    return this.http.delete<void>(`${this.participantURL}/${id}`).toPromise();
+  }
+
+  UpdateParticipant(participant: participant): Promise<void> {
+    return this.http.put<void>(`${this.participantURL}/${participant.id}`, participant).toPromise();
+  }
+
   GetTripsByActivityId(id: number): Promise<trips[]>{
     console.log('calling trips by its id...', id, `${this.tripURL}/Activity/${id}`);
     return this.http.get<trips[]>(`${this.tripURL}/Activity/${id}`).toPromise();
   }
+
   DeleteTrip(tripId: number) :Promise<void>{
     return this.http.delete<void>(`${this.tripURL}/${tripId}`).toPromise();
   }
@@ -102,6 +137,10 @@ export class HPApiService {
     return this.http.post<checklistItem>(`${this.checklistURL}/${addNew.checklistId}/item`, addNew).toPromise();
   }
 
+  // AddChecklistItems(list: checklistItem[]): Promise<checklistItem> {
+  //   return this.http.post<checklistItem>(`${this.checklistURL}/${addNew.checklistId}/item`, addNew).toPromise();
+  // }
+
   DeleteChecklistItem(checklistId: number, id: number): Promise<void> {
     return this.http.delete<void>(`${this.checklistURL}/${checklistId}/item/${id}`).toPromise();
   }
@@ -121,4 +160,9 @@ export class HPApiService {
   GetTripsByCreator(id: string): Promise<trips[]>{
     return this.http.get<trips[]>(`${this.tripURL}/Creator/${id}`).toPromise();
   }
+  GetUserById(userId: string): Promise<user> {
+    return this.http.get<user>(`${this.userURL}/${userId}`).toPromise();
+  }
+
+
 }

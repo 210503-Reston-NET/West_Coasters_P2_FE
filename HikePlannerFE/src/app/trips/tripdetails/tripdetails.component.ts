@@ -12,6 +12,9 @@ import { environment } from 'src/environments/environment';
 import { MapService } from 'src/app/services/map.service';
 import { HPApiService } from 'src/app/services/hpapi.service';
 import { checklist } from 'src/app/models/checklist';
+import { participant } from 'src/app/models/participant';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { activity } from 'src/app/models/activity';
 
 @Component({
   selector: 'app-tripdetails',
@@ -29,8 +32,15 @@ export class TripdetailsComponent implements OnInit {
     creator: '',
     checklistItems: []
   }
+  emailToSearch = "";
+  foundUser: any = null;
+  participants: participant[] = [];
+  participantsInfo: any[] = [];
+  tripDetail: any = {};
+  activityDetail: any = {};
+  currentUserId = window.sessionStorage.getItem('currentUserId');
 
-  constructor(private route: ActivatedRoute,private mapService: MapService, private hpApi: HPApiService) { }
+  constructor(private route: ActivatedRoute,private mapService: MapService, private hpApi: HPApiService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(
@@ -38,8 +48,18 @@ export class TripdetailsComponent implements OnInit {
         this.actTailID = param.activitytrailId;
         this.activityId = param.activityId;
         this.tripId = param.id;
+        this.hpApi.GetTripById(this.tripId).then(
+          (result) => {
+            this.tripDetail = result;
+          }
+        );
+        this.hpApi.GetActivity(this.activityId).then((result) => {
+          this.activityDetail = result;
+        });
+        this.fetchParticipants();
         this.initializeMap();
         this.getChecklistById(this.activityId);
+        
       } 
     );
   }
@@ -49,7 +69,6 @@ export class TripdetailsComponent implements OnInit {
         if(res != null){
           if(res.checklistItems != null){
             this.checklist = res;
-            console.log("checklist in trip details",this.checklist);
           }
         }
         
@@ -57,6 +76,67 @@ export class TripdetailsComponent implements OnInit {
       }
     )
   }
+
+  fetchParticipants() {
+    this.hpApi.GetParticipants(this.tripId).then(
+      (result) => {
+        this.participants = result;
+        
+        this.participants.forEach(person => {
+          this.hpApi.GetUserById(person.userId).then(
+            userfound => {
+              this.participantsInfo.push(
+                {
+                  "user": userfound,
+                  "accept": person.accept 
+                });
+            }
+          )
+        });
+      }
+    )
+  }
+
+  SearchUserByEmail() {
+    this.hpApi.FindUserByEmail(this.emailToSearch).then(
+      (result) => {
+        this.foundUser = result;
+        console.log(this.foundUser);
+        if(result !== null) {
+          if(this.participants.find(person => person.userId == result.userId))
+          {
+            this.foundUser.exists = true;
+            this._snackBar.open("This person has already been invited!", "Dismiss", { verticalPosition: 'top' });
+          }
+          if(window.sessionStorage.getItem('currentUserId') == this.foundUser.userId)
+          {
+            this.foundUser.exists = true;
+            this._snackBar.open("You can't invite yourself to your own trip :/", "Dismiss", {verticalPosition: 'top'});
+          }
+        } else {
+          this._snackBar.open("User not found :(", "Dismiss", { verticalPosition: 'top' });
+        }
+      }
+    )
+  }
+
+  InviteUser() {
+    const participantToAdd: participant = {
+      id: 0,
+      userId: this.foundUser.userId,
+      accept: false,
+      tripId: this.tripId
+    }
+    this.hpApi.AddParticipant(participantToAdd).then(
+      result => {
+        this._snackBar.open(`${this.foundUser.name} was invited successfully!`, 'Dismiss', {
+          verticalPosition: 'top'
+        });
+        this.fetchParticipants();
+      }
+    )
+  }
+
   @ViewChild('activityMapDiv', { static: true }) private mapViewEl : any;
   public customShape: any = null;
   public graphicsLayer = new GraphicsLayer();
