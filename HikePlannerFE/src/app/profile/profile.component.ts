@@ -1,3 +1,4 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
@@ -30,8 +31,10 @@ export class ProfileComponent implements OnInit{
     participant
   */
   tripInvite : trip[] = [];
-  map = new Map<activity, trip[]>();
+  //map = new Map<activity, trip[]>();
   tripData : any = [];
+  p : participant[] = [];
+  map = new Map<trip, participant>();
 
   constructor(public auth: AuthService, private hpService: HPApiService,  private router: Router) {
     this.currentUserId = window.sessionStorage.getItem('currentUserId') ?? '';
@@ -41,11 +44,15 @@ export class ProfileComponent implements OnInit{
     console.log(this.auth);
     this.hpService.GetSharedTrips(this.currentUserId).then(
       result => {
-        result.filter(r => r.participants?.filter(p => {
-          p.accept == false && p.userId == this.currentUserId;
-        }))
-        this.tripInvite = result;
-        this.tripData = result;
+        for(let trip of result) {
+          if (trip.participants) {
+            for (let p of trip.participants) {
+              if (p.userId == this.currentUserId && p.accept == false) {
+                this.tripData.push(trip);
+              }
+            }
+          }
+        }
         console.log("tripData -> ",this.tripData);
       })
   }
