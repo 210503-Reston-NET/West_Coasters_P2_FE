@@ -24,7 +24,10 @@ export class HPApiService {
   tripURL: string = this.baseURL + 'trips';
   participantURL : string = this.baseURL + 'participants';
 
-  constructor(private http: HttpClient) { }
+  user : string = "";
+  constructor(private http: HttpClient) {
+    this.user = window.sessionStorage.getItem('currentUserId') ?? '';
+   }
 
   //Equipment
   GetAllEquipments(): Promise<equipment[]> {
@@ -160,4 +163,6 @@ export class HPApiService {
   GetUserById(userId: string): Promise<user> {
     return this.http.get<user>(`${this.userURL}/${userId}`).toPromise();
   }
+
+
 }
