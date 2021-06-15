@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
 import { activity } from '../models/activity';
 import { participant } from '../models/participant';
@@ -30,80 +31,61 @@ export class ProfileComponent implements OnInit{
   */
   tripInvite : trip[] = [];
   map = new Map<activity, trip[]>();
-  tripData : any = {};
+  tripData : any = [];
 
-  constructor(public auth: AuthService, private hpService: HPApiService) {
+  constructor(public auth: AuthService, private hpService: HPApiService,  private router: Router) {
     this.currentUserId = window.sessionStorage.getItem('currentUserId') ?? '';
   }
 
   ngOnInit():void{
     console.log(this.auth);
-
     this.hpService.GetSharedTrips(this.currentUserId).then(
       result => {
-        result.filter(r => r.participants?.filter(p => p.accept == false))
+        result.filter(r => r.participants?.filter(p => {
+          p.accept == false && p.userId == this.currentUserId;
+        }))
         this.tripInvite = result;
         this.tripData = result;
-       // console.log(currentUserId);
-        console.log("tripInvite -> ",result);
         console.log("tripData -> ",this.tripData);
-
-      }
-    );
-
-    // this.tripInvite.forEach(t => {
-    //   this.hpService.GetActivity(t.activityId).then(
-    //     result => {
-    //       this.map.set(result, this.tripInvite);
-    //       console.log(this.map);
-    //     }
-    //   )
-    // })
-
+      })
   }
 
   SeeInvite(): void {
     //get trips by shared/userId and filter accept = true
   }
 
-  AcceptInvite(tripId : number): void {
+  AcceptInvite(trip : trip): void {
     //update participant table and set accept as true
-    //let currentUserId = window.sessionStorage.getItem('currentUserId') ?? '';
-
-    let trip = this.tripInvite.find(t => t.id == tripId);
-    let target : participant | undefined | null = trip?.participants?.find(p => p.userId == this.currentUserId);
-    if (target?.id) {
-      let id : number = target?.id;
-      this.hpService.DeleteParticipant(target.id);
-
-      let newPart: participant = {
-        id: target?.id,
-        userId: this.currentUserId,
-        accept: true,
-        tripId: tripId
-      }
-
-      this.hpService.UpdateParticipant(newPart).then(
-        result => {
-          alert("You accepted!")
+    if (trip.participants) {
+      let target : participant | undefined | null = trip?.participants?.find((p: { userId: string; }) => p.userId === this.currentUserId);
+      if (target) {
+        let toUpdate: participant = {
+          id: target.id,
+          userId: this.currentUserId,
+          accept: true,
+          tripId: trip.id
         }
-      )
+        this.hpService.UpdateParticipant(toUpdate).then(
+          result => {
+            alert("You accepted!");
+          }
+        )
+        this.ngOnInit();
+      }
     }
   }
 
   RejectInvite(tripId : number): void {
-    let trip = this.tripInvite.find(t => t.id == tripId);
-    //currentUserIdlet currentUserId = window.sessionStorage.getItem('currentUserId') ?? '';
-    let target : participant | undefined | null = trip?.participants?.find(p => p.userId == this.currentUserId);
+    let trip = this.tripData.find((t: { id: number; }) => t.id == tripId);
+    let target : participant | undefined | null = trip?.participants?.find((p: { userId: string; }) => p.userId === this.currentUserId);
     if (target?.id) {
       let id : number = target?.id;
-      this.hpService.DeleteParticipant(target.id).then(
+      this.hpService.DeleteParticipant(id).then(
         result => {
-          alert("Ok")
+          alert("Invitation declined");
         }
       );
-      //reload the page
-      //don't show the div
+      this.ngOnInit();
     }
   }
 

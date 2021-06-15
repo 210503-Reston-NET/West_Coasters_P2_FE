@@ -16,17 +16,32 @@
       <table class="table">
 
           <thead>
-              <th>Start</th>
-              <th>End</th>
+              <th>Id</th>
+              <th>trailhead</th>
+              <th></th>
+              <th>Invite by</th>
               <th>Actions</th>
           </thead>
           <tbody>
-              <tr *ngFor="let trip of tripInvite;">
-                  <td>{{trip.startDate}}</td>
-                  <td>{{trip.endDate}}</td>
+              <tr *ngFor="let trip of tripData;">
+                  <td>{{trip.id}}</td>
+                  <td>{{trip.activity.trailHead}}</td>
+                  <td>
+                    from &nbsp;
+                    <span style="color:orange">
+                      {{trip.startDate | date:'yyyy-MM-dd'}}
+                    </span>
+                    &nbsp;to &nbsp;
+                    <span style="color:orange">
+                      {{trip.endDate | date:'yyyy-MM-dd'}}
+                    </span>
+                  </td>
+                  <td>
+                    {{trip.creator}}
+                  </td>
                   <td>
                     <i style="color:green" class="fa fa-check-circle" aria-hidden="true"
-                      (click)='AcceptInvite(trip.id)'> Accept
+                      (click)='AcceptInvite(trip)'> Accept
                     </i>
                     &nbsp;&nbsp;|&nbsp;&nbsp;
                     <i style="color:red" class="fa fa-times-circle" aria-hidden="true"
