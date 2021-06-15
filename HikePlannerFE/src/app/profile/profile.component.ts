@@ -15,11 +15,7 @@ import { HPApiService } from '../services/hpapi.service';
 export class ProfileComponent implements OnInit{
 
   currentUserId: string = "";
-  userName: string = "";
-  tripInvite : trip[] = [];
   tripData : any = [];
-  p : participant[] = [];
-  map = new Map<trip, participant>();
 
   constructor(public auth: AuthService, private hpService: HPApiService,  private router: Router) {
     this.currentUserId = window.sessionStorage.getItem('currentUserId') ?? '';
@@ -35,20 +31,16 @@ export class ProfileComponent implements OnInit{
             for (let p of trip.participants) {
               if (p.userId == this.currentUserId && p.accept == false) {
                 this.tripData.push(trip);
-                if(p.userId){
-                  this.hpService.GetUserById(trip.creator).then(
-                  res => this.userName = res.name
-                  )
-                }
+                this.hpService.GetUserById(trip.creator).then(
+                res => {
+                  trip.user = res;
+                })
+                console.log("tripdata ->", this.tripData);
               }
             }
           }
         }
       })
-  }
-
-  SeeInvite(): void {
-    //get trips by shared/userId and filter accept = true
   }
 
   AcceptInvite(trip : trip): void {

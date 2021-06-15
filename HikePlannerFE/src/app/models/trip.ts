@@ -1,5 +1,6 @@
 import { activity } from "./activity";
 import { participant } from "./participant";
+import { user } from "./user";
 
 export interface trip {
   id: number;
@@ -10,4 +11,5 @@ export interface trip {
   creator: string;
   participants: null | participant[];
   activity: null | activity
+  user : null | user
 }
