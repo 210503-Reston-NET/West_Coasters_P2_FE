@@ -65,12 +65,12 @@ export class SelectItemComponent implements OnInit {
     for (let index = 0; index < toAdd.length; index++) {
       await this.hpService.AddChecklistItem(toAdd[index]).then(r => console.log('success!', r));
     }
-    console.log('everything good, navigate now');
+    this.router.navigate(['checklists']);
   }
 
   //a cancel btn
   Cancel() {
-    this.router.navigate(['checklists'])
+    this.router.navigate(['checklists']);
   }
 
 }
