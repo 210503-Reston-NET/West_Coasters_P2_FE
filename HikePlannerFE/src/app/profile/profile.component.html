@@ -37,16 +37,16 @@
                     </span>
                   </td>
                   <td>
-                    {{trip.creator}}
+                    {{userName}}
                   </td>
                   <td>
-                    <i style="color:green" class="fa fa-check-circle" aria-hidden="true"
-                      (click)='AcceptInvite(trip)'> Accept
-                    </i>
+                    <a (click)='AcceptInvite(trip)' class="accept-decline-btn"><i style="color:green;" class="fa fa-check-circle" aria-hidden="true"
+                      > Accept
+                    </i></a>
                     &nbsp;&nbsp;|&nbsp;&nbsp;
-                    <i style="color:red" class="fa fa-times-circle" aria-hidden="true"
-                      (click)='RejectInvite(trip.id)'> Decline
-                    </i>
+                    <a (click)='RejectInvite(trip.id)' class="accept-decline-btn"><i style="color:red" class="fa fa-times-circle" aria-hidden="true"
+                      > Decline
+                    </i></a>
                   </td>
               </tr>
           </tbody>

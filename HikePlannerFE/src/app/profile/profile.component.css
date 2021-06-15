@@ -8,3 +8,6 @@
 .profile-picture{
     width: 100%;
 }
+.accept-decline-btn:hover{
+    cursor: pointer;
+}

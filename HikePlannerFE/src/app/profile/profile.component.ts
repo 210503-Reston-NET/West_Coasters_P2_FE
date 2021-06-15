@@ -15,23 +15,8 @@ import { HPApiService } from '../services/hpapi.service';
 export class ProfileComponent implements OnInit{
 
   currentUserId: string = "";
-
-  //gather info for testing
-  //tripId = 18
-  //user
-  //goodday@gmail.com
-  //9f0250da-ea47-4bcc-984e-a5c97b3a4872
-
-  /*
-   what i need:
-    activity.trailHead
-    trip.startDate
-    trip.endDate
-    trip.creator => user.name
-    participant
-  */
+  userName: string = "";
   tripInvite : trip[] = [];
-  //map = new Map<activity, trip[]>();
   tripData : any = [];
   p : participant[] = [];
   map = new Map<trip, participant>();
@@ -44,16 +29,21 @@ export class ProfileComponent implements OnInit{
     console.log(this.auth);
     this.hpService.GetSharedTrips(this.currentUserId).then(
       result => {
+        this.tripData = [];
         for(let trip of result) {
           if (trip.participants) {
             for (let p of trip.participants) {
               if (p.userId == this.currentUserId && p.accept == false) {
                 this.tripData.push(trip);
+                if(p.userId){
+                  this.hpService.GetUserById(trip.creator).then(
+                  res => this.userName = res.name
+                  )
+                }
               }
             }
           }
         }
-        console.log("tripData -> ",this.tripData);
       })
   }
 
@@ -97,17 +87,3 @@ export class ProfileComponent implements OnInit{
   }
 
 }
-
-/*
-disclaimer:
-please don't invite a same user multiple times, we don't have validation for checking it.
-
-notes:
-removed profile icon for testing because the icon is too big on my end when I open my console.
-        <img
-          [src]="user.picture"
-          alt="User's profile picture"
-          class="img-fluid rounded-circle profile-picture"
-        />
-
-*/
