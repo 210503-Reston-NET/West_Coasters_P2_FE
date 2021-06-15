@@ -14,7 +14,8 @@ import { participant } from '../models/participant';
   providedIn: 'root'
 })
 export class HPApiService {
-  baseURL: string = 'https://hikeplannerapi.azurewebsites.net/api/';
+  //baseURL: string = 'https://hikeplannerapi.azurewebsites.net/api/';
+  baseURL: string = 'https://hikeplannerrest.azurewebsites.net/api/';
   userURL: string = this.baseURL + 'users';
   equipmentURL: string = this.baseURL + 'equipments';
   activity: string = this.baseURL + 'activity';
@@ -23,7 +24,10 @@ export class HPApiService {
   tripURL: string = this.baseURL + 'trips';
   participantURL : string = this.baseURL + 'participants';
 
-  constructor(private http: HttpClient) { }
+  user : string = "";
+  constructor(private http: HttpClient) {
+    this.user = window.sessionStorage.getItem('currentUserId') ?? '';
+   }
 
   //Equipment
   GetAllEquipments(): Promise<equipment[]> {
@@ -131,6 +135,10 @@ export class HPApiService {
     return this.http.post<checklistItem>(`${this.checklistURL}/${addNew.checklistId}/item`, addNew).toPromise();
   }
 
+  // AddChecklistItems(list: checklistItem[]): Promise<checklistItem> {
+  //   return this.http.post<checklistItem>(`${this.checklistURL}/${addNew.checklistId}/item`, addNew).toPromise();
+  // }
+
   DeleteChecklistItem(checklistId: number, id: number): Promise<void> {
     return this.http.delete<void>(`${this.checklistURL}/${checklistId}/item/${id}`).toPromise();
   }
@@ -153,4 +161,6 @@ export class HPApiService {
   GetUserById(userId: string): Promise<user> {
     return this.http.get<user>(`${this.userURL}/${userId}`).toPromise();
   }
+
+
 }

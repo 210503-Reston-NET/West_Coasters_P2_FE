@@ -19,7 +19,7 @@ export class GetItemsComponent implements OnInit {
     creator: '',
     checklistItems: []
   }
-  checklistId : number = 0;
+  //checklistId : number = 0;
   isShow : boolean = false;
 
   items: checklistItem[] | null | undefined = [];
@@ -31,7 +31,7 @@ export class GetItemsComponent implements OnInit {
         this.itemService.GetChecklist(params.checklistId).then(
           result => {
             this.target = result;
-            this.checklistId = result.id;
+            //this.checklistId = result.id;
             if (result.checklistItems?.length) {
               this.isShow = true;
             }

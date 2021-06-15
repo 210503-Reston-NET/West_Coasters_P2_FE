@@ -1,4 +1,6 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
 import { activity } from '../models/activity';
 import { participant } from '../models/participant';
@@ -12,7 +14,7 @@ import { HPApiService } from '../services/hpapi.service';
 })
 export class ProfileComponent implements OnInit{
 
-  user: string = "";
+  currentUserId: string = "";
 
   //gather info for testing
   //tripId = 18
@@ -29,71 +31,72 @@ export class ProfileComponent implements OnInit{
     participant
   */
   tripInvite : trip[] = [];
-  map = new Map<activity, trip[]>();
+  //map = new Map<activity, trip[]>();
+  tripData : any = [];
+  p : participant[] = [];
+  map = new Map<trip, participant>();
 
-  constructor(public auth: AuthService, private hpService: HPApiService) {
-    this.user = window.sessionStorage.getItem('currentUserId') ?? '';
+  constructor(public auth: AuthService, private hpService: HPApiService,  private router: Router) {
+    this.currentUserId = window.sessionStorage.getItem('currentUserId') ?? '';
   }
+
   ngOnInit():void{
     console.log(this.auth);
-    this.hpService.GetSharedTrips(this.user).then(
+    this.hpService.GetSharedTrips(this.currentUserId).then(
       result => {
-        result.filter(r => r.participants?.filter(p => p.accept === false))
-        this.tripInvite = result;
-        console.log("tripInvite -> ",this.tripInvite);
-      }
-    );
-
-    // this.tripInvite.forEach(t => {
-    //   this.hpService.GetActivity(t.activityId).then(
-    //     result => {
-    //       this.map.set(result, this.tripInvite);
-    //       console.log(this.map);
-    //     }
-    //   )
-    // })
-
+        for(let trip of result) {
+          if (trip.participants) {
+            for (let p of trip.participants) {
+              if (p.userId == this.currentUserId && p.accept == false) {
+                this.tripData.push(trip);
+              }
+            }
+          }
+        }
+        console.log("tripData -> ",this.tripData);
+      })
   }
 
   SeeInvite(): void {
     //get trips by shared/userId and filter accept = true
   }
 
-  AcceptInvite(tripId : number): void {
+  AcceptInvite(trip : trip): void {
     //update participant table and set accept as true
-    let trip = this.tripInvite.find(t => t.id == tripId);
-    let target : participant | undefined | null = trip?.participants?.find(p => p.userId === this.user);
-    if (target?.id) {
-      let id : number = target?.id;
-      this.hpService.DeleteParticipant(target.id);
-
-      let newPart: participant = {
-        id: target?.id,
-        userId: this.user,
-        accept: true,
-        tripId: tripId
-      }
-
-      this.hpService.UpdateParticipant(newPart).then(
-        result => {
-          alert("You accepted!")
+    if (trip.participants) {
+      let target : participant | undefined | null = trip?.participants?.find((p: { userId: string; }) => p.userId === this.currentUserId);
+      if (target) {
+        let toUpdate: participant = {
+          id: target.id,
+          userId: this.currentUserId,
+          accept: true,
+          tripId: trip.id
         }
-      )
+        this.hpService.UpdateParticipant(toUpdate).then(
+          result => {
+            alert("You accepted!");
+          }
+        )
+        this.ngOnInit();
+      }
     }
   }
 
   RejectInvite(tripId : number): void {
-    let trip = this.tripInvite.find(t => t.id == tripId);
-
-    let target : participant | undefined | null = trip?.participants?.find(p => p.userId === this.user);
+    let trip = this.tripData.find((t: { id: number; }) => t.id == tripId);
+    let target : participant | undefined | null = trip?.participants?.find((p: { userId: string; }) => p.userId === this.currentUserId);
     if (target?.id) {
       let id : number = target?.id;
-      this.hpService.DeleteParticipant(target.id);
+      this.hpService.DeleteParticipant(id).then(
+        result => {
+          alert("Invitation declined");
+        }
+      );
+      this.ngOnInit();
     }
   }
 
 }
-
 
 /*
 disclaimer:
