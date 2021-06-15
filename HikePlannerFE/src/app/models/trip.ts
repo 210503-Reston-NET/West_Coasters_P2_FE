@@ -10,4 +10,5 @@ export interface trip {
   creator: string
   participants: null | participant[]
   activity: null | activity
+  checklistId: number;
 }

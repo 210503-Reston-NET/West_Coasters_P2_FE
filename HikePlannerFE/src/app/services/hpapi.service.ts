@@ -27,7 +27,7 @@ export class HPApiService {
   user : string = "";
   constructor(private http: HttpClient) {
     this.user = window.sessionStorage.getItem('currentUserId') ?? '';
-   }
+  }
 
   //Equipment
   GetAllEquipments(): Promise<equipment[]> {
@@ -95,6 +95,7 @@ export class HPApiService {
   DeleteTrip(tripId: number) :Promise<void>{
     return this.http.delete<void>(`${this.tripURL}/${tripId}`).toPromise();
   }
+
   AddTrip(newTrip: trips): Promise<trips> {
     let trip = {
       id: newTrip.id,
@@ -102,7 +103,8 @@ export class HPApiService {
       startDate: newTrip.startDate,
       endDate: newTrip.endDate,
       distance: newTrip.distance,
-      creator: newTrip.creator
+      creator: newTrip.creator,
+      checklistId: newTrip.checklistId
     }
     return this.http.post<trips>(this.tripURL, trip).toPromise();
   }

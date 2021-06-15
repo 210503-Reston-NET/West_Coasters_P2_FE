@@ -51,6 +51,7 @@ export class TripdetailsComponent implements OnInit {
         this.hpApi.GetTripById(this.tripId).then(
           (result) => {
             this.tripDetail = result;
+            this.getChecklistById(this.tripDetail.checklistId);
           }
         );
         this.hpApi.GetActivity(this.activityId).then((result) => {
@@ -58,7 +59,6 @@ export class TripdetailsComponent implements OnInit {
         });
         this.fetchParticipants();
         this.initializeMap();
-        this.getChecklistById(this.activityId);
         
       } 
     );
