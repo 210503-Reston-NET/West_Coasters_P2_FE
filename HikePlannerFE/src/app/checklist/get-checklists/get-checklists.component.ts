@@ -11,12 +11,8 @@ import { HPApiService } from 'src/app/services/hpapi.service';
 export class GetChecklistsComponent implements OnInit {
 
   checklists: checklist[] = [];
-  //user: string = "";
 
-  constructor(private checklistService : HPApiService, private router: Router) {
-    //this.user = window.sessionStorage.getItem('currentUserId') ?? '';
-  }
-  //currentUserId = window.sessionStorage.getItem('currentUserId') ?? '';
+  constructor(private checklistService : HPApiService, private router: Router) {}
 
   ngOnInit(): void {
     let currentUserId = window.sessionStorage.getItem('currentUserId') ?? '';
@@ -26,7 +22,6 @@ export class GetChecklistsComponent implements OnInit {
         console.log(result);
         }
       );
-
   }
 
   GoToItem(checklistId: number) {
