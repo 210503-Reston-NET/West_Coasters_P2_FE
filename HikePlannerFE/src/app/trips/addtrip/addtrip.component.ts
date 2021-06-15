@@ -78,7 +78,7 @@ export class AddtripComponent implements OnInit {
       this.newTrip.startDate = this.tripDateRange.start;
       this.newTrip.endDate = this.tripDateRange.end;
       this.newTrip.creator = window.sessionStorage.getItem('currentUserId') ?? '';
-      console.log("i have activity id to store to trips",this.newTrip);
+      console.log("i have activity id to store to trips", this.newTrip);
 
       this.tripServices.AddTrip(this.newTrip).then(
         result => {

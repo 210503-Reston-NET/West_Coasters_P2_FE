@@ -1,57 +1,30 @@
-<body>
+<div class="checklist">
   <div class="container transparent">
     <h2>{{target.name}} Checklist</h2>
-    <h3>Select Equipments &nbsp;
-    </h3>
-    <div class="form-group">
+    <h3>Select Equipments</h3>
+    <br/>
+    <div>
+      <button class="btn btn-success" (click)="SubmitChecklist()">
+        <i class="fa fa-check" aria-hidden="true"></i>
+        Submit
+      </button>
+      <button class="btn btn-danger" (click)='Cancel()'>
+        <i class="fa fa-times-circle" aria-hidden="true"></i> Cancel
+      </button>
     </div>
-      <br/>
-      <table class="table">
-          <thead>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Quantity</th>
-              <th>Actions</th>
-          </thead>
-          <tbody>
-              <tr *ngFor="let entry of map.entries() ;">
-                  <td>{{entry[0].name}}</td>
-                  <td>{{entry[0].description}}</td>
-                  <td>{{entry[1]}}</td>
-                  <td>
-                    <i class="fa fa-check-square-o check" aria-hidden="true"
-                      (click)="OpenAddQauntity(entry[0])">Select
-                    </i>
-              </tr>
-          </tbody>
-      </table>
-      <div *ngIf = "isShow">Please Enter Quantity
-        <form (ngSubmit)="onSubmit()" #checklistItemForm="ngForm">
-            <div class="form-group">
-                <label for="name">Quantity: </label>
-                <input type="text" class="form-control" [(ngModel)]="quan" #name="ngModel" name="quan"
-                    placeholder="Enter quantity">
-            </div>
-            <div class="form-group">
-                <br/>
-                <button type="submit" class="btn btn-secondary">Add</button>
-            </div>
-        </form>
-      </div>
-      <div *ngIf = "isReady">
-        <br/>
-        <br/>
-          <h2>
-          <i class="fa fa-times-circle" aria-hidden="true" (click)="SubmitChecklist()">Done</i>
-          </h2>
-      </div>
-      <div>
-        <br/>
-        <br/>
-        <h2>
-          <i class="fa fa-times-circle" aria-hidden="true" (click)='Cancel()'></i>
-        </h2>
-        <span>Cancel</span>
-      </div>
+    <table class="table">
+        <thead>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Quantity</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of allEquipmentsWithQuantity;">
+                <td>{{item.equipment?.name}}</td>
+                <td>{{item.equipment?.description}}</td>
+                <td><input class="form-control" type="number" [(ngModel)]="item.quantity"></td>
+            </tr>
+        </tbody>
+    </table>
   </div>
-</body>
+</div>

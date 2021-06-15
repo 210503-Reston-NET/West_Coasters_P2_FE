@@ -1,24 +1,24 @@
-<body>
+<div class="checklist">
   <div class="container transparent">
-      <form (ngSubmit)="onSubmit()" #checklistForm="ngForm">
-          <div class="form-group">
-              <br/>
-              <h4>What is the checklist name?</h4>
-              <input type="text" class="form-control" [(ngModel)]="new.name" #name="ngModel" name="name"
-                  placeholder="Enter the checklist name">
-          </div>
-          <div class="form-group">
-              <br/>
-              <button type="submit" class="btn btn-secondary">Continue</button>
-          </div>
-      </form>
-      <div>
-        <br/>
-        <br/>
-        <h2>
-          <i class="fa fa-times-circle" aria-hidden="true" (click)='Cancel()'></i>
-        </h2>
-        <span>Cancel</span>
-      </div>
+    <form (ngSubmit)="onSubmit()" #checklistForm="ngForm">
+        <div class="form-group">
+            <br/>
+            <h4>What is the checklist name?</h4>
+            <input type="text" class="form-control" [(ngModel)]="new.name" #name="ngModel" name="name"
+                placeholder="Enter the checklist name">
+        </div>
+        <div class="form-group">
+            <br/>
+            <button type="submit" class="btn btn-secondary">Continue</button>
+        </div>
+    </form>
+    <div>
+      <br/>
+      <br/>
+      <h2>
+        <i class="fa fa-times-circle" aria-hidden="true" (click)='Cancel()'></i>
+      </h2>
+      <span>Cancel</span>
+    </div>
   </div>
-</body>
+</div>

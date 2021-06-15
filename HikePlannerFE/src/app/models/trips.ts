@@ -7,6 +7,6 @@ export interface trips {
     endDate: string;
     distance: number;
     creator: string;
+    activities: activity;
     checklistId: number;
-    activities: activity
 }

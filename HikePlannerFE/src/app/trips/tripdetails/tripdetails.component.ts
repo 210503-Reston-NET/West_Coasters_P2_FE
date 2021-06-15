@@ -51,8 +51,7 @@ export class TripdetailsComponent implements OnInit {
         this.hpApi.GetTripById(this.tripId).then(
           (result) => {
             this.tripDetail = result;
-            console.log(result.checklistId);
-            this.getChecklistById(result.checklistId);
+            this.getChecklistById(this.tripDetail.checklistId);
           }
         );
         this.hpApi.GetActivity(this.activityId).then((result) => {
@@ -84,7 +83,7 @@ export class TripdetailsComponent implements OnInit {
     this.hpApi.GetParticipants(this.tripId).then(
       (result) => {
         this.participants = result;
-        
+        this.participantsInfo = [];
         this.participants.forEach(person => {
           this.hpApi.GetUserById(person.userId).then(
             userfound => {
@@ -136,6 +135,8 @@ export class TripdetailsComponent implements OnInit {
           verticalPosition: 'top'
         });
         this.fetchParticipants();
+        this.foundUser = null;
+        this.emailToSearch = "";
       }
     )
   }

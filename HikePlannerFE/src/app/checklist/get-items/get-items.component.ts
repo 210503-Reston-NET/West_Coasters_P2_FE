@@ -22,9 +22,7 @@ export class GetItemsComponent implements OnInit {
   //checklistId : number = 0;
   isShow : boolean = false;
 
-  //map : Map<checklistItem, equipment> |null | undefined = new Map<equipment, checklistItem>();
-
-  items: checklistItem[] = [];
+  items: checklistItem[] | null | undefined = [];
   constructor(private itemService : HPApiService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {

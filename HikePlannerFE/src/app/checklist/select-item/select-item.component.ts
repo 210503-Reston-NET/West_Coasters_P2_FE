@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
 import { checklist } from 'src/app/models/checklist';
 import { checklistItem } from 'src/app/models/checklistItem';
-import { equipment } from 'src/app/models/equipment';
 import { HPApiService} from 'src/app/services/hpapi.service';
 
 @Component({
@@ -13,22 +12,8 @@ import { HPApiService} from 'src/app/services/hpapi.service';
 })
 export class SelectItemComponent implements OnInit {
 
-  isShow: boolean = false;
-  //checklistId : number = 0;
-  quan : number = 0;
+  checklistId : number = 0;
   isReady: boolean = false;
-
-  map = new Map<equipment, number>();
-
-  items : Map<equipment, number>[] = [];
-
-  toBeSent : checklistItem[] = [];
-
-  cur: equipment = {
-    id: 0,
-    name: '',
-    description: ''
-  }
 
   target: checklist = {
     id: 0,
@@ -36,104 +21,56 @@ export class SelectItemComponent implements OnInit {
     dateCreated: null,
     creator: '',
     checklistItems: []
-  }
+  };
 
-  constructor(private hpService: HPApiService, private route: ActivatedRoute, private router: Router, public auth: AuthService) {   }
+  allEquipmentsWithQuantity: checklistItem[] = [];
+
+  constructor(private hpService: HPApiService, private route: ActivatedRoute, private router: Router, public auth: AuthService) { }
 
   ngOnInit(): void {
-    this.hpService.GetAllEquipments().then(result =>
-      result.forEach(e => this.map.set(e, 0))
-    );
+
     this.route.queryParams.subscribe(
       params => {
-        //this.checklistId = params.id
-        this.hpService.GetChecklist(params.id).then(
+        this.checklistId = Number(params.id);
+        this.hpService.GetChecklist(this.checklistId).then(
           result => {
             this.target = result;
-            console.log("checklist -> ", result)
-          }
-        )
+        });
+        this.hpService.GetAllEquipments().then(result =>
+          {
+            result.forEach(equip => {
+              let listItem: checklistItem = {
+                id: 0,
+                quantity: 0,
+                checklistId: this.checklistId,
+                equipmentId: equip.id,
+                equipment: equip
+              };
+              this.allEquipmentsWithQuantity.push(listItem);
+            });
+          });
       }
     )
-    // this.hpService.GetChecklist(this.checklistId).then(
-    //   result => {
-    //     this.target = result;
-    //   }
-    // )
+    
   }
 
   GoToAdd() {
-    this.router.navigate(['addEquipment'])
+    this.router.navigate(['addEquipment']);
   }
 
-  OpenAddQauntity(e : equipment) {
-    this.route.queryParams.subscribe(
-      params => {
-        this.cur = e;
-      }
-    )
-    this.isShow = !this.isShow;
-    this.isReady = true;
-  }
-
-  onSubmit(): void {
-    this.map.set(this.cur, this.quan);
-    this.quan = 0;
-    this.isShow = false;
-    console.log(this.map);
-  }
-
-  SubmitChecklist(): void {
-    console.log("im clicked")
-    for(let entry of this.map.entries()) {
-      if (entry[1] > 0) {
-        let newItem : checklistItem = {
-          id: 0,
-          quantity: entry[1],
-          checklistId: this.target.id,
-          equipmentId: entry[0].id,
-          equipment: null,
-        }
-        this.target.checklistItems?.push(newItem);
-        this.toBeSent.push(newItem);
-      }
+  async SubmitChecklist(): Promise<void> {
+    let toAdd: checklistItem[] = this.allEquipmentsWithQuantity.filter(item => item.quantity > 0)
+    toAdd.forEach(item => item.equipment = null);
+    console.log('preparing to submit...', this.allEquipmentsWithQuantity, toAdd);
+    for (let index = 0; index < toAdd.length; index++) {
+      await this.hpService.AddChecklistItem(toAdd[index]).then(r => console.log('success!', r));
     }
-
-    if (this.toBeSent.length < 0) {
-        alert("no items added yet!")
-    }
-    else if (confirm("Are you sure?")) {
-      console.log("confirmed is triggered");
-      console.log(this.toBeSent);
-      this.Send();
-    }
-    console.log(this.target);
-  }
-
-  Send(): void {
-    console.log('checklistitems', this.toBeSent);
-    console.log('all equipments', this.items);
-    for (let i = 0; i < this.toBeSent.length; i++ ){
-        let newItem : checklistItem = {
-          id: 0,
-          quantity: Number(this.toBeSent[i].quantity),
-          checklistId: this.toBeSent[i].checklistId,
-          equipmentId: this.toBeSent[i].equipmentId,
-          equipment: null,
-        }
-        console.log("newItem", i, "-> ", newItem)
-        this.hpService.AddChecklistItem(newItem)
-          .then( result => {
-            alert("success!");
-          }
-        );
-      }
-      //this.router.navigate(['checklists']);
+    this.router.navigate(['checklists']);
   }
 
   //a cancel btn
   Cancel() {
-    this.router.navigate(['checklists'])
+    this.router.navigate(['checklists']);
   }
 
 }

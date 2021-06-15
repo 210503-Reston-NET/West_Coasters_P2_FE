@@ -27,7 +27,7 @@ export class HPApiService {
   user : string = "";
   constructor(private http: HttpClient) {
     this.user = window.sessionStorage.getItem('currentUserId') ?? '';
-   }
+  }
 
   //Equipment
   GetAllEquipments(): Promise<equipment[]> {
@@ -89,13 +89,13 @@ export class HPApiService {
   }
 
   GetTripsByActivityId(id: number): Promise<trips[]>{
-    console.log('calling trips by its id...', id, `${this.tripURL}/Activity/${id}`);
     return this.http.get<trips[]>(`${this.tripURL}/Activity/${id}`).toPromise();
   }
 
   DeleteTrip(tripId: number) :Promise<void>{
     return this.http.delete<void>(`${this.tripURL}/${tripId}`).toPromise();
   }
+
   AddTrip(newTrip: trips): Promise<trips> {
     let trip = {
       id: newTrip.id,
@@ -114,7 +114,6 @@ export class HPApiService {
   }
 
   GetChecklist(id: number): Promise<checklist> {
-    console.log("Checklist service clicked", this.http.get<checklist>(`${this.checklistURL}/${id}`).toPromise(), id);
     return this.http.get<checklist>(`${this.checklistURL}/${id}`).toPromise();
   }
 
