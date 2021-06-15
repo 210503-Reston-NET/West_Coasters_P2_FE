@@ -81,7 +81,7 @@ export class TripdetailsComponent implements OnInit {
     this.hpApi.GetParticipants(this.tripId).then(
       (result) => {
         this.participants = result;
-        
+        this.participantsInfo = [];
         this.participants.forEach(person => {
           this.hpApi.GetUserById(person.userId).then(
             userfound => {
@@ -133,6 +133,8 @@ export class TripdetailsComponent implements OnInit {
           verticalPosition: 'top'
         });
         this.fetchParticipants();
+        this.foundUser = null;
+        this.emailToSearch = "";
       }
     )
   }
