@@ -9,7 +9,8 @@ h4{
     text-shadow: 2px 1px 10px #eb1c23;
 }
 .profile-picture{
-    width: 100%;
+    max-width: 70%;
+    max-height: 70%;
 }
 .accept-decline-btn:hover{
     cursor: pointer;

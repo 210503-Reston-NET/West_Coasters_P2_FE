@@ -8,7 +8,6 @@ export interface trip {
   endDate: string;
   distance: number;
   creator: string;
-  checklistId: number;
   participants: null | participant[];
   activity: null | activity
   checklistId: number;
