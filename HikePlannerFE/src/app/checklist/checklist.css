@@ -1,3 +1,5 @@
 .checklist {
   background-image: url("../../assets/checklist_BG.jpg");
+  height: 100%;
+  width: 100%;
 }
