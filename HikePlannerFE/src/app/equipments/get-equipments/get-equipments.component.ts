@@ -38,11 +38,6 @@ export class GetEquipmentsComponent implements OnInit {
     this.router.navigate(['addEquipment'])
   }
 
-  OpenAddQauntity(){
-    //open enter quantity
-    this.router.navigate([''])
-  }
-
   GoToEdit(equipmentId: number) {
     this.router.navigate(['editEquipment'], { queryParams: { id: equipmentId } });
   }
