@@ -21,6 +21,7 @@ import { environment } from 'src/environments/environment';
 })
 export class GettripsComponent implements OnInit {
   trips: trips[] = [];
+  loader = false;
   tripId = 0;
   activity : activity = {
     id : 0,
@@ -39,6 +40,11 @@ export class GettripsComponent implements OnInit {
         this.tripId = params.id;
         this.tripServices.GetActivity(this.tripId).then(
           result => {
+            if(result){
+              this.loader = false;
+            }else{
+              this.loader = true;
+            }
             this.activity = result;
             this.initializeMap();
             this.tripServices.GetTripsByActivityId(this.tripId).then(

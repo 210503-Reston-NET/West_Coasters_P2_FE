@@ -1,0 +1,38 @@
+.jumbotron{
+    background: url('../../assets/about2.png') no-repeat;
+    background-size: cover;
+    background-position: top center;
+    text-align: center;
+    color: #fff;
+    text-shadow: 2px 1px 10px #eb1c23;
+    padding: 90px;
+    background-color: rgba(0, 0,0,0.7);
+}
+.container > h1{
+    font-weight: 500;
+}
+.image-wrapper{
+    background-color: rgba(0, 0, 0, 0.8);
+}
+.team-wrapper .text-wrapper{
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: justify;
+    color: #333;
+}
+.text-wrapper h3 {
+    position:relative;
+    display:inline-block;
+    padding-bottom:20px;
+}
+
+.text-wrapper h3:after {
+    content:"";
+    position:absolute;
+    bottom:10px;
+    left:50%;
+    display:inline-block;
+    width: 50px;
+    margin-left:-23px;
+    border-bottom: #eb1c23 dashed 4px;
+}

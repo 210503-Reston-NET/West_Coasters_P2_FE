@@ -1,45 +1,49 @@
-<div class="jumbotron jumbotron-fluid">
-    <div class="container">
-        <h1 class="display-4">Your Trips</h1>
+<app-loader *ngIf="loader == true"></app-loader>
+<div *ngIf="loader == false">
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">Your Trips</h1>
+        </div>
     </div>
-</div>
-<div class="container transparent" >
-    <button class="btn btn-info mb-2" style="color:#fff" (click)="toggleViewTripList()">Show only my Trips</button>
-    <table class="table" *ngIf="trips.length > 0 else noTrips">
-        <thead>
-            <th>Trip Date Starts</th>
-            <th>Trip Distance Planed</th>
-            <th>Trip Destination</th>
-            <th>Actions</th>
-        </thead>
-        <tbody *ngIf="showTrips == 'all' else showOnlyMineTrips">
-            <tr *ngFor="let trip of allTrips;">
+    <div class="container transparent" >
+        <button class="btn btn-info mb-2" style="color:#fff" (click)="toggleViewTripList()">Show only my Trips</button>
+        <table class="table" *ngIf="trips.length > 0 else noTrips">
+            <thead>
+                <th>Trip Date Starts</th>
+                <th>Trip Distance Planed</th>
+                <th>Trip Destination</th>
+                <th>Actions</th>
+            </thead>
+            <tbody *ngIf="showTrips == 'all' else showOnlyMineTrips">
+                <tr *ngFor="let trip of allTrips;">
+                    <td>{{trip.startDate | date }}</td>
+                    <td>{{trip.distance}}</td>
+                    <td>{{trip.activity?.trailHead}}</td>
+                    <td> <span *ngIf="trip.participants == null"><i class="fa fa-trash trash" (click)='DeleteTrip(trip.id, trip.startDate)' aria-hidden="true"> </i> | </span>  <a class="btn btn-success" (click)='TripDetails(trip.id, trip.activity.trailId, trip.activity.id)'>Go to Trip Details</a></td>
+                </tr>
+                <!--div *ngFor="let tripInvite of tripInvite;">
+                    <tr>
+                        <td>{{tripInvite.startDate | date }}</td>
+                        <td>{{tripInvite.distance}}</td>
+                        <td>{{tripInvite.activity?.trailHead}}</td>
+                        <td><i class="fa fa-trash trash" (click)='DeleteTrip(tripInvite.id, tripInvite.startDate)' aria-hidden="true"></i> | <a class="btn btn-success">Go to Trip Details</a></td>
+                    </tr>
+                </div-->
+            </tbody>
+        </table>
+    </div>
+    <ng-template #noTrips>
+        <h6>Alas! This Activity has no trips, Please add one!</h6>
+    </ng-template>
+    <ng-template #showOnlyMineTrips>
+        <tbody>
+            <tr *ngFor="let trip of trips;">
                 <td>{{trip.startDate | date }}</td>
                 <td>{{trip.distance}}</td>
                 <td>{{trip.activity?.trailHead}}</td>
-                <td> <span *ngIf="trip.participants == null"><i class="fa fa-trash trash" (click)='DeleteTrip(trip.id, trip.startDate)' aria-hidden="true"> </i> | </span>  <a class="btn btn-success" (click)='TripDetails(trip.id, trip.activity.trailId, trip.activity.id)'>Go to Trip Details</a></td>
+                <td> <i class="fa fa-trash trash" (click)='DeleteTrip(trip.id, trip.startDate)' aria-hidden="true"> </i> | <a class="btn btn-success" (click)='TripDetails(trip.id, trip.activity.trailId, trip.activity.id)'>Go to Trip Details</a></td>
             </tr>
-            <!--div *ngFor="let tripInvite of tripInvite;">
-                <tr>
-                    <td>{{tripInvite.startDate | date }}</td>
-                    <td>{{tripInvite.distance}}</td>
-                    <td>{{tripInvite.activity?.trailHead}}</td>
-                    <td><i class="fa fa-trash trash" (click)='DeleteTrip(tripInvite.id, tripInvite.startDate)' aria-hidden="true"></i> | <a class="btn btn-success">Go to Trip Details</a></td>
-                </tr>
-            </div-->
         </tbody>
-    </table>
+    </ng-template>
+    
 </div>
-<ng-template #noTrips>
-    <h6>Alas! This Activity has no trips, Please add one!</h6>
-</ng-template>
-<ng-template #showOnlyMineTrips>
-    <tbody>
-        <tr *ngFor="let trip of trips;">
-            <td>{{trip.startDate | date }}</td>
-            <td>{{trip.distance}}</td>
-            <td>{{trip.activity?.trailHead}}</td>
-            <td> <i class="fa fa-trash trash" (click)='DeleteTrip(trip.id, trip.startDate)' aria-hidden="true"> </i> | <a class="btn btn-success" (click)='TripDetails(trip.id, trip.activity.trailId, trip.activity.id)'>Go to Trip Details</a></td>
-        </tr>
-    </tbody>
-</ng-template>

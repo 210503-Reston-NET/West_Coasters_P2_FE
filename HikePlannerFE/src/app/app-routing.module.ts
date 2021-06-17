@@ -18,8 +18,13 @@ import { MapComponent } from './map/map.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CreatortripsComponent } from './trips/creatortrips/creatortrips.component';
 import { TripdetailsComponent } from './trips/tripdetails/tripdetails.component';
+import { AboutusComponent } from './aboutus/aboutus.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    component: MapComponent
+  },
   {
     path: 'equipments',
     component: GetEquipmentsComponent,
@@ -87,6 +92,10 @@ const routes: Routes = [
   {
     path: "addItem",
     component: AddItemComponent
+  },
+  {
+    path: "aboutus",
+    component: AboutusComponent
   }
 ];
 

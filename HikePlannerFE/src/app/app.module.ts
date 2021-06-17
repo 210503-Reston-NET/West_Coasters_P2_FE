@@ -36,6 +36,8 @@ import { TripdetailsComponent } from './trips/tripdetails/tripdetails.component'
 import { MatOptionModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
+import { LoaderComponent } from './loader/loader.component';
+import { AboutusComponent } from './aboutus/aboutus.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +62,8 @@ import {MatSelectModule} from '@angular/material/select';
     CreatortripsComponent,
     SelectItemComponent,
     TripdetailsComponent,
+    LoaderComponent,
+    AboutusComponent,
   ],
   imports: [
     TrailsMapModule,
