@@ -1,12 +1,17 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { AuthService } from '@auth0/auth0-angular';
 
 describe('AppComponent', () => {
+  let authMock: AuthService;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [
         AppComponent
       ],
+      providers: [
+        AuthService
+      ]
     }).compileComponents();
   });
 
