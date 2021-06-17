@@ -25,7 +25,6 @@ export class GetEquipmentsComponent implements OnInit {
   }
   constructor(private equipmentService: HPApiService, private router: Router, public auth: AuthService) { }
 
-  //LC hook. There are others. (go research!)
   ngOnInit(): void {
     this.equipmentService.GetAllEquipments().then(result => {this.equipments = result; this.allEquipments = result});
 
