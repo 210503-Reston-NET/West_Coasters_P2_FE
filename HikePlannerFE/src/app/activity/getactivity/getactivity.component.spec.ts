@@ -1,16 +1,38 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { Router } from '@angular/router';
+import { HPApiService } from 'src/app/services/hpapi.service';
+import { RouterTestingModule } from '@angular/router/testing';
 import { GetactivityComponent } from './getactivity.component';
 
 describe('GetactivityComponent', () => {
   let component: GetactivityComponent;
   let fixture: ComponentFixture<GetactivityComponent>;
+  let activityService: HPApiService;
+  let router: Router;
+
+  class MockHPApiService
+  {
+    GetAllActivitiesByUserId(): Promise<any> {
+      return new Promise<void>((resolve, reject) => {
+        
+      });
+    };
+  }
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GetactivityComponent ]
+      imports: [
+        RouterTestingModule
+      ],
+      declarations: [ GetactivityComponent ],
+      providers: [
+        {provide: HPApiService, useClass: MockHPApiService}
+      ]
     })
     .compileComponents();
+
+    router = TestBed.inject(Router);
+    activityService = TestBed.inject(HPApiService);
   });
 
   beforeEach(() => {

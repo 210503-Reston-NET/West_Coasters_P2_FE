@@ -24,7 +24,8 @@ export class SelectItemComponent implements OnInit {
 
   allEquipmentsWithQuantity: checklistItem[] = [];
 
-  constructor(private hpService: HPApiService, private route: ActivatedRoute, private router: Router, public auth: AuthService) { }
+  //removed public auth: AuthService
+  constructor(private hpService: HPApiService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
 
