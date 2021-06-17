@@ -27,7 +27,7 @@ describe('TripdetailsComponent', () => {
     GetActivity(id : number): Promise<any> {
       return new Promise<void>((resolve, reject) => {});
     };
-    fetchParticipants(): Promise<any>{
+    GetParticipants(): Promise<any>{
       return new Promise<void>((resolve, reject)=>{})
     }
     initializeMap(): Promise<any>{
