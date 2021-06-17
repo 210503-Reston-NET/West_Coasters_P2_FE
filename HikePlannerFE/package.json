@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "--browsers ChromeHeadlessNoSandbox --no-watch --karmaConfig karma.conf.js --code-coverage",
+    "test": "--no-watch --code-coverage",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
