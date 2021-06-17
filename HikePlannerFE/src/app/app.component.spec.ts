@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { inject, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { AuthService } from '@auth0/auth0-angular';
 
@@ -13,6 +13,7 @@ describe('AppComponent', () => {
         AuthService
       ]
     }).compileComponents();
+    authMock = TestBed.inject(AuthService);
   });
 
   it('should create the app', () => {
