@@ -13,7 +13,7 @@ import { HPApiService } from '../services/hpapi.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit{
-
+  loader = true;
   currentUserId: string = "";
   userName: string = "";
   tripInvite : trip[] = [];
@@ -27,8 +27,16 @@ export class ProfileComponent implements OnInit{
 
   ngOnInit():void{
     console.log(this.auth.user$);
+    if(this.auth.user$ != null){
+      this.loader = false;
+    }
     this.hpService.GetSharedTrips(this.currentUserId).then(
       result => {
+        if(result){
+          this.loader = false;
+        }else{
+          this.loader = true;
+        }
         this.tripData = [];
         for(let trip of result) {
           if (trip.participants) {

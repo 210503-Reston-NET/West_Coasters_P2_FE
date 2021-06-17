@@ -1,4 +1,8 @@
-<app-header></app-header>
-<router-outlet></router-outlet>
-<app-footer></app-footer>
+<app-loader *ngIf="loader == true else showApp"></app-loader>
+<ng-template #showApp>
+    <app-header></app-header>
+    <router-outlet></router-outlet>
+    <app-footer></app-footer>
+</ng-template>
+
 

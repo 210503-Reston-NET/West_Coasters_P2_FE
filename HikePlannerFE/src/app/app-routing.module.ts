@@ -21,6 +21,10 @@ import { TripdetailsComponent } from './trips/tripdetails/tripdetails.component'
 
 const routes: Routes = [
   {
+    path: '',
+    component: MapComponent
+  },
+  {
     path: 'equipments',
     component: GetEquipmentsComponent,
     canActivate: [AuthGuard]
