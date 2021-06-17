@@ -30,7 +30,6 @@ describe('ProfileComponent', () => {
   }
 
   class MockAuthService {
-
   }
 
   beforeEach(async () => {

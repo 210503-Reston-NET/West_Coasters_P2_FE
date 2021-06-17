@@ -10,10 +10,10 @@ import esriConfig from '@arcgis/core/config.js';
 import MapView from '@arcgis/core/views/MapView';
 import Locate from '@arcgis/core/widgets/Locate';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
-import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer'; 
+import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer';
 import Graphic from '@arcgis/core/Graphic';
 import Polyline from '@arcgis/core/geometry/Polyline';
-import { MapService } from '../services/map.service';
+//import { MapService } from '../services/map.service';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
@@ -31,15 +31,14 @@ export class MapComponent implements OnInit, OnDestroy {
   public customShape: any = null;
   public graphicsLayer = new GraphicsLayer();
 
-  constructor(private mapService: MapService, private router: Router) { 
-
-  }
+  //remove map service here private mapService: MapService,
+  constructor(private router: Router) { }
 
   @ViewChild('mapViewNode', { static: true }) private mapViewEl : any;
 
   initializeMap() : Promise<any> {
     const container = this.mapViewEl.nativeElement;
-    
+
     esriConfig.apiKey = environment.MAP_KEY;
     const map = new Map({
       basemap: "arcgis-topographic"
@@ -55,7 +54,7 @@ export class MapComponent implements OnInit, OnDestroy {
 
 
     this.view = view;
-    
+
     const popupTrailheads = {
       title: "{RECAREANAME}",
     };
@@ -110,7 +109,7 @@ export class MapComponent implements OnInit, OnDestroy {
     this.initializeMap().then(() => {
       // The map has been initialized
       console.log('The map is ready.');
-    }); 
+    });
   }
 
   ngOnDestroy(): void {

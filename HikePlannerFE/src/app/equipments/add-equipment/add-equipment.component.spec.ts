@@ -13,10 +13,10 @@ describe('AddEquipmentComponent', () => {
   let router: Router;
   let service: HPApiService;
 
-class MockHPApiService
-{
-  AddEquipment(equipment: equipment) {};
-}
+  class MockHPApiService
+  {
+    AddEquipment(equipment: equipment) {};
+  }
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
