@@ -50,7 +50,7 @@ steps:
 - task: PublishCodeCoverageResults@1
   inputs:
     codeCoverageTool: 'Cobertura'
-    summaryFileLocation: '$(System.DefaultWorkingDirectory)/HikePlannerFE/coverage/cobertura.txt'
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/HikePlannerFE/coverage/HikePlannerFE/cobertura.txt'
 
 - task: ArchiveFiles@2
   displayName: 'Archive files'
