@@ -52,6 +52,12 @@ steps:
     codeCoverageTool: 'Cobertura'
     summaryFileLocation: '$(System.DefaultWorkingDirectory)/HikePlannerFE/coverage/HikePlannerFE/cobertura.txt'
 
+- task: SonarCloudAnalyze@1
+  displayName: Run Code Analysis
+
+- task: SonarCloudPublish@1
+  displayName: Publish Code Analysis
+
 - task: ArchiveFiles@2
   displayName: 'Archive files'
   inputs:
