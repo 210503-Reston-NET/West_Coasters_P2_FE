@@ -4,7 +4,7 @@
 # https://aka.ms/yaml
 
 trigger:
-- dev
+- main
 
 pool: Default
 
@@ -12,6 +12,14 @@ steps:
 - task: NodeTool@0
   inputs:
     versionSpec: '12.x'
+
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'Sonar Cloud'
+    organization: '210503-reston-net'
+    scannerMode: 'MSBuild'
+    projectKey: '210503-Reston-NET_West_Coasters_P2_FE'
+
 - task: Npm@1
   displayName: Npm install latest angular globally
   inputs:
@@ -32,6 +40,18 @@ steps:
     workingDir: 'HikePlannerFE'
     customCommand: 'run build'
 
+- task: Npm@1
+  displayName: Npm Test
+  inputs:
+    command: 'custom'
+    workingDir: 'HikePlannerFE'
+    customCommand: 'test'
+
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/HikePlannerFE/coverage/cobertura.txt'
+
 - task: ArchiveFiles@2
   displayName: 'Archive files'
   inputs:
@@ -47,6 +67,6 @@ steps:
     ConnectionType: 'AzureRM'
     azureSubscription: 'Azure subscription 1(7db5a42a-1fa9-40a3-8da3-4ed5fb8c49cb)'
     appType: 'webAppLinux'
-    WebAppName: 'hikeplannerdev'
+    WebAppName: 'hikeplanner'
     packageForLinux: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
-    RuntimeStack: 'NODE|14-lts'
+    RuntimeStack: 'NODE|12-lts'
