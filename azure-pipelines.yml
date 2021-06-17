@@ -19,6 +19,14 @@ steps:
     organization: '210503-reston-net'
     scannerMode: 'MSBuild'
     projectKey: '210503-Reston-NET_West_Coasters_P2_FE'
+    projectName: 'West_Coasters_P2_FE'
+    extraProperties: |
+      sonar.sourceEncoding=UTF-8
+      sonar.exclusions=**/mode_modules/**,**/*.spec.ts
+      sonar.tests=src
+      sonar.test.inclusions=**/*spec.ts
+      sonar.typescript.lcov.reportPaths=${Build.SourcesDirectory)/**/coverage/lcov.info
+      sonar.typescript.exclusions=**/node_modules/**,**/typings.d.ts,**/main.ts,**/environments/environment*.ts, **/*routing.module.ts
 
 - task: Npm@1
   displayName: Npm install latest angular globally
@@ -50,8 +58,12 @@ steps:
 - task: PublishCodeCoverageResults@1
   inputs:
     codeCoverageTool: 'Cobertura'
-    summaryFileLocation: '$(System.DefaultWorkingDirectory)/HikePlannerFE/coverage/cobertura.txt'
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/HikePlannerFE/coverage/HikePlannerFE/cobertura.txt'
 
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/TEST-*.xml'
 - task: ArchiveFiles@2
   displayName: 'Archive files'
   inputs:
