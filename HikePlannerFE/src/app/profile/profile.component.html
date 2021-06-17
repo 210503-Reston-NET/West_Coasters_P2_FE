@@ -8,53 +8,41 @@
         <h4>User Name : <span>{{ user.name }}</span></h4>
         <h4>Email : {{ user.email }}</h4>
       </div>
-
-      <div class="container transparent">
-
-      <br/>
-      <h3>Your Invitations</h3>
-      <table class="table">
-
-          <thead>
-              <th>Id</th>
-              <th>trailhead</th>
-              <th>Trip Time Period</th>
-              <th>Invite by</th>
-              <th>Actions</th>
-          </thead>
-          <tbody>
-              <tr *ngFor="let trip of tripData;">
-                  <td>{{trip.id}}</td>
-                  <td>{{trip.activity.trailHead}}</td>
-                  <td>
-                    from &nbsp;
-                    <span style="color:orange">
-                      {{trip.startDate | date:'yyyy-MM-dd'}}
-                    </span>
-                    &nbsp;to &nbsp;
-                    <span style="color:orange">
-                      {{trip.endDate | date:'yyyy-MM-dd'}}
-                    </span>
-                  </td>
-                  <td>
-                    {{userName}}
-                  </td>
-                  <td>
-                    <a (click)='AcceptInvite(trip)' class="accept-decline-btn"><i style="color:green;" class="fa fa-check-circle" aria-hidden="true"
-                      > Accept
-                    </i></a>
-                    &nbsp;&nbsp;|&nbsp;&nbsp;
-                    <a (click)='RejectInvite(trip.id)' class="accept-decline-btn"><i style="color:red" class="fa fa-times-circle" aria-hidden="true"
-                      > Decline
-                    </i></a>
-                  </td>
-              </tr>
-          </tbody>
-
-      </table>
-
+      <div *ngIf="tripData.length > 0 else noInvites">
+        <div class="container transparent">
+          <br/>
+          <h3>Your Invitations</h3>
+          <table class="table">
+              <thead>
+                  <th>Id</th>
+                  <th>trailhead</th>
+                  <th>Trip Time Period</th>
+                  <th>Invite by</th>
+                  <th>Actions</th>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let trip of tripData;">
+                    <td>{{trip.id}}</td>
+                    <td>{{trip.activity.trailHead}}</td>
+                    <td>
+                      from &nbsp; <span style="color:orange"> {{trip.startDate | date:'yyyy-MM-dd'}} </span>
+                      &nbsp;to &nbsp; <span style="color:orange"> {{trip.endDate | date:'yyyy-MM-dd'}} </span>
+                    </td>
+                    <td>{{trip.user?.name}}</td>
+                    <td>
+                      <a (click)='AcceptInvite(trip)' class="accept-decline-btn"><span class="badge bg-success">Join</span></a>
+                      &nbsp;&nbsp;|&nbsp;&nbsp;
+                      <a (click)='RejectInvite(trip.id)' class="accept-decline-btn"><span class="badge bg-danger">Not Join</span></a>
+                    </td>
+                  </tr>
+              </tbody>
+          </table>
+        </div>
       </div>
-
+      <ng-template #noInvites>
+        <br>
+        <h3>no Invitations</h3>
+      </ng-template>
     </div>
   </div>
 </div>

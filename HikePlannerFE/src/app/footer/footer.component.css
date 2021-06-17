@@ -2,6 +2,7 @@
     background-color: #333;
     color: #eee;
     text-align: center;
-    /* position:fixed;
-    bottom:0px; */
+}
+.footer> p{
+    padding: 15px;
 }

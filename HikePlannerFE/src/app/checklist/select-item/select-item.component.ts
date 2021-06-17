@@ -13,7 +13,6 @@ import { HPApiService} from 'src/app/services/hpapi.service';
 export class SelectItemComponent implements OnInit {
 
   checklistId : number = 0;
-  isReady: boolean = false;
 
   target: checklist = {
     id: 0,
@@ -51,7 +50,7 @@ export class SelectItemComponent implements OnInit {
           });
       }
     )
-    
+
   }
 
   GoToAdd() {
