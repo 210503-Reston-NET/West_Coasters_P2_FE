@@ -1,0 +1,30 @@
+@media (min-width:900px){
+    .navbar-brand{
+        max-width: 8% !important;
+        padding: 0;
+    }
+    .app-logo{
+        max-width: 60% !important;
+    }
+}
+.navbar-brand{
+    max-width: 26%;
+}
+.app-logo{
+    max-width: 66%;
+}
+.top-header-menu{
+    background-color: #fff !important;
+    padding: 0;
+    border-bottom-color: #304e18 !important;
+}
+.nav-item > .nav-link{
+    color: #172e06;
+}
+.nav-item, .dropdown-item{
+    line-height: 3rem;
+}
+.nav-item:hover, .nav-item > .nav-link:hover{
+    background-color: #172e06;
+    color: #fff;
+}

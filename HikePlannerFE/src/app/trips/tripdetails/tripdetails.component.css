@@ -1,0 +1,37 @@
+@import "https://js.arcgis.com/4.19/@arcgis/core/assets/esri/themes/dark/main.css";
+.esri-view {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+#activityMapDiv {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+.map-container > .map{
+    width: 100%;
+    height: 300px;
+}
+.jumbotron{
+    background: url('../../../assets/banner.jpg') no-repeat;
+    background-size: 100%;
+    background-position: center;
+    text-align: center;
+    color: #fff;
+    padding: 75px;
+    text-shadow: 2px 1px 10px #eb1c23;
+}
+.jumbotron > .container h1{
+    font-weight: 500;
+}
+
+.list-wrapper{
+    border: 1px solid #ccc;
+}
+
+.mr-2 {
+    margin: 0 7px;
+}

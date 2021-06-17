@@ -1,0 +1,15 @@
+
+    <div class="container transparent checklist">
+        <form (ngSubmit)="onSubmit()" #checklistItemForm="ngForm">
+            <div class="form-group">
+                <label for="name">Quantity: </label>
+                <input type="text" class="form-control" [(ngModel)]="new.quantity" #name="ngModel" name="quantity" placeholder="Enter quantity ">
+            </div>
+            <div class="form-group">
+                <br/>
+                <button type="submit" class="btn btn-secondary">Add</button>
+            </div>
+        </form>
+        <br/>
+    </div>
+

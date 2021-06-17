@@ -1,0 +1,30 @@
+<div class="checklist">
+  <div class="container transparent">
+    <h2>{{target.name}} Checklist</h2>
+    <h3>Select Equipments</h3>
+    <br/>
+    <div>
+      <button class="btn btn-success" (click)="SubmitChecklist()">
+        <i class="fa fa-check" aria-hidden="true"></i>
+        Submit
+      </button>
+      <button class="btn btn-danger" (click)='Cancel()'>
+        <i class="fa fa-times-circle" aria-hidden="true"></i> Cancel
+      </button>
+    </div>
+    <table class="table">
+        <thead>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Quantity</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of allEquipmentsWithQuantity;">
+                <td>{{item.equipment?.name}}</td>
+                <td>{{item.equipment?.description}}</td>
+                <td><input class="form-control" type="number" [(ngModel)]="item.quantity"></td>
+            </tr>
+        </tbody>
+    </table>
+  </div>
+</div>

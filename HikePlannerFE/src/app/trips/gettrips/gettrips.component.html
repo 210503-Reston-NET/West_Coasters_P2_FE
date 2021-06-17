@@ -1,0 +1,33 @@
+<div class="container d-flex flex-row justify-content-between">
+    <div class="p-2 col-md-8">
+        <p><strong>Activity:</strong> {{activity.name}}</p>
+        <p><strong>Notes:</strong> {{activity.notes}}</p>
+        <p><strong>Trail:</strong> {{activity.trailHead}}</p>
+        <button class="btn btn-success" (click)="AddTrips(activity.id)">Add Trip</button>
+        <div class="container transparent" >
+            <table class="table" *ngIf = "trips.length > 0 else noTrips">
+                <thead>
+                    <th>Begin Date</th>
+                    <th>End Date</th>
+                    <th>Distance</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let trip of trips;">
+                        <td>{{trip.startDate | date }}</td>
+                        <td>{{trip.endDate | date }}</td>
+                        <td>{{trip.distance}}</td>
+                        <td><i class="fa fa-trash trash" (click)='DeleteTrip(trip.id, trip.startDate)' aria-hidden="true"></i></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <ng-template #noTrips>
+            <h6>Alas! This Activity has no trips, Please add one!</h6>
+        </ng-template>
+    </div>
+    <div class="p-2">
+        <div #activityMapDiv class="map"></div>
+    </div>
+</div>
+

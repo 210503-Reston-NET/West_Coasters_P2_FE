@@ -1,0 +1,17 @@
+.container-bg{
+    background: url("../../assets/profile-bg.png") no-repeat;
+    background-position: center center;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+h4{
+    color: #000;
+    text-shadow: 2px 1px 10px #eb1c23;
+}
+.profile-picture{
+    max-width: 70%;
+    max-height: 70%;
+}
+.accept-decline-btn:hover{
+    cursor: pointer;
+}

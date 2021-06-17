@@ -1,0 +1,14 @@
+.nav-item > .nav-link{
+    color: #172e06;
+}
+.nav-item{
+    line-height: 3rem;
+}
+.nav-item:hover, .nav-item > .nav-link:hover{
+    background-color: #172e06;
+    color: #fff;
+}
+.right {
+    right: 0;
+    left: initial;
+}
