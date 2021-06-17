@@ -22,7 +22,7 @@ describe('HeaderComponent', () => {
       ],
       declarations: [ HeaderComponent ],
       providers: [
-        {provide: auth, useClass: MockAuthService}
+        {provide: AuthService, useClass: MockAuthService}
       ]
     })
     .compileComponents();
