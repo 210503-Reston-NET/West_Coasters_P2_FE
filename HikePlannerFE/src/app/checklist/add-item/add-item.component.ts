@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { checklistItem } from 'src/app/models/checklistItem';
 import { HPApiService } from 'src/app/services/hpapi.service';
-import { equipment } from 'src/app/models/equipment';
 
 @Component({
   selector: 'app-add-item',
