@@ -5,22 +5,21 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HPApiService } from 'src/app/services/hpapi.service';
 import { equipment } from 'src/app/models/equipment';
-import { AuthService } from '@auth0/auth0-angular';
 
 //  constructor(private equipmentService: HPApiService, private router: Router, public auth: AuthService) { }
-describe('GetRestaurantsComponent', () => {
+describe('GetEquipmentsComponent', () => {
   let component: GetEquipmentsComponent;
   let fixture: ComponentFixture<GetEquipmentsComponent>;
   let router: Router;
   let service: HPApiService;
-  let auth: AuthService;
 
   class MockHPApiService
   {
-    GetAllEquipments() {};
+    GetAllEquipments(): Promise<any> {
+      return new Promise<void>((resolve, reject) => {});
+    };
     DeleteEquipment(equipmentId: number) {};
   }
-
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

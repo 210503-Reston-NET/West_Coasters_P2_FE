@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '@auth0/auth0-angular';
 import { equipment } from 'src/app/models/equipment';
 import { HPApiService} from 'src/app/services/hpapi.service';
 
@@ -23,23 +22,17 @@ export class GetEquipmentsComponent implements OnInit {
     this._filterByLetters = v;
     this.equipments = v ? this.allEquipments.filter((equipment) => equipment.name.toLocaleLowerCase().indexOf(v) !== -1) : this.allEquipments;
   }
-  constructor(private equipmentService: HPApiService, private router: Router, public auth: AuthService) { }
+  constructor(private equipmentService: HPApiService, private router: Router) { }
+  userId = window.sessionStorage.getItem('currentUserId')?? '';
 
   ngOnInit(): void {
     this.equipmentService.GetAllEquipments().then(result => {this.equipments = result; this.allEquipments = result});
-
     console.log('equipment',  window.sessionStorage.getItem('currentUserId'));
     console.log(window.sessionStorage);
-
   }
 
   GoToAdd() {
     this.router.navigate(['addEquipment'])
-  }
-
-  OpenAddQauntity(){
-    //open enter quantity
-    this.router.navigate([''])
   }
 
   GoToEdit(equipmentId: number) {
