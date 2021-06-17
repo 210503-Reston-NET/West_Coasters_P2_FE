@@ -12,6 +12,14 @@ steps:
 - task: NodeTool@0
   inputs:
     versionSpec: '12.x'
+
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'Sonar Cloud'
+    organization: '210503-reston-net'
+    scannerMode: 'MSBuild'
+    projectKey: '210503-Reston-NET_West_Coasters_P2_FE'
+
 - task: Npm@1
   displayName: Npm install latest angular globally
   inputs:
@@ -31,6 +39,18 @@ steps:
     command: 'custom'
     workingDir: 'HikePlannerFE'
     customCommand: 'run build'
+
+- task: Npm@1
+  displayName: Npm Test
+  inputs:
+    command: 'custom'
+    workingDir: 'HikePlannerFE'
+    customCommand: 'test'
+
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/HikePlannerFE/coverage/cobertura.txt'
 
 - task: ArchiveFiles@2
   displayName: 'Archive files'
