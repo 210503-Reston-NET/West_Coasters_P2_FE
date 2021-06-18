@@ -37,11 +37,11 @@ export class CreatortripsComponent implements OnInit {
             this.allTrips = this.allTrips.concat(this.trips);
           }
           this.allTrips = this.allTrips.concat(result);
-          console.log('shared results concat',this.allTrips);
+          console.log('shared results concat', this.allTrips);
         }
         );
-        console.log("Loader is",this.loader);
-      console.log('concatinated trips oninit',this.allTrips);
+        console.log("Loader is", this.loader);
+      console.log('concatinated trips oninit', this.allTrips);
     }
     toggleViewTripList():void {
       if(this.showTrips == 'all'){
