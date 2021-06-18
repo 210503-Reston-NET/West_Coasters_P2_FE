@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test --no-watch --code-coverage",
+    "test": "ng test --single-run --code-coverage --browsers-ChromeHeadless --reporters=progress,junit -sm=false",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },

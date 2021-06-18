@@ -34,8 +34,12 @@ export class CreatortripsComponent implements OnInit {
           if(result){
             this.loader = false;
           }
-          result.filter(r => r.participants?.filter(p => p.accept == false));
-          this.allTrips = this.allTrips.concat(this.trips,result);
+          // result.filter(r => r.participants?.filter(p => p.accept == false));
+          if(this.trips.length > 0) {
+            //if this user has created some trips.. then add those to the all Trips too
+            this.allTrips = this.allTrips.concat(this.trips);
+          }
+          this.allTrips = this.allTrips.concat(result);
           console.log('shared results concat',this.allTrips);
         }
         );
