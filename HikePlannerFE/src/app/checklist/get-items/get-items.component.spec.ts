@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HPApiService } from 'src/app/services/hpapi.service';
 import { checklist } from 'src/app/models/checklist';
+import { By } from '@angular/platform-browser';
 
 describe('GetItemsComponent', () => {
   let component: GetItemsComponent;
@@ -50,4 +51,15 @@ describe('GetItemsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Should has target ngOnInit', () => {
+    component.ngOnInit();
+    expect(component.target).not.toBeUndefined;
+  });
+
+  it("property should display", () => {
+    let property: HTMLElement = fixture.debugElement.query(By.css('#prop')).nativeElement;
+    expect(property.innerHTML).not.toBeNull();
+  });
+
 });

@@ -80,4 +80,15 @@ describe('TripdetailsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('UserId should define on ngOnInit', () => {
+    component.ngOnInit();
+    expect(component.currentUserId).not.toBeUndefined;
+  });
+
+  it('Should have tripDetail ngOnInit', () => {
+    component.ngOnInit();
+    expect(component.tripDetail).not.toBeUndefined;
+  });
+
 });

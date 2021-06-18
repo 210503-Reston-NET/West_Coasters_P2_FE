@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -15,7 +15,7 @@ describe('AddItemComponent', () => {
 
   class MockHPApiService {
 
-  } 
+  }
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -44,4 +44,13 @@ describe('AddItemComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('onSubmit should be called', fakeAsync(() => {
+    spyOn(component, 'onSubmit');
+
+    let button = fixture.debugElement.nativeElement.querySelector('button');
+    button.click();
+    expect(component.onSubmit).toHaveBeenCalled();
+  }));
+
 });

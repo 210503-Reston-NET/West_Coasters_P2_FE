@@ -2,7 +2,7 @@
     <h3>Add a new trip</h3>
     <div class="d-flex flex-row justify-content-between">
         <div class="p-2 col-md-6">
-            <h5>{{newActivity.name}}</h5>
+            <h5 id="prop">{{newActivity.name}}</h5>
             <p>{{newActivity.notes}}</p>
             <hr>
             <form (ngSubmit)="onSubmit()" #activityForm="ngForm">

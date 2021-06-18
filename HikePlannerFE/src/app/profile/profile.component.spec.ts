@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { HPApiService } from 'src/app/services/hpapi.service';
 import { participant } from 'src/app/models/participant'
 import { AuthService } from '@auth0/auth0-angular';
+import { By } from '@angular/platform-browser';
 
 //  constructor(public auth: AuthService, private hpService: HPApiService,  private router: Router)
 describe('ProfileComponent', () => {
@@ -61,4 +62,10 @@ describe('ProfileComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('UserId should define on ngOnInit', () => {
+    component.ngOnInit();
+    expect(component.currentUserId).not.toBeUndefined;
+  });
+
 });

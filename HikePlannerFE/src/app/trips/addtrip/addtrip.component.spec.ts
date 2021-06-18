@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 
 import { AddtripComponent } from './addtrip.component';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HPApiService } from 'src/app/services/hpapi.service';
 import { MapService } from 'src/app/services/map.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { By } from '@angular/platform-browser';
 
 describe('AddtripComponent', () => {
   let component: AddtripComponent;
@@ -78,4 +79,28 @@ describe('AddtripComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('UserId should define on ngOnInit', () => {
+    component.ngOnInit();
+    expect(component.currentUserId).not.toBeUndefined;
+  });
+
+  it('Should have userChecklists ngOnInit', () => {
+    component.ngOnInit();
+    expect(component.userChecklists).not.toBeUndefined;
+  });
+
+  it('onSubmit should be called', fakeAsync(() => {
+    spyOn(component, 'onSubmit');
+
+    let button = fixture.debugElement.nativeElement.querySelector('button');
+    button.click();
+    expect(component.onSubmit).toHaveBeenCalled();
+  }));
+
+  it("property should display", () => {
+    let property: HTMLElement = fixture.debugElement.query(By.css('#prop')).nativeElement;
+    expect(property.innerHTML).not.toBeNull();
+  });
+
 });

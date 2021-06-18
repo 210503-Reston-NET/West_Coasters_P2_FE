@@ -60,17 +60,17 @@ describe('AddactivityComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it("Trail should display", () => {
-    let target: HTMLElement = fixture.debugElement.query(By.css('h5')).nativeElement;
-    expect(target.innerHTML).not.toBeNull();
+  it("property should display", () => {
+    let property: HTMLElement = fixture.debugElement.query(By.css('h5')).nativeElement;
+    expect(property.innerHTML).not.toBeNull();
   });
 
-  // it('', fakeAsync(() => {
-  //   spyOn(component, 'onSubmit');
+  it('onSubmit should be called', fakeAsync(() => {
+    spyOn(component, 'onSubmit');
 
-  //   let button = fixture.debugElement.nativeElement.querySelector('button');
-  //   button.click();
-  //   expect(component.onSubmit).toHaveBeenCalled();
-  // }));
+    let button = fixture.debugElement.nativeElement.querySelector('button');
+    button.click();
+    expect(component.onSubmit).toHaveBeenCalled();
+  }));
 
 });
