@@ -22,6 +22,9 @@ export class ProfileComponent implements OnInit{
   }
 
   ngOnInit():void{
+    if(this.currentUserId){
+      this.loader = false;
+    }
     console.log(this.auth.user$);
     if(this.auth.user$ != null){
       this.loader = false;

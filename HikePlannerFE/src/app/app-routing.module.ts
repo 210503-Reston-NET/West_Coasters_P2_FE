@@ -46,11 +46,13 @@ const routes: Routes = [
   },
   {
     path: 'editEquipment',
-    component: EditEquipmentComponent
+    component: EditEquipmentComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'addActivity',
-    component: AddactivityComponent
+    component: AddactivityComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'activities',
@@ -59,39 +61,48 @@ const routes: Routes = [
   },
   {
     path: 'gettrips',
-    component: GettripsComponent
+    component: GettripsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'getcreatortrips',
-    component: CreatortripsComponent
+    component: CreatortripsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'addtrip',
-    component: AddtripComponent
+    component: AddtripComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'tripdetails',
-    component: TripdetailsComponent
+    component: TripdetailsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "addChecklist",
-    component: AddChecklistComponent
+    component: AddChecklistComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "checklists",
-    component: GetChecklistsComponent
+    component: GetChecklistsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "checklistItems",
-    component: GetItemsComponent
+    component: GetItemsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "selectItem",
-    component: SelectItemComponent
+    component: SelectItemComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "addItem",
-    component: AddItemComponent
+    component: AddItemComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "aboutus",
