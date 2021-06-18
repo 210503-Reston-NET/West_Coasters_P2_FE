@@ -16,9 +16,11 @@ export class CreatortripsComponent implements OnInit {
   showTrips: string = 'all';
   allTrips: any[] = [];
   constructor(private hpApi: HPApiService, private router: Router) { }
-  currentUserId = window.sessionStorage.getItem('currentUserId') ?? ''
-
+  currentUserId = window.sessionStorage.getItem('currentUserId') ?? '';
   ngOnInit(): void {
+    if(this.currentUserId == null){
+      this.loader = false;
+    }
     this.hpApi.GetTripsByCreator(this.currentUserId).then(
       result => {
         this.trips = result;
