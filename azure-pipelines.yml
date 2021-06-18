@@ -55,12 +55,12 @@ steps:
     workingDir: 'HikePlannerFE'
     customCommand: 'run test'
 
-- task: Npm@1
-  displayName: Npm Sonar
-  inputs:
-    command: 'custom'
-    workingDir: 'HikePlannerFE'
-    customCommand: 'run sonar'
+# - task: Npm@1
+#   displayName: Npm Sonar
+#   inputs:
+#     command: 'custom'
+#     workingDir: 'HikePlannerFE'
+#     customCommand: 'run sonar'
 
 - task: PublishCodeCoverageResults@1
   inputs:
