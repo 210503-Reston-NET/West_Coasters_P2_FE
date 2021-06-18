@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HPApiService } from 'src/app/services/hpapi.service';
 import { checklist } from 'src/app/models/checklist';
 import { checklistItem } from 'src/app/models/checklistItem';
+import { By } from '@angular/platform-browser';
 
 describe('SelectItemComponent', () => {
   let component: SelectItemComponent;
@@ -55,4 +56,15 @@ describe('SelectItemComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Should has target ngOnInit', () => {
+    component.ngOnInit();
+    expect(component.target).not.toBeUndefined;
+  });
+
+  it("property should display", () => {
+    let property: HTMLElement = fixture.debugElement.query(By.css('#prop')).nativeElement;
+    expect(property.innerHTML).not.toBeNull();
+  });
+
 });

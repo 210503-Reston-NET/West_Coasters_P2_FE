@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { AddEquipmentComponent } from './add-equipment.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule } from '@angular/forms';
@@ -45,4 +45,19 @@ describe('AddEquipmentComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('onSubmit should be called', fakeAsync(() => {
+    spyOn(component, 'onSubmit');
+
+    let button = fixture.debugElement.nativeElement.querySelector('button');
+    button.click();
+    expect(component.onSubmit).toHaveBeenCalled();
+  }));
+
+  it('Should be no equipment ngOnInit', () => {
+    component.ngOnInit();
+    expect(component.new).toBeNull;
+  });
+
+
 });
