@@ -53,17 +53,20 @@ steps:
   inputs:
     command: 'custom'
     workingDir: 'HikePlannerFE'
-    customCommand: 'test'
+    customCommand: 'run test'
+
+- task: Npm@1
+  displayName: Npm Sonar
+  inputs:
+    command: 'custom'
+    workingDir: 'HikePlannerFE'
+    customCommand: 'run sonar'
 
 - task: PublishCodeCoverageResults@1
   inputs:
     codeCoverageTool: 'Cobertura'
     summaryFileLocation: '$(System.DefaultWorkingDirectory)/HikePlannerFE/coverage/HikePlannerFE/cobertura.txt'
 
-- task: PublishTestResults@2
-  inputs:
-    testResultsFormat: 'JUnit'
-    testResultsFiles: '**/TEST-*.xml'
 - task: ArchiveFiles@2
   displayName: 'Archive files'
   inputs:
