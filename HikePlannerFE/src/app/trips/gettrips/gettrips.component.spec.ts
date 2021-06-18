@@ -69,4 +69,10 @@ describe('GettripsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Should have trips ngOnInit', () => {
+    component.ngOnInit();
+    expect(component.trips).not.toBeUndefined;
+  });
+
 });

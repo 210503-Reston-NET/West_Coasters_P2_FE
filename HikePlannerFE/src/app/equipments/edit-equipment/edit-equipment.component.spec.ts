@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 
 import { EditEquipmentComponent } from './edit-equipment.component';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -53,4 +53,18 @@ describe('EditEquipmentComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Should has toEdit ngOnInit', () => {
+    component.ngOnInit();
+    expect(component.toEdit).not.toBeUndefined;
+  });
+
+  it('onSubmit should be called', fakeAsync(() => {
+    spyOn(component, 'onSubmit');
+
+    let button = fixture.debugElement.nativeElement.querySelector('button');
+    button.click();
+    expect(component.onSubmit).toHaveBeenCalled();
+  }));
+
 });

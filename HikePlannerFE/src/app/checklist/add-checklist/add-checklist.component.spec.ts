@@ -1,7 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { EMPTY } from 'rxjs';
 import { HPApiService } from 'src/app/services/hpapi.service';
 
 import { AddChecklistComponent } from './add-checklist.component';
@@ -40,4 +41,18 @@ describe('AddChecklistComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('onSubmit should be called', fakeAsync(() => {
+    spyOn(component, 'onSubmit');
+
+    let button = fixture.debugElement.nativeElement.querySelector('button');
+    button.click();
+    expect(component.onSubmit).toHaveBeenCalled();
+  }));
+
+  it('Should be no checklist ngOnInit', () => {
+    component.ngOnInit();
+    expect(component.new).toBeNull;
+  });
+
 });
