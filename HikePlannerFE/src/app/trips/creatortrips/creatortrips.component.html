@@ -7,7 +7,7 @@
     </div>
     <div class="container transparent" >
         <button class="btn btn-info mb-2" style="color:#fff" (click)="toggleViewTripList()">Show only my Trips</button>
-        <table class="table" *ngIf="trips.length > 0 else noTrips">
+        <table class="table" *ngIf="(trips.length > 0 || allTrips.length > 0) else noTrips">
             <thead>
                 <th>Trip Date Starts</th>
                 <th>Trip Distance Planed</th>
