@@ -6,13 +6,11 @@
       <table class="table">
           <thead>
               <th>Name</th>
-              <th>Creator</th>
               <th>Actions</th>
           </thead>
           <tbody>
               <tr *ngFor="let checklist of checklists;">
                   <td>{{checklist.name}}</td>
-                  <td>{{checklist.creator}}</td>
                   <td>
                     <i class="fa fa-trash trash" aria-hidden="true"
                       (click)='DeleteChecklist(checklist.id, checklist.name)'>
