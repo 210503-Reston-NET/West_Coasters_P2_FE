@@ -48,4 +48,10 @@ describe('GetChecklistsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Should has checklists ngOnInit', () => {
+    component.ngOnInit();
+    expect(component.checklists).not.toBeUndefined;
+  });
+
 });

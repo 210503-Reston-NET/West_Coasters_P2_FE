@@ -48,4 +48,10 @@ describe('GetEquipmentsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Should have equipments ngOnInit', () => {
+    component.ngOnInit();
+    expect(component.equipments).not.toBeUndefined;
+  });
+
 });
