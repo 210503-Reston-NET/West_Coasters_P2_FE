@@ -21,9 +21,6 @@ export class CreatortripsComponent implements OnInit {
   ngOnInit(): void {
     this.hpApi.GetTripsByCreator(this.currentUserId).then(
       result => {
-        if(result){
-          this.loader = false;
-        }
         this.trips = result;
         console.log('only my trips',result);
       }
