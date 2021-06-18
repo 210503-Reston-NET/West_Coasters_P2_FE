@@ -10,7 +10,7 @@ module.exports = function (config) {
       require('karma-chrome-launcher'),
       require('karma-jasmine-html-reporter'),
       require('karma-coverage'),
-      require('karma-coverage-istanbul-reporter'),
+      //require('karma-coverage-istanbul-reporter'),
       require('@angular-devkit/build-angular/plugins/karma')
     ],
     client: {
@@ -23,10 +23,10 @@ module.exports = function (config) {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
 
-    coverageIstanbulReporter: {
-      reports: ['html', 'lcov', 'cobertura'],
-      fixWebpackSourcePaths: true
-    },
+    // coverageIstanbulReporter: {
+    //   reports: ['html', 'lcov', 'cobertura'],
+    //   fixWebpackSourcePaths: true
+    // },
 
     jasmineHtmlReporter: {
       suppressAll: true // removes the duplicated traces
