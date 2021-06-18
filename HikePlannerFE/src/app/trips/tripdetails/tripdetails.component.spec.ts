@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthService } from '@auth0/auth0-angular';
+import { participant } from 'src/app/models/participant';
 import { HPApiService } from 'src/app/services/hpapi.service';
 import { MapService } from 'src/app/services/map.service';
 
@@ -27,19 +28,23 @@ describe('TripdetailsComponent', () => {
     GetActivity(id : number): Promise<any> {
       return new Promise<void>((resolve, reject) => {});
     };
-    GetParticipants(): Promise<any>{
-      return new Promise<void>((resolve, reject)=>{})
-    }
-    initializeMap(): Promise<any>{
-      return new Promise<void>((resolve, reject)=>{})
-    }
-    // DeleteParticipant(id: number) {};
+    GetParticipants(id : number): Promise<any> {
+      return new Promise<void>((resolve, reject) => {});
+    };
+    GetUserById(id : string): Promise<any> {
+      return new Promise<void>((resolve, reject) => {});
+    };
+    FindUserByEmail(id : string): Promise<any> {
+      return new Promise<void>((resolve, reject) => {});
+    };
+    AddParticipant(participant : participant){};
   }
+
   class MockMapService
   {
     GetTrailById(id: number):Promise<any> {
       return new Promise<any>((resolve, reject) => {
-        
+
       })
     };
   }
