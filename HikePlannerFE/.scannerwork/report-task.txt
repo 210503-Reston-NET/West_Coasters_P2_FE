@@ -1,0 +1,7 @@
+organization=210503-reston-net
+projectKey=210503-Reston-NET_West_Coasters_P2_FE
+serverUrl=https://sonarcloud.io
+serverVersion=8.0.0.21157
+dashboardUrl=https://sonarcloud.io/dashboard?id=210503-Reston-NET_West_Coasters_P2_FE
+ceTaskId=AXofsBO5igTgOEiMa3GS
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AXofsBO5igTgOEiMa3GS
