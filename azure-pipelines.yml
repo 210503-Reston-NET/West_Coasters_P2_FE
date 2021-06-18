@@ -36,6 +36,13 @@ steps:
     customCommand: 'install -g @angular/cli@latest'
 
 - task: Npm@1
+  displayName: Npm install latest sonar-scanner globally
+  inputs:
+    command: 'custom'
+    workingDir: 'HikePlannerFE'
+    customCommand: 'install -g sonarqube-scanner'
+
+- task: Npm@1
   displayName: Npm Install
   inputs:
     command: 'install'
@@ -55,18 +62,16 @@ steps:
     workingDir: 'HikePlannerFE'
     customCommand: 'run test'
 
-# - task: Npm@1
-#   displayName: Npm Sonar
-#   inputs:
-#     command: 'custom'
-#     workingDir: 'HikePlannerFE'
-#     customCommand: 'run sonar'
+- script: |
+     cd HikePlannerFE
+     sonar-scanner
+  displayName: 'sonar analysis'
 
 - task: PublishCodeCoverageResults@1
   inputs:
     codeCoverageTool: 'Cobertura'
     summaryFileLocation: '$(System.DefaultWorkingDirectory)/HikePlannerFE/coverage/HikePlannerFE/cobertura.txt'
-- task: SonarCloudAnalyze@1
+
 - task: ArchiveFiles@2
   displayName: 'Archive files'
   inputs:
