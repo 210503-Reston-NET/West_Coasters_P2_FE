@@ -3,7 +3,7 @@
   <div *ngIf="auth.user$ | async as user">
     <div class="row align-items-center profile-header">
       <div class="col-md-2 mt-3">
-        <img [src]="user.picture" alt="" class="rounded-circle">
+        <img [src]="user.picture" alt="" class="rounded-circle profile-picture">
       </div>
       <div class="col-md text-md-left">
         <h4>User Name : <span>{{ user.name }}</span></h4>
