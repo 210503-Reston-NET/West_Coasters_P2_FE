@@ -10,3 +10,6 @@
 .container > h1{
     font-weight: 500;
 }
+.container{
+    font-size: 15px;
+}
